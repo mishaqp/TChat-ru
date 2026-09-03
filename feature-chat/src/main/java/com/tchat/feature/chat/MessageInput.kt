@@ -1,4 +1,6 @@
 package com.tchat.feature.chat
+
+import com.tchat.core.UiLocalizer
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
@@ -55,10 +57,10 @@ fun MessageInput(
     replyPreview: String? = null,
     onClearReply: (() -> Unit)? = null,
     // i18n strings
-    inputHint: String = "输入消息...",
-    sendContentDescription: String = "发送",
-    generateImageContentDescription: String = "生成图片",
-    attachContentDescription: String = "添加图片/视频"
+    inputHint: String = UiLocalizer.text("输入消息..."),
+    sendContentDescription: String = UiLocalizer.text("发送"),
+    generateImageContentDescription: String = UiLocalizer.text("生成图片"),
+    attachContentDescription: String = UiLocalizer.text("添加图片/视频")
 ) {
     val thumbSizePx = with(LocalDensity.current) { 72.dp.roundToPx() }
     var isInputFocused by remember { mutableStateOf(false) }
@@ -109,7 +111,7 @@ fun MessageInput(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "取消引用",
+                                contentDescription = UiLocalizer.text("取消引用"),
                                 modifier = Modifier.size(16.dp)
                             )
                         }
@@ -130,7 +132,7 @@ fun MessageInput(
                     when (part) {
                         is MessagePart.Image -> {
                             MediaThumb(
-                                label = part.fileName ?: "图片",
+                                label = part.fileName ?: UiLocalizer.text("图片"),
                                 bitmap = rememberScaledBitmap(part.filePath, thumbSizePx),
                                 onRemove = if (onRemoveMedia != null) {
                                     { onRemoveMedia(part) }
@@ -142,7 +144,7 @@ fun MessageInput(
                         is MessagePart.Video -> {
                             MediaChip(
                                 icon = Icons.Outlined.Videocam,
-                                label = part.fileName ?: "视频",
+                                label = part.fileName ?: UiLocalizer.text("视频"),
                                 onRemove = if (onRemoveMedia != null) {
                                     { onRemoveMedia(part) }
                                 } else {
@@ -337,7 +339,7 @@ private fun MediaThumb(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Close,
-                    contentDescription = "移除",
+                    contentDescription = UiLocalizer.text("移除"),
                     modifier = Modifier.size(14.dp)
                 )
             }
@@ -365,7 +367,7 @@ private fun MediaChip(
             Text(text = label, style = MaterialTheme.typography.bodySmall)
             if (onRemove != null) {
                 IconButton(onClick = onRemove, modifier = Modifier.size(24.dp)) {
-                    Icon(imageVector = Icons.Filled.Close, contentDescription = "移除", modifier = Modifier.size(16.dp))
+                    Icon(imageVector = Icons.Filled.Close, contentDescription = UiLocalizer.text("移除"), modifier = Modifier.size(16.dp))
                 }
             }
         }

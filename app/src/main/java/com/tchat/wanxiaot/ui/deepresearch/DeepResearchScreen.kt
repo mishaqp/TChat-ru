@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.deepresearch
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -91,17 +93,17 @@ fun DeepResearchScreen(
     var configError by remember { mutableStateOf<String?>(null) }
 
     AppPageScaffold(
-        title = "深度研究",
+        title = localized("深度研究"),
         eyebrow = "Research Lab",
-        subtitle = "多轮检索、分析与报告生成",
+        subtitle = localized("多轮检索、分析与报告生成"),
         showTopBar = showTopBar,
         onBack = if (showTopBar) onBack else null,
         actions = {
             IconButton(onClick = { showHistory = true }) {
-                Icon(Icons.Default.History, contentDescription = "历史记录")
+                Icon(Icons.Default.History, contentDescription = localized("历史记录"))
             }
             IconButton(onClick = { showSettings = true }) {
-                Icon(Icons.Default.Settings, contentDescription = "设置")
+                Icon(Icons.Default.Settings, contentDescription = localized("设置"))
             }
         }
     ) { paddingValues ->
@@ -159,7 +161,7 @@ fun DeepResearchScreen(
                             modifier = Modifier.weight(1f)
                         )
                         TextButton(onClick = { showSettings = true }) {
-                            Text("去配置")
+                            Text(localized("去配置"))
                         }
                     }
                 }
@@ -248,15 +250,15 @@ private fun InputSection(
     onCancel: () -> Unit
 ) {
     SettingsGroupCard(
-        title = "研究问题",
-        description = "输入明确的问题或任务，让系统开始多轮检索与分析。"
+        title = localized("研究问题"),
+        description = localized("输入明确的问题或任务，让系统开始多轮检索与分析。")
     ) {
         OutlinedTextField(
             value = query,
             onValueChange = onQueryChange,
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("输入研究问题") },
-            placeholder = { Text("例如：2024 年人工智能的最新进展") },
+            label = { Text(localized("输入研究问题")) },
+            placeholder = { Text(localized("例如：2024 年人工智能的最新进展")) },
             enabled = !isResearching,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { onStartResearch() }),
@@ -278,13 +280,13 @@ private fun InputSection(
                 ) {
                     Icon(Icons.Default.Stop, contentDescription = null)
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("停止")
+                    Text(localized("停止"))
                 }
             } else {
                 Button(onClick = onStartResearch, enabled = query.isNotBlank()) {
                     Icon(Icons.Default.Search, contentDescription = null)
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("开始研究")
+                    Text(localized("开始研究"))
                 }
             }
         }
@@ -331,7 +333,7 @@ private fun DeepResearchToolbar(
                         tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Text(
-                        text = currentProviderName.ifEmpty { "选择服务商" },
+                        text = currentProviderName.ifEmpty { localized("选择服务商") },
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         maxLines = 1,
@@ -497,8 +499,8 @@ private fun StateIndicator(state: ResearchState) {
 @Composable
 private fun IdleContent() {
     AppEmptyState(
-        title = "输入问题开始深度研究",
-        description = "系统会进行多轮搜索、归纳和报告生成，输出可直接阅读的研究结果。",
+        title = localized("输入问题开始深度研究"),
+        description = localized("系统会进行多轮搜索、归纳和报告生成，输出可直接阅读的研究结果。"),
         icon = Icons.Default.Psychology,
         modifier = Modifier.fillMaxWidth()
     )
@@ -519,8 +521,8 @@ private fun ResearchProgress(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         SettingsGroupCard(
-            title = "研究进度",
-            description = "节点会按查询生成、搜索、处理和收束报告的顺序推进。"
+            title = localized("研究进度"),
+            description = localized("节点会按查询生成、搜索、处理和收束报告的顺序推进。")
         ) {
             nodes.values.sortedBy { it.id }.forEach { node ->
                 NodeItem(node = node)
@@ -529,7 +531,7 @@ private fun ResearchProgress(
 
         if (report.isNotEmpty()) {
             SettingsGroupCard(
-                title = "研究报告",
+                title = localized("研究报告"),
                 description = if (isGeneratingReport) "报告仍在生成，内容会继续补全。" else "当前生成的研究报告预览。"
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -604,7 +606,7 @@ private fun NodeItem(node: ResearchNode) {
             // 节点信息
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = node.query ?: "正在生成查询...",
+                    text = node.query ?: localized("正在生成查询..."),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium,
                     maxLines = 2,
@@ -612,7 +614,7 @@ private fun NodeItem(node: ResearchNode) {
                 )
                 if (node.learnings.isNotEmpty()) {
                     Text(
-                        text = "发现 ${node.learnings.size} 条信息",
+                        text = localized("发现 ${node.learnings.size} 条信息"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -652,12 +654,12 @@ private fun ResearchResult(
                 Tab(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    text = { Text("研究报告") }
+                    text = { Text(localized("研究报告")) }
                 )
                 Tab(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
-                    text = { Text("来源 (${learnings.size})") }
+                    text = { Text(localized("来源 (${learnings.size})")) }
                 )
             }
         }
@@ -666,8 +668,8 @@ private fun ResearchResult(
             0 -> {
                 SettingsGroupCard(
                     modifier = Modifier.fillMaxWidth(),
-                    title = "最终报告",
-                    description = "整理后的结论和分析会在这里呈现。"
+                    title = localized("最终报告"),
+                    description = localized("整理后的结论和分析会在这里呈现。")
                 ) {
                     Column(
                         modifier = Modifier
@@ -676,7 +678,7 @@ private fun ResearchResult(
                     ) {
                         if (report.isNullOrEmpty()) {
                             Text(
-                                text = "报告生成中...",
+                                text = localized("报告生成中..."),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -693,7 +695,7 @@ private fun ResearchResult(
                                     ) {
                                         Icon(Icons.Default.BookmarkAdd, contentDescription = null)
                                         Spacer(modifier = Modifier.width(6.dp))
-                                        Text("保存到知识库")
+                                        Text(localized("保存到知识库"))
                                     }
                                     DropdownMenu(
                                         expanded = showKnowledgeMenu,
@@ -722,7 +724,7 @@ private fun ResearchResult(
                                     ) {
                                         Icon(Icons.Default.Send, contentDescription = null)
                                         Spacer(modifier = Modifier.width(6.dp))
-                                        Text("发送到聊天")
+                                        Text(localized("发送到聊天"))
                                     }
                                 }
                             }
@@ -798,7 +800,7 @@ private fun LearningItem(learning: Learning) {
 @Composable
 private fun ErrorContent(message: String) {
     AppEmptyState(
-        title = "研究失败",
+        title = localized("研究失败"),
         description = message,
         icon = Icons.Default.Error,
         modifier = Modifier.fillMaxWidth()
@@ -837,7 +839,7 @@ private fun SettingsDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("深度研究设置") },
+        title = { Text(localized("深度研究设置")) },
         text = {
             Column(
                 modifier = Modifier
@@ -847,7 +849,7 @@ private fun SettingsDialog(
             ) {
                 // ===== 搜索 API 设置 =====
                 Text(
-                    text = "搜索 API 设置",
+                    text = localized("搜索 API 设置"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -862,7 +864,7 @@ private fun SettingsDialog(
                         value = webSearchProvider.displayName,
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("搜索提供商") },
+                        label = { Text(localized("搜索提供商")) },
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = providerExpanded) },
                         modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
                     )
@@ -916,7 +918,7 @@ private fun SettingsDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text("高级搜索", style = MaterialTheme.typography.bodyMedium)
+                            Text(localized("高级搜索"), style = MaterialTheme.typography.bodyMedium)
                             Text(
                                 "更精确但消耗更多配额",
                                 style = MaterialTheme.typography.bodySmall,
@@ -934,7 +936,7 @@ private fun SettingsDialog(
 
                 // ===== AI 设置 =====
                 Text(
-                    text = "AI 设置",
+                    text = localized("AI 设置"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -945,7 +947,7 @@ private fun SettingsDialog(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("使用独立 AI 配置", style = MaterialTheme.typography.bodyMedium)
+                        Text(localized("使用独立 AI 配置"), style = MaterialTheme.typography.bodyMedium)
                         Text(
                             "关闭则使用默认服务商",
                             style = MaterialTheme.typography.bodySmall,
@@ -971,7 +973,7 @@ private fun SettingsDialog(
                                 value = aiProviderType.replaceFirstChar { it.uppercase() },
                                 onValueChange = {},
                                 readOnly = true,
-                                label = { Text("AI 提供商") },
+                                label = { Text(localized("AI 提供商")) },
                                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = aiTypeExpanded) },
                                 modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
                             )
@@ -1013,8 +1015,8 @@ private fun SettingsDialog(
                         OutlinedTextField(
                             value = aiApiBase,
                             onValueChange = { aiApiBase = it },
-                            label = { Text("API Base URL (可选)") },
-                            placeholder = { Text("留空使用默认") },
+                            label = { Text(localized("API Base URL (可选)")) },
+                            placeholder = { Text(localized("留空使用默认")) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
@@ -1023,8 +1025,8 @@ private fun SettingsDialog(
                         OutlinedTextField(
                             value = aiModel,
                             onValueChange = { aiModel = it },
-                            label = { Text("模型名称") },
-                            placeholder = { Text("如 gpt-4o, claude-3-5-sonnet-20241022") },
+                            label = { Text(localized("模型名称")) },
+                            placeholder = { Text(localized("如 gpt-4o, claude-3-5-sonnet-20241022")) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
@@ -1035,7 +1037,7 @@ private fun SettingsDialog(
 
                 // ===== 研究参数 =====
                 Text(
-                    text = "研究参数",
+                    text = localized("研究参数"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -1044,8 +1046,8 @@ private fun SettingsDialog(
                 OutlinedTextField(
                     value = breadth,
                     onValueChange = { breadth = it },
-                    label = { Text("搜索广度") },
-                    supportingText = { Text("每层查询数量 (1-10)") },
+                    label = { Text(localized("搜索广度")) },
+                    supportingText = { Text(localized("每层查询数量 (1-10)")) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -1053,8 +1055,8 @@ private fun SettingsDialog(
                 OutlinedTextField(
                     value = maxDepth,
                     onValueChange = { maxDepth = it },
-                    label = { Text("搜索深度") },
-                    supportingText = { Text("递归层数 (1-5)") },
+                    label = { Text(localized("搜索深度")) },
+                    supportingText = { Text(localized("递归层数 (1-5)")) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -1068,7 +1070,7 @@ private fun SettingsDialog(
                         value = if (language == "zh") "中文" else "English",
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("输出语言") },
+                        label = { Text(localized("输出语言")) },
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = langExpanded) },
                         modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
                     )
@@ -1077,7 +1079,7 @@ private fun SettingsDialog(
                         onDismissRequest = { langExpanded = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("中文") },
+                            text = { Text(localized("中文")) },
                             onClick = { language = "zh"; langExpanded = false }
                         )
                         DropdownMenuItem(
@@ -1106,12 +1108,12 @@ private fun SettingsDialog(
                 ))
                 onDismiss()
             }) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -1139,12 +1141,12 @@ private fun HistoryDialog(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("历史记录")
+                Text(localized("历史记录"))
                 if (historyList.isNotEmpty()) {
                     IconButton(onClick = { showDeleteAllConfirm = true }) {
                         Icon(
                             Icons.Default.DeleteSweep,
-                            contentDescription = "清空全部",
+                            contentDescription = localized("清空全部"),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
@@ -1168,7 +1170,7 @@ private fun HistoryDialog(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "暂无历史记录",
+                            text = localized("暂无历史记录"),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -1193,7 +1195,7 @@ private fun HistoryDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("关闭")
+                Text(localized("关闭"))
             }
         }
     )
@@ -1202,8 +1204,8 @@ private fun HistoryDialog(
     if (showDeleteAllConfirm) {
         AlertDialog(
             onDismissRequest = { showDeleteAllConfirm = false },
-            title = { Text("确认清空") },
-            text = { Text("确定要删除所有历史记录吗？此操作不可恢复。") },
+            title = { Text(localized("确认清空")) },
+            text = { Text(localized("确定要删除所有历史记录吗？此操作不可恢复。")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -1214,12 +1216,12 @@ private fun HistoryDialog(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("删除全部")
+                    Text(localized("删除全部"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteAllConfirm = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -1265,7 +1267,7 @@ private fun HistoryItem(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${history.learnings.size} 条来源",
+                        text = localized("${history.learnings.size} 条来源"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -1274,7 +1276,7 @@ private fun HistoryItem(
             IconButton(onClick = onDelete) {
                 Icon(
                     Icons.Default.Delete,
-                    contentDescription = "删除",
+                    contentDescription = localized("删除"),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

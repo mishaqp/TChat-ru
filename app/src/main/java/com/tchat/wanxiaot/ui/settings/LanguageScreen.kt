@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -34,8 +36,8 @@ fun LanguageScreen(
 ) {
     AppPageScaffold(
         title = strings.languageTitle,
-        eyebrow = "Language",
-        subtitle = "切换界面语言，无需重启应用",
+        eyebrow = localized("Language"),
+        subtitle = strings.settingsLanguageDesc,
         onBack = onBack
     ) { innerPadding ->
         LazyColumn(
@@ -71,7 +73,7 @@ private fun LanguageItem(
 
     val displayName = if (language == Language.SYSTEM) {
         val systemLanguage = Language.getActualLanguage(Language.SYSTEM)
-        "${language.displayName} (${systemLanguage.nativeName})"
+        "${strings.languageFollowSystem} (${systemLanguage.nativeName})"
     } else {
         language.displayName
     }

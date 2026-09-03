@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.folder
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -40,9 +42,9 @@ fun ChatFolderManagementScreen(
     var selectedParentId by remember { mutableStateOf<String?>(null) }
 
     AppPageScaffold(
-        title = "文件夹管理",
+        title = localized("文件夹管理"),
         eyebrow = "Organization",
-        subtitle = "整理聊天目录与层级结构",
+        subtitle = localized("整理聊天目录与层级结构"),
         onBack = onBackClick,
         modifier = modifier,
         actions = {
@@ -50,7 +52,7 @@ fun ChatFolderManagementScreen(
                 selectedParentId = null
                 showCreateDialog = true
             }) {
-                Icon(Lucide.FolderPlus, contentDescription = "创建文件夹")
+                Icon(Lucide.FolderPlus, contentDescription = localized("创建文件夹"))
             }
         }
     ) { paddingValues ->
@@ -65,8 +67,8 @@ fun ChatFolderManagementScreen(
             if (folderTree.isEmpty()) {
                 item {
                     AppEmptyState(
-                        title = "还没有文件夹",
-                        description = "创建第一个文件夹后，可以继续建立子文件夹层级。",
+                        title = localized("还没有文件夹"),
+                        description = localized("创建第一个文件夹后，可以继续建立子文件夹层级。"),
                         icon = Lucide.FolderOpen,
                         action = {
                             Button(onClick = {
@@ -75,7 +77,7 @@ fun ChatFolderManagementScreen(
                             }) {
                                 Icon(Lucide.Plus, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("创建第一个文件夹")
+                                Text(localized("创建第一个文件夹"))
                             }
                         }
                     )
@@ -194,7 +196,7 @@ private fun FolderTreeItem(
                 IconButton(onClick = { showMenu = true }) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = "更多操作"
+                        contentDescription = localized("更多操作")
                     )
                 }
 
@@ -204,7 +206,7 @@ private fun FolderTreeItem(
                     onDismissRequest = { showMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("编辑") },
+                        text = { Text(localized("编辑")) },
                         onClick = {
                             onEdit(node.folder)
                             showMenu = false
@@ -212,7 +214,7 @@ private fun FolderTreeItem(
                         leadingIcon = { Icon(Lucide.Pencil, contentDescription = null) }
                     )
                     DropdownMenuItem(
-                        text = { Text("创建子文件夹") },
+                        text = { Text(localized("创建子文件夹")) },
                         onClick = {
                             onCreateSubfolder(node.folder)
                             showMenu = false
@@ -221,7 +223,7 @@ private fun FolderTreeItem(
                     )
                     HorizontalDivider()
                     DropdownMenuItem(
-                        text = { Text("删除") },
+                        text = { Text(localized("删除")) },
                         onClick = {
                             onDelete(node.folder)
                             showMenu = false
@@ -279,7 +281,7 @@ private fun CreateFolderDialog(
                 OutlinedTextField(
                     value = folderName,
                     onValueChange = { folderName = it },
-                    label = { Text("文件夹名称") },
+                    label = { Text(localized("文件夹名称")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -290,7 +292,7 @@ private fun CreateFolderDialog(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("图标：", style = MaterialTheme.typography.bodyMedium)
+                    Text(localized("图标："), style = MaterialTheme.typography.bodyMedium)
                     listOf("📁", "📂", "🗂️", "📋", "📊", "💼", "🎯", "⭐").forEach { emoji ->
                         FilterChip(
                             selected = selectedIcon == emoji,
@@ -306,7 +308,7 @@ private fun CreateFolderDialog(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("颜色：", style = MaterialTheme.typography.bodyMedium)
+                    Text(localized("颜色："), style = MaterialTheme.typography.bodyMedium)
                     // TODO: 添加颜色选择器
                 }
             }
@@ -316,12 +318,12 @@ private fun CreateFolderDialog(
                 onClick = { onConfirm(parentId) },
                 enabled = folderName.isNotBlank()
             ) {
-                Text("创建")
+                Text(localized("创建"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -340,8 +342,8 @@ fun SmartGroupingCard(
 ) {
     SettingsGroupCard(
         modifier = modifier,
-        title = "智能分组",
-        description = "自动按时间、模型或助手将聊天归档到文件夹。"
+        title = localized("智能分组"),
+        description = localized("自动按时间、模型或助手将聊天归档到文件夹。")
     ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -350,11 +352,11 @@ fun SmartGroupingCard(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "智能分组",
+                        text = localized("智能分组"),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "自动将聊天分组到文件夹",
+                        text = localized("自动将聊天分组到文件夹"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -369,7 +371,7 @@ fun SmartGroupingCard(
                 HorizontalDivider()
 
                 Text(
-                    text = "分组方式：",
+                    text = localized("分组方式："),
                     style = MaterialTheme.typography.bodyMedium
                 )
 

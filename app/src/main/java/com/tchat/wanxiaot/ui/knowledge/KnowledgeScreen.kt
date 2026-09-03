@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.knowledge
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -77,7 +79,7 @@ fun KnowledgeScreen(
     val embeddingProviders = remember { viewModel.getEmbeddingProviders() }
 
     AppPageScaffold(
-        title = "知识库",
+        title = localized("知识库"),
         showTopBar = showTopBar,
         onBack = onBack,
         floatingActionButton = {
@@ -90,7 +92,7 @@ fun KnowledgeScreen(
                     }
                 },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("新建知识库") }
+                text = { Text(localized("新建知识库")) }
             )
         }
     ) { innerPadding ->
@@ -115,7 +117,7 @@ fun KnowledgeScreen(
                     item {
                         AppEmptyState(
                             icon = Lucide.BookOpen,
-                            title = "还没有知识库",
+                            title = localized("还没有知识库"),
                             description = if (embeddingProviders.isEmpty()) {
                                 "先去服务商中配置支持 Embedding 的连接，然后再创建知识库。"
                             } else {
@@ -170,8 +172,8 @@ fun KnowledgeScreen(
     baseToDelete?.let { base ->
         AlertDialog(
             onDismissRequest = { baseToDelete = null },
-            title = { Text("删除知识库") },
-            text = { Text("确定要删除「${base.name}」吗？所有知识条目和向量数据将被永久删除。") },
+            title = { Text(localized("删除知识库")) },
+            text = { Text(localized("确定要删除「${base.name}」吗？所有知识条目和向量数据将被永久删除。")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -180,12 +182,12 @@ fun KnowledgeScreen(
                         Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show()
                     }
                 ) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(localized("删除"), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { baseToDelete = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -228,7 +230,7 @@ private fun KnowledgeBaseCard(
                     )
 
                     Text(
-                        text = base.description ?: "使用 ${base.embeddingModelId} 进行向量化检索",
+                        text = base.description ?: localized("使用 ${base.embeddingModelId} 进行向量化检索"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 2,
@@ -254,14 +256,14 @@ private fun KnowledgeBaseCard(
                 ) {
                     Box {
                         IconButton(onClick = { showMenu = true }) {
-                            Icon(Icons.Default.MoreVert, contentDescription = "更多")
+                            Icon(Icons.Default.MoreVert, contentDescription = localized("更多"))
                         }
                         DropdownMenu(
                             expanded = showMenu,
                             onDismissRequest = { showMenu = false }
                         ) {
                             DropdownMenuItem(
-                                text = { Text("编辑") },
+                                text = { Text(localized("编辑")) },
                                 onClick = {
                                     showMenu = false
                                     onEdit()
@@ -269,7 +271,7 @@ private fun KnowledgeBaseCard(
                                 leadingIcon = { Icon(Icons.Default.Edit, null) }
                             )
                             DropdownMenuItem(
-                                text = { Text("删除") },
+                                text = { Text(localized("删除")) },
                                 onClick = {
                                     showMenu = false
                                     onDelete()
@@ -320,14 +322,14 @@ private fun CreateKnowledgeBaseDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("创建知识库") },
+        title = { Text(localized("创建知识库")) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("名称") },
-                    placeholder = { Text("例如：产品文档库") },
+                    label = { Text(localized("名称")) },
+                    placeholder = { Text(localized("例如：产品文档库")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -335,14 +337,14 @@ private fun CreateKnowledgeBaseDialog(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("描述（可选）") },
-                    placeholder = { Text("说明知识范围和用途") },
+                    label = { Text(localized("描述（可选）")) },
+                    placeholder = { Text(localized("说明知识范围和用途")) },
                     maxLines = 3,
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Text(
-                    text = "Embedding 服务商",
+                    text = localized("Embedding 服务商"),
                     style = MaterialTheme.typography.labelLarge
                 )
 
@@ -392,7 +394,7 @@ private fun CreateKnowledgeBaseDialog(
                                     )
                                 }
                                 if (isSelected) {
-                                    AppPill(text = "当前")
+                                    AppPill(text = localized("当前"))
                                 }
                             }
                         }
@@ -402,7 +404,7 @@ private fun CreateKnowledgeBaseDialog(
                 OutlinedTextField(
                     value = embeddingModel,
                     onValueChange = { embeddingModel = it },
-                    label = { Text("Embedding 模型") },
+                    label = { Text(localized("Embedding 模型")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -417,12 +419,12 @@ private fun CreateKnowledgeBaseDialog(
                 },
                 enabled = name.isNotBlank() && selectedProvider != null && embeddingModel.isNotBlank()
             ) {
-                Text("创建")
+                Text(localized("创建"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -444,13 +446,13 @@ private fun EditKnowledgeBaseDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("编辑知识库") },
+        title = { Text(localized("编辑知识库")) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("名称") },
+                    label = { Text(localized("名称")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -458,13 +460,13 @@ private fun EditKnowledgeBaseDialog(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("描述（可选）") },
+                    label = { Text(localized("描述（可选）")) },
                     maxLines = 3,
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Text(
-                    text = "Embedding 服务商",
+                    text = localized("Embedding 服务商"),
                     style = MaterialTheme.typography.labelLarge
                 )
 
@@ -511,7 +513,7 @@ private fun EditKnowledgeBaseDialog(
                                     )
                                 }
                                 if (isSelected) {
-                                    AppPill(text = "当前")
+                                    AppPill(text = localized("当前"))
                                 }
                             }
                         }
@@ -521,7 +523,7 @@ private fun EditKnowledgeBaseDialog(
                 OutlinedTextField(
                     value = embeddingModel,
                     onValueChange = { embeddingModel = it },
-                    label = { Text("Embedding 模型") },
+                    label = { Text(localized("Embedding 模型")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -543,12 +545,12 @@ private fun EditKnowledgeBaseDialog(
                 },
                 enabled = name.isNotBlank() && selectedProvider != null && embeddingModel.isNotBlank()
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )

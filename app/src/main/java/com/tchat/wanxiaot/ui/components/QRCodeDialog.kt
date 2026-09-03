@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.components
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -80,7 +82,7 @@ fun QRCodeDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "共享你的LLM模型",
+                    text = localized("共享你的LLM模型"),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -93,7 +95,7 @@ fun QRCodeDialog(
                     ) {
                         Icon(
                             Icons.Outlined.Download,
-                            contentDescription = "保存",
+                            contentDescription = localized("保存"),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -106,7 +108,7 @@ fun QRCodeDialog(
                     ) {
                         Icon(
                             Icons.Outlined.Share,
-                            contentDescription = "分享",
+                            contentDescription = localized("分享"),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -117,7 +119,7 @@ fun QRCodeDialog(
 
             // 导出选项
             Text(
-                text = "导出选项",
+                text = localized("导出选项"),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -135,7 +137,7 @@ fun QRCodeDialog(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "包含模型列表（${provider.availableModels.size} 个模型）",
+                    text = localized("包含模型列表（${provider.availableModels.size} 个模型）"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -147,7 +149,7 @@ fun QRCodeDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "预计大小：",
+                    text = localized("预计大小："),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -208,7 +210,7 @@ fun QRCodeDialog(
                     ) {
                         Image(
                             bitmap = qrBitmap.asImageBitmap(),
-                            contentDescription = "二维码",
+                            contentDescription = localized("二维码"),
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -217,7 +219,7 @@ fun QRCodeDialog(
 
                     // 署名
                     Text(
-                        text = "由 Tchat - By wanxiaoT 生成",
+                        text = localized("由 Tchat - By wanxiaoT 生成"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center

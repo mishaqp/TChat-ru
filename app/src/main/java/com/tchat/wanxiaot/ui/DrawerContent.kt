@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -171,7 +173,7 @@ fun DrawerContent(
                         Box {
                             if (searchQuery.isEmpty()) {
                                 Text(
-                                    text = "搜索聊天记录",
+                                    text = localized("搜索聊天记录"),
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -189,7 +191,7 @@ fun DrawerContent(
                     ) {
                         Icon(
                             Icons.Default.Clear,
-                            contentDescription = "清除搜索",
+                            contentDescription = localized("清除搜索"),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(20.dp)
                         )
@@ -201,7 +203,7 @@ fun DrawerContent(
                     ) {
                         Icon(
                             Icons.Default.Add,
-                            contentDescription = "新建聊天",
+                            contentDescription = localized("新建聊天"),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -218,7 +220,7 @@ fun DrawerContent(
 
             if (!hasSearchQuery && bookmarkedMessages.isNotEmpty()) {
                 item {
-                    DrawerSectionLabel(text = "收藏")
+                    DrawerSectionLabel(text = localized("收藏"))
                 }
 
                 items(bookmarkedMessages, key = { "bookmark_${it.messageId}" }) { result ->
@@ -238,7 +240,7 @@ fun DrawerContent(
 
             if (filteredGroupChats.isNotEmpty()) {
                 item {
-                    DrawerSectionLabel(text = "群聊")
+                    DrawerSectionLabel(text = localized("群聊"))
                 }
 
                 items(filteredGroupChats, key = { it.id }) { groupChat ->
@@ -259,7 +261,7 @@ fun DrawerContent(
 
             if (filteredChats.isNotEmpty()) {
                 item {
-                    DrawerSectionLabel(text = "单聊")
+                    DrawerSectionLabel(text = localized("单聊"))
                 }
             }
 
@@ -276,7 +278,7 @@ fun DrawerContent(
             if (hasSearchQuery) {
                 if (messageSearchResults.isNotEmpty()) {
                     item {
-                        DrawerSectionLabel(text = "消息内容")
+                        DrawerSectionLabel(text = localized("消息内容"))
                     }
 
                     items(messageSearchResults, key = { "message_${it.messageId}" }) { result ->
@@ -289,11 +291,11 @@ fun DrawerContent(
 
                 if (isSearchingMessages) {
                     item {
-                        MessageSearchStatus(text = "搜索消息中...")
+                        MessageSearchStatus(text = localized("搜索消息中..."))
                     }
                 } else if (messageSearchError != null) {
                     item {
-                        MessageSearchStatus(text = messageSearchError ?: "搜索失败")
+                        MessageSearchStatus(text = messageSearchError ?: localized("搜索失败"))
                     }
                 } else if (
                     filteredGroupChats.isEmpty() &&
@@ -301,7 +303,7 @@ fun DrawerContent(
                     messageSearchResults.isEmpty()
                 ) {
                     item {
-                        MessageSearchStatus(text = "没有找到相关聊天或消息")
+                        MessageSearchStatus(text = localized("没有找到相关聊天或消息"))
                     }
                 }
             }
@@ -325,7 +327,7 @@ fun DrawerContent(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "当前服务商",
+                        text = localized("当前服务商"),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -339,7 +341,7 @@ fun DrawerContent(
                 }
                 Icon(
                     Icons.Outlined.SwapHoriz,
-                    contentDescription = "切换服务商",
+                    contentDescription = localized("切换服务商"),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
                 )
@@ -380,12 +382,12 @@ fun DrawerContent(
                 }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "设置",
+                        text = localized("设置"),
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "管理模型、显示、日志与扩展功能",
+                        text = localized("管理模型、显示、日志与扩展功能"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -436,7 +438,7 @@ fun ProviderSelectionSheet(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "选择服务商",
+                    text = localized("选择服务商"),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -458,7 +460,7 @@ fun ProviderSelectionSheet(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "暂无服务商，请先添加",
+                        text = localized("暂无服务商，请先添加"),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -531,7 +533,7 @@ fun ProviderSelectionItem(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = provider.selectedModel.ifEmpty { "未选择模型" },
+                    text = provider.selectedModel.ifEmpty { localized("未选择模型") },
                     style = MaterialTheme.typography.bodySmall,
                     color = if (isSelected) {
                         MaterialTheme.colorScheme.onSurfaceVariant
@@ -545,7 +547,7 @@ fun ProviderSelectionItem(
             if (isSelected) {
                 Icon(
                     Icons.Outlined.Check,
-                    contentDescription = "已选中",
+                    contentDescription = localized("已选中"),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp)
                 )
@@ -565,8 +567,8 @@ fun GroupChatHistoryItem(
     val dateFormat = remember { SimpleDateFormat("MM/dd HH:mm", Locale.getDefault()) }
 
     DrawerConversationCard(
-        title = groupChat.name.ifEmpty { "未命名群聊" },
-        subtitle = "${groupChat.memberIds.size} 位成员",
+        title = groupChat.name.ifEmpty { localized("未命名群聊") },
+        subtitle = localized("${groupChat.memberIds.size} 位成员"),
         timestamp = dateFormat.format(Date(groupChat.updatedAt)),
         isSelected = isSelected,
         onClick = onClick,
@@ -597,7 +599,7 @@ fun ChatHistoryItem(
             {
                 Icon(
                     imageVector = Icons.Default.PushPin,
-                    contentDescription = "已置顶",
+                    contentDescription = localized("已置顶"),
                     modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.primary
                 )
@@ -632,7 +634,7 @@ private fun MessageSearchResultItem(
     }
 
     DrawerConversationCard(
-        title = result.chatTitle.ifEmpty { "未命名聊天" },
+        title = result.chatTitle.ifEmpty { localized("未命名聊天") },
         subtitle = subtitle,
         timestamp = dateFormat.format(Date(result.timestamp)),
         isSelected = false,
@@ -766,7 +768,7 @@ private fun DrawerConversationCard(
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "删除",
+                                    text = localized("删除"),
                                     color = MaterialTheme.colorScheme.error
                                 )
                             },

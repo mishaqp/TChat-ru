@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.components
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -98,7 +100,7 @@ fun AppPageScaffold(
                                 IconButton(onClick = onBack) {
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                        contentDescription = "返回"
+                                        contentDescription = localized("返回")
                                     )
                                 }
                             }

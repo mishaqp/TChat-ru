@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -102,8 +104,8 @@ fun UsageStatsScreen(
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
-            title = { Text("清空统计数据") },
-            text = { Text("确定要清空所有 Token 统计数据吗？此操作不可撤销。") },
+            title = { Text(localized("清空统计数据")) },
+            text = { Text(localized("确定要清空所有 Token 统计数据吗？此操作不可撤销。")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -118,21 +120,21 @@ fun UsageStatsScreen(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("清空")
+                    Text(localized("清空"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
     }
 
     AppPageScaffold(
-        title = "使用统计",
+        title = localized("使用统计"),
         eyebrow = "Usage Metrics",
-        subtitle = "Token、提供商与模型调用情况",
+        subtitle = localized("Token、提供商与模型调用情况"),
         showTopBar = showTopBar,
         onBack = onBack
     ) { innerPadding ->
@@ -176,8 +178,8 @@ private fun TokenRecordingControlCard(
     onClear: () -> Unit
 ) {
     SettingsGroupCard(
-        title = "Token 记录控制",
-        description = "可以临时暂停、彻底关闭，或直接清空现有统计。"
+        title = localized("Token 记录控制"),
+        description = localized("可以临时暂停、彻底关闭，或直接清空现有统计。")
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -185,7 +187,7 @@ private fun TokenRecordingControlCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "当前状态",
+                text = localized("当前状态"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -219,7 +221,7 @@ private fun TokenRecordingControlCard(
             ) {
                 Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.size(4.dp))
-                Text("开始")
+                Text(localized("开始"))
             }
             FilledTonalButton(
                 onClick = { onStatusChange(TokenRecordingStatus.PAUSED) },
@@ -228,7 +230,7 @@ private fun TokenRecordingControlCard(
             ) {
                 Icon(Icons.Default.Pause, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.size(4.dp))
-                Text("暂停")
+                Text(localized("暂停"))
             }
             FilledTonalButton(
                 onClick = { onStatusChange(TokenRecordingStatus.DISABLED) },
@@ -237,7 +239,7 @@ private fun TokenRecordingControlCard(
             ) {
                 Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.size(4.dp))
-                Text("关闭")
+                Text(localized("关闭"))
             }
         }
 
@@ -250,7 +252,7 @@ private fun TokenRecordingControlCard(
         ) {
             Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
             Spacer(modifier = Modifier.size(4.dp))
-            Text("清空统计数据")
+            Text(localized("清空统计数据"))
         }
     }
 }
@@ -258,15 +260,15 @@ private fun TokenRecordingControlCard(
 @Composable
 private fun TokenStatsCard(stats: UsageStats) {
     SettingsGroupCard(
-        title = "Token 统计",
-        description = "输入、输出与总量概览。"
+        title = localized("Token 统计"),
+        description = localized("输入、输出与总量概览。")
     ) {
-        StatRow(label = "上行 Token (输入)", value = formatNumber(stats.totalInputTokens))
+        StatRow(label = localized("上行 Token (输入)"), value = formatNumber(stats.totalInputTokens))
         HorizontalDivider()
-        StatRow(label = "下行 Token (输出)", value = formatNumber(stats.totalOutputTokens))
+        StatRow(label = localized("下行 Token (输出)"), value = formatNumber(stats.totalOutputTokens))
         HorizontalDivider()
         StatRow(
-            label = "总 Token",
+            label = localized("总 Token"),
             value = formatNumber(stats.totalInputTokens + stats.totalOutputTokens),
             isHighlighted = true
         )
@@ -276,8 +278,8 @@ private fun TokenStatsCard(stats: UsageStats) {
 @Composable
 private fun ProviderStatsCard(stats: UsageStats, providers: List<ProviderConfig>) {
     SettingsGroupCard(
-        title = "按提供商统计",
-        description = "看清不同服务商的调用占比与 Token 分布。"
+        title = localized("按提供商统计"),
+        description = localized("看清不同服务商的调用占比与 Token 分布。")
     ) {
         if (stats.providerStats.isNotEmpty()) {
             stats.providerStats.forEachIndexed { index, providerStat ->
@@ -302,7 +304,7 @@ private fun ProviderStatsCard(stats: UsageStats, providers: List<ProviderConfig>
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        AppPill(text = "${providerStat.messageCount} 次调用")
+                        AppPill(text = localized("${providerStat.messageCount} 次调用"))
                     }
                 }
                 if (index != stats.providerStats.lastIndex) {
@@ -311,7 +313,7 @@ private fun ProviderStatsCard(stats: UsageStats, providers: List<ProviderConfig>
             }
         } else {
             Text(
-                text = "暂无提供商统计数据",
+                text = localized("暂无提供商统计数据"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -322,11 +324,11 @@ private fun ProviderStatsCard(stats: UsageStats, providers: List<ProviderConfig>
 @Composable
 private fun ModelStatsCard(stats: UsageStats) {
     SettingsGroupCard(
-        title = "模型调用统计",
-        description = "定位调用最频繁的模型，便于后续做成本和策略优化。"
+        title = localized("模型调用统计"),
+        description = localized("定位调用最频繁的模型，便于后续做成本和策略优化。")
     ) {
         StatRow(
-            label = "总调用次数",
+            label = localized("总调用次数"),
             value = "${stats.totalMessages} 次",
             isHighlighted = true
         )
@@ -342,7 +344,7 @@ private fun ModelStatsCard(stats: UsageStats) {
             }
         } else {
             Text(
-                text = "暂无模型调用记录",
+                text = localized("暂无模型调用记录"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

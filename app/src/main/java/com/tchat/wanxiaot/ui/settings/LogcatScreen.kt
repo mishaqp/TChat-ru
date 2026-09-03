@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -327,7 +329,7 @@ fun LogcatScreen(
     if (showSaveDialog) {
         AlertDialog(
             onDismissRequest = { showSaveDialog = false },
-            title = { Text("日志保存设置") },
+            title = { Text(localized("日志保存设置")) },
             text = {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -339,7 +341,7 @@ fun LogcatScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("启用实时保存")
+                        Text(localized("启用实时保存"))
                         Switch(
                             checked = isStreamSaving,
                             onCheckedChange = { enabled ->
@@ -358,7 +360,7 @@ fun LogcatScreen(
                     OutlinedTextField(
                         value = customSavePath,
                         onValueChange = { customSavePath = it },
-                        label = { Text("保存路径") },
+                        label = { Text(localized("保存路径")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isStreamSaving
@@ -367,7 +369,7 @@ fun LogcatScreen(
                     // 文件状态提示
                     if (logFileExists) {
                         Text(
-                            text = "日志文件已存在",
+                            text = localized("日志文件已存在"),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -387,23 +389,23 @@ fun LogcatScreen(
                                 contentDescription = null,
                                 modifier = Modifier.padding(end = 4.dp)
                             )
-                            Text("删除日志文件")
+                            Text(localized("删除日志文件"))
                         }
                     }
                 }
             },
             confirmButton = {
                 TextButton(onClick = { showSaveDialog = false }) {
-                    Text("关闭")
+                    Text(localized("关闭"))
                 }
             }
         )
     }
 
     AppPageScaffold(
-        title = "日志查看",
+        title = localized("日志查看"),
         eyebrow = "Diagnostics",
-        subtitle = "读取、过滤、复制与实时保存 Logcat",
+        subtitle = localized("读取、过滤、复制与实时保存 Logcat"),
         showTopBar = showTopBar,
         onBack = if (showTopBar) onBack else null,
         actions = {
@@ -447,7 +449,7 @@ fun LogcatScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "日志操作",
+                            text = localized("日志操作"),
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier.weight(1f)
                         )
@@ -489,7 +491,7 @@ fun LogcatScreen(
                             onClick = { selectedLevel = null },
                             label = {
                                 Text(
-                                    text = "过滤: ${selectedLevel?.name}",
+                                    text = localized("过滤: ${selectedLevel?.name}"),
                                     color = selectedLevel?.color ?: Color.Unspecified
                                 )
                             }
@@ -513,7 +515,7 @@ fun LogcatScreen(
                                 verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 CircularProgressIndicator()
-                                Text("正在读取日志…")
+                                Text(localized("正在读取日志…"))
                             }
                         }
                     }
@@ -527,8 +529,8 @@ fun LogcatScreen(
 
                 if (filteredLogs.isEmpty()) {
                     AppEmptyState(
-                        title = "暂无日志",
-                        description = "当前过滤条件下没有匹配内容，可以刷新或清空过滤器后重试。",
+                        title = localized("暂无日志"),
+                        description = localized("当前过滤条件下没有匹配内容，可以刷新或清空过滤器后重试。"),
                         icon = Icons.Default.FilterList,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -668,7 +670,7 @@ private fun LogcatToolbarActions(
         ) {
             Icon(
                 Icons.Default.FilterList,
-                contentDescription = "过滤",
+                contentDescription = localized("过滤"),
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -677,7 +679,7 @@ private fun LogcatToolbarActions(
             onDismissRequest = { onShowFilterMenuChange(false) }
         ) {
             DropdownMenuItem(
-                text = { Text("全部") },
+                text = { Text(localized("全部")) },
                 onClick = {
                     onLevelSelected(null)
                     onShowFilterMenuChange(false)
@@ -719,7 +721,7 @@ private fun LogcatToolbarActions(
     ) {
         Icon(
             Icons.Default.Refresh,
-            contentDescription = "刷新",
+            contentDescription = localized("刷新"),
             modifier = Modifier.size(20.dp)
         )
     }
@@ -730,7 +732,7 @@ private fun LogcatToolbarActions(
     ) {
         Icon(
             Icons.Default.ContentCopy,
-            contentDescription = "复制",
+            contentDescription = localized("复制"),
             modifier = Modifier.size(20.dp)
         )
     }
@@ -742,7 +744,7 @@ private fun LogcatToolbarActions(
     ) {
         Icon(
             Icons.Default.Delete,
-            contentDescription = "清除",
+            contentDescription = localized("清除"),
             modifier = Modifier.size(20.dp)
         )
     }
@@ -753,7 +755,7 @@ private fun LogcatToolbarActions(
     ) {
         Icon(
             Icons.Default.ArrowDownward,
-            contentDescription = "滚动到底部",
+            contentDescription = localized("滚动到底部"),
             modifier = Modifier.size(20.dp)
         )
     }

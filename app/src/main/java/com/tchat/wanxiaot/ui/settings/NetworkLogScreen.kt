@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -86,15 +88,15 @@ fun NetworkLogScreen(
     }
 
     AppPageScaffold(
-        title = "网络日志",
+        title = localized("网络日志"),
         eyebrow = "Diagnostics",
-        subtitle = "请求与响应链路留痕",
+        subtitle = localized("请求与响应链路留痕"),
         onBack = onBack,
         actions = {
             IconButton(onClick = { logs = NetworkLogger.getLogs() }) {
                 Icon(
                     imageVector = Icons.Default.Refresh,
-                    contentDescription = "刷新"
+                    contentDescription = localized("刷新")
                 )
             }
             IconButton(onClick = {
@@ -104,7 +106,7 @@ fun NetworkLogScreen(
             }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "清除"
+                    contentDescription = localized("清除")
                 )
             }
         }
@@ -120,7 +122,7 @@ fun NetworkLogScreen(
             if (logs.isEmpty()) {
                 item {
                     AppEmptyState(
-                        title = "暂无网络日志",
+                        title = localized("暂无网络日志"),
                         icon = Icons.Default.Refresh
                     )
                 }
@@ -254,7 +256,7 @@ private fun NetworkLogItem(
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f))
 
                     JsonSection(
-                        title = "请求 (Request Body)",
+                        title = localized("请求 (Request Body)"),
                         json = entry.requestBody,
                         onCopy = onCopy
                     )
@@ -262,7 +264,7 @@ private fun NetworkLogItem(
                     entry.responseBody?.let { response ->
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f))
                         JsonSection(
-                            title = "响应 (Response)",
+                            title = localized("响应 (Response)"),
                             json = response,
                             onCopy = onCopy,
                             isResponse = true
@@ -328,7 +330,7 @@ private fun JsonSection(
             ) {
                 Icon(
                     Icons.Default.ContentCopy,
-                    contentDescription = "复制",
+                    contentDescription = localized("复制"),
                     modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.slideInHorizontally
@@ -176,7 +178,7 @@ private fun ProvidersListContent(
     var showColumnMenu by remember { mutableStateOf(false) }
 
     AppPageScaffold(
-        title = "服务商",
+        title = localized("服务商"),
         eyebrow = "Provider Network",
         subtitle = if (settings.providers.isEmpty()) "连接模型供应商，建立稳定的调用层" else "已配置 ${settings.providers.size} 个服务商",
         showTopBar = showTopBar,
@@ -184,7 +186,7 @@ private fun ProvidersListContent(
         actions = {
             Box {
                 IconButton(onClick = { showColumnMenu = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "布局选项")
+                    Icon(Icons.Default.MoreVert, contentDescription = localized("布局选项"))
                 }
 
                 DropdownMenu(
@@ -192,7 +194,7 @@ private fun ProvidersListContent(
                     onDismissRequest = { showColumnMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("单列显示") },
+                        text = { Text(localized("单列显示")) },
                         onClick = {
                             settingsManager.updateProviderGridColumnCount(1)
                             showColumnMenu = false
@@ -204,7 +206,7 @@ private fun ProvidersListContent(
                         }
                     )
                     DropdownMenuItem(
-                        text = { Text("双列显示") },
+                        text = { Text(localized("双列显示")) },
                         onClick = {
                             settingsManager.updateProviderGridColumnCount(2)
                             showColumnMenu = false
@@ -216,7 +218,7 @@ private fun ProvidersListContent(
                         }
                     )
                     DropdownMenuItem(
-                        text = { Text("三列显示") },
+                        text = { Text(localized("三列显示")) },
                         onClick = {
                             settingsManager.updateProviderGridColumnCount(3)
                             showColumnMenu = false
@@ -231,14 +233,14 @@ private fun ProvidersListContent(
             }
 
             IconButton(onClick = onScan) {
-                Icon(Icons.Outlined.QrCodeScanner, contentDescription = "扫码导入")
+                Icon(Icons.Outlined.QrCodeScanner, contentDescription = localized("扫码导入"))
             }
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = onAddNew,
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("添加服务商") }
+                text = { Text(localized("添加服务商")) }
             )
         }
     ) { innerPadding ->
@@ -256,8 +258,8 @@ private fun ProvidersListContent(
                     OfficialServicePrompt(onClick = onAddOfficial)
                     AppEmptyState(
                         icon = Lucide.BrainCircuit,
-                        title = "还没有添加服务商",
-                description = "选择官方服务获取许可证，或添加自定义服务。"
+                        title = localized("还没有添加服务商"),
+                description = localized("选择官方服务获取许可证，或添加自定义服务。")
                     )
                 }
             }
@@ -285,7 +287,7 @@ private fun ProvidersListContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "已配置 ${settings.providers.size} 个服务商",
+                                text = localized("已配置 ${settings.providers.size} 个服务商"),
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -296,7 +298,7 @@ private fun ProvidersListContent(
                                     // 列数选择按钮
                                     Box {
                                         IconButton(onClick = { showColumnMenu = true }) {
-                                            Icon(Icons.Default.MoreVert, contentDescription = "布局选项")
+                                            Icon(Icons.Default.MoreVert, contentDescription = localized("布局选项"))
                                         }
 
                                         DropdownMenu(
@@ -304,7 +306,7 @@ private fun ProvidersListContent(
                                             onDismissRequest = { showColumnMenu = false }
                                         ) {
                                             DropdownMenuItem(
-                                                text = { Text("单列显示") },
+                                                text = { Text(localized("单列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(1)
                                                     showColumnMenu = false
@@ -316,7 +318,7 @@ private fun ProvidersListContent(
                                                 }
                                             )
                                             DropdownMenuItem(
-                                                text = { Text("双列显示") },
+                                                text = { Text(localized("双列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(2)
                                                     showColumnMenu = false
@@ -328,7 +330,7 @@ private fun ProvidersListContent(
                                                 }
                                             )
                                             DropdownMenuItem(
-                                                text = { Text("三列显示") },
+                                                text = { Text(localized("三列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(3)
                                                     showColumnMenu = false
@@ -343,7 +345,7 @@ private fun ProvidersListContent(
                                     }
 
                                     IconButton(onClick = onScan) {
-                                        Icon(Icons.Outlined.QrCodeScanner, contentDescription = "扫码导入")
+                                        Icon(Icons.Outlined.QrCodeScanner, contentDescription = localized("扫码导入"))
                                     }
                                 }
                             }
@@ -389,7 +391,7 @@ private fun ProvidersListContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "已配置 ${settings.providers.size} 个服务商",
+                                text = localized("已配置 ${settings.providers.size} 个服务商"),
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -400,7 +402,7 @@ private fun ProvidersListContent(
                                     // 列数选择按钮
                                     Box {
                                         IconButton(onClick = { showColumnMenu = true }) {
-                                            Icon(Icons.Default.MoreVert, contentDescription = "布局选项")
+                                            Icon(Icons.Default.MoreVert, contentDescription = localized("布局选项"))
                                         }
 
                                         DropdownMenu(
@@ -408,7 +410,7 @@ private fun ProvidersListContent(
                                             onDismissRequest = { showColumnMenu = false }
                                         ) {
                                             DropdownMenuItem(
-                                                text = { Text("单列显示") },
+                                                text = { Text(localized("单列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(1)
                                                     showColumnMenu = false
@@ -420,7 +422,7 @@ private fun ProvidersListContent(
                                                 }
                                             )
                                             DropdownMenuItem(
-                                                text = { Text("双列显示") },
+                                                text = { Text(localized("双列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(2)
                                                     showColumnMenu = false
@@ -432,7 +434,7 @@ private fun ProvidersListContent(
                                                 }
                                             )
                                             DropdownMenuItem(
-                                                text = { Text("三列显示") },
+                                                text = { Text(localized("三列显示")) },
                                                 onClick = {
                                                     settingsManager.updateProviderGridColumnCount(3)
                                                     showColumnMenu = false
@@ -447,7 +449,7 @@ private fun ProvidersListContent(
                                     }
 
                                     IconButton(onClick = onScan) {
-                                        Icon(Icons.Outlined.QrCodeScanner, contentDescription = "扫码导入")
+                                        Icon(Icons.Outlined.QrCodeScanner, contentDescription = localized("扫码导入"))
                                     }
                                 }
                             }
@@ -524,7 +526,7 @@ private fun ProviderListItem(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = provider.name.ifEmpty { "未命名" },
+                        text = provider.name.ifEmpty { localized("未命名") },
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 1,
@@ -551,10 +553,10 @@ private fun ProviderListItem(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     if (isCurrentProvider) {
-                        AppPill(text = "当前使用")
+                        AppPill(text = localized("当前使用"))
                     }
                     AppPill(
-                        text = "${provider.availableModels.size} 个模型",
+                        text = localized("${provider.availableModels.size} 个模型"),
                         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -657,7 +659,7 @@ private fun ProviderCard(
                     ) {
                         Icon(
                             Icons.Default.MoreVert,
-                            contentDescription = "更多操作",
+                            contentDescription = localized("更多操作"),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                             modifier = Modifier.size(20.dp)
                         )
@@ -669,7 +671,7 @@ private fun ProviderCard(
                     ) {
                         if (!isCurrentProvider) {
                             DropdownMenuItem(
-                                text = { Text("设为当前") },
+                                text = { Text(localized("设为当前")) },
                                 onClick = {
                                     showMenu = false
                                     onSetCurrent()
@@ -680,7 +682,7 @@ private fun ProviderCard(
                             )
                         }
                         DropdownMenuItem(
-                            text = { Text("编辑") },
+                            text = { Text(localized("编辑")) },
                             onClick = {
                                 showMenu = false
                                 onClick()
@@ -693,7 +695,7 @@ private fun ProviderCard(
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("删除", color = MaterialTheme.colorScheme.error) },
+                            text = { Text(localized("删除"), color = MaterialTheme.colorScheme.error) },
                             onClick = {
                                 showMenu = false
                                 onDelete()
@@ -712,7 +714,7 @@ private fun ProviderCard(
 
             // 提供商名称
             Text(
-                text = provider.name.ifEmpty { "未命名" },
+                text = provider.name.ifEmpty { localized("未命名") },
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
@@ -753,7 +755,7 @@ private fun ProviderCard(
                 )
 
                 AppPill(
-                    text = "${provider.availableModels.size} 个模型",
+                    text = localized("${provider.availableModels.size} 个模型"),
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                     contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -784,12 +786,12 @@ private fun OfficialServicePrompt(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "推荐：使用 TChat 官方服务",
+                        text = localized("推荐：使用 TChat 官方服务"),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "购买套餐后写入许可证，余额、设备与用量都可以在 App 内查看。",
+                        text = localized("购买套餐后写入许可证，余额、设备与用量都可以在 App 内查看。"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -804,16 +806,16 @@ private fun OfficialServicePrompt(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                AppPill(text = "无需 API 配置")
+                AppPill(text = localized("无需 API 配置"))
                 AppPill(text = "License Code")
-                AppPill(text = "用量透明")
+                AppPill(text = localized("用量透明"))
             }
 
             FilledTonalButton(
                 onClick = onClick,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("配置官方服务")
+                Text(localized("配置官方服务"))
             }
         }
     }

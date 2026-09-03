@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.junglehelper
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -240,7 +242,7 @@ class JungleHelperService : Service() {
                         .putExtra(EXTRA_START_OCR_AFTER_PERMISSION, true)
                 )
             } catch (e: Exception) {
-                showToast("无法请求录屏权限：${e.message}")
+                showToast(localized("无法请求录屏权限：${e.message}"))
             }
             return
         }
@@ -250,7 +252,7 @@ class JungleHelperService : Service() {
 
     private fun requestMediaProjectionPermission() {
         if (mediaProjection != null) {
-            showToast("已获得录屏权限")
+            showToast(localized("已获得录屏权限"))
             return
         }
 
@@ -261,7 +263,7 @@ class JungleHelperService : Service() {
                     .putExtra(EXTRA_START_OCR_AFTER_PERMISSION, false)
             )
         } catch (e: Exception) {
-            showToast("无法请求录屏权限：${e.message}")
+            showToast(localized("无法请求录屏权限：${e.message}"))
         }
     }
 
@@ -276,13 +278,13 @@ class JungleHelperService : Service() {
         val startAfter = intent.getBooleanExtra(EXTRA_START_OCR_AFTER_PERMISSION, false)
 
         if (resultCode != android.app.Activity.RESULT_OK || data == null) {
-            showToast("录屏权限被拒绝")
+            showToast(localized("录屏权限被拒绝"))
             return
         }
 
         val mgr = mediaProjectionManager
         if (mgr == null) {
-            showToast("无法获取 MediaProjectionManager")
+            showToast(localized("无法获取 MediaProjectionManager"))
             return
         }
 
@@ -292,11 +294,11 @@ class JungleHelperService : Service() {
         try {
             startForegroundWithTypes(includeMediaProjection = true)
         } catch (e: SecurityException) {
-            showToast("无法启动录屏前台服务：${e.message}")
+            showToast(localized("无法启动录屏前台服务：${e.message}"))
             startForegroundWithTypes(includeMediaProjection = false)
             return
         } catch (e: Exception) {
-            showToast("无法启动录屏前台服务：${e.message}")
+            showToast(localized("无法启动录屏前台服务：${e.message}"))
             startForegroundWithTypes(includeMediaProjection = false)
             return
         }
@@ -304,11 +306,11 @@ class JungleHelperService : Service() {
         mediaProjection = try {
             mgr.getMediaProjection(resultCode, data)
         } catch (e: SecurityException) {
-            showToast("无法获取录屏权限：${e.message}")
+            showToast(localized("无法获取录屏权限：${e.message}"))
             startForegroundWithTypes(includeMediaProjection = false)
             return
         } catch (e: Exception) {
-            showToast("无法获取录屏权限：${e.message}")
+            showToast(localized("无法获取录屏权限：${e.message}"))
             startForegroundWithTypes(includeMediaProjection = false)
             return
         }
@@ -327,11 +329,11 @@ class JungleHelperService : Service() {
         try {
             ensureCaptureResources(getRealDisplayMetrics())
         } catch (e: SecurityException) {
-            showToast("录屏初始化失败：${e.message}")
+            showToast(localized("录屏初始化失败：${e.message}"))
             stopMediaProjection()
             return
         } catch (e: Exception) {
-            showToast("录屏初始化失败：${e.message}")
+            showToast(localized("录屏初始化失败：${e.message}"))
             stopMediaProjection()
             return
         }
@@ -383,7 +385,7 @@ class JungleHelperService : Service() {
             wm.addView(view, params)
             ocrSelectionView = view
         } catch (e: Exception) {
-            showToast("无法显示 OCR 框选层：${e.message}")
+            showToast(localized("无法显示 OCR 框选层：${e.message}"))
         }
     }
 
@@ -539,7 +541,7 @@ class JungleHelperService : Service() {
     private fun startOcrForRect(rect: Rect) {
         if (isOcrInProgress) return
         isOcrInProgress = true
-        showToast("正在识别...")
+        showToast(localized("正在识别..."))
 
         val overlayView = imguiView
         val overlayOldAlpha = overlayView?.alpha ?: 1f
@@ -556,7 +558,7 @@ class JungleHelperService : Service() {
 
                 val fullBitmap = captureScreenBitmap()
                 if (fullBitmap == null) {
-                    showToast("截图失败（请确认已授权录屏权限）")
+                    showToast(localized("截图失败（请确认已授权录屏权限）"))
                     return@launch
                 }
 
@@ -602,7 +604,7 @@ class JungleHelperService : Service() {
                 }
                 showToast(toastText)
             } catch (e: Exception) {
-                showToast("OCR 失败：${e.message}")
+                showToast(localized("OCR 失败：${e.message}"))
             } finally {
                 resizeHandler.post {
                     overlayView?.alpha = overlayOldAlpha
@@ -999,7 +1001,7 @@ class JungleHelperService : Service() {
                 "打野助手",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "打野助手悬浮窗口服务"
+                description = localized("打野助手悬浮窗口服务")
                 setShowBadge(false)
             }
             val notificationManager = getSystemService(NotificationManager::class.java)
@@ -1035,14 +1037,14 @@ class JungleHelperService : Service() {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("打野助手")
-            .setContentText("正在运行")
+            .setContentTitle(localized("打野助手"))
+            .setContentText(localized("正在运行"))
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
-            .addAction(0, "显示/隐藏", togglePendingIntent)
+            .addAction(0, localized("显示/隐藏"), togglePendingIntent)
             .addAction(0, "OCR", ocrPendingIntent)
-            .addAction(0, "停止", stopPendingIntent)
+            .addAction(0, localized("停止"), stopPendingIntent)
             .build()
     }
 }

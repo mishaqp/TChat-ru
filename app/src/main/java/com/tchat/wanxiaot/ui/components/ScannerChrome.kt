@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.components
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,7 +49,7 @@ fun ScannerTopBar(
             IconButton(onClick = onBack) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "返回"
+                    contentDescription = localized("返回")
                 )
             }
             Column(

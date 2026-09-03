@@ -5,6 +5,8 @@ package com.tchat.wanxiaot.i18n
  * 所有 UI 文本都通过此接口提供，支持多语言
  */
 interface Strings {
+    /** Перевод прямых UI-строк для активного языка. */
+    fun translate(text: String): String = text
     // ==================== 通用 ====================
     val appName: String
     val settings: String

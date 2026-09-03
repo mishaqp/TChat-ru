@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
@@ -456,7 +458,7 @@ fun ProviderEditScreen(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("删除服务商") },
+            title = { Text(localized("删除服务商")) },
             text = { Text("确定要删除 \"${name.ifEmpty { "未命名" }}\" 吗？此操作不可撤销。") },
             confirmButton = {
                 Button(
@@ -469,12 +471,12 @@ fun ProviderEditScreen(
                         containerColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { showDeleteDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -495,20 +497,20 @@ fun ProviderEditScreen(
                     showNaapiPlanDialog = false
                 }
             },
-            title = { Text("选择套餐和支付方案") },
+            title = { Text(localized("选择套餐和支付方案")) },
             text = {
                 Column(
                     modifier = Modifier.heightIn(max = 460.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        text = "开源提示：NAAPI 是可选服务。本页面只在你点击购买或激活时，将设备摘要发送到当前端点；代码中没有内置密钥。",
+                        text = localized("开源提示：NAAPI 是可选服务。本页面只在你点击购买或激活时，将设备摘要发送到当前端点；代码中没有内置密钥。"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     Text(
-                        text = "支付方案",
+                        text = localized("支付方案"),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -645,7 +647,7 @@ fun ProviderEditScreen(
                     onClick = { showNaapiPlanDialog = false },
                     enabled = !isCreatingNaapiOrder && !isPollingNaapiOrder
                 ) {
-                    Text("关闭")
+                    Text(localized("关闭"))
                 }
             }
         )
@@ -663,16 +665,16 @@ fun ProviderEditScreen(
         AlertDialog(
             onDismissRequest = { showAddKeyDialog = false },
             icon = { Icon(Icons.Default.Add, contentDescription = null) },
-            title = { Text("添加 API Key") },
+            title = { Text(localized("添加 API Key")) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedTextField(
                         value = keysText,
                         onValueChange = { keysText = it; errorText = null },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Key（可多条）") },
+                        label = { Text(localized("Key（可多条）")) },
                         placeholder = { Text("sk-xxxx...") },
-                        supportingText = { Text("可用空格/换行/逗号分隔，一次添加多条") },
+                        supportingText = { Text(localized("可用空格/换行/逗号分隔，一次添加多条")) },
                         minLines = 2,
                         maxLines = 4
                     )
@@ -681,8 +683,8 @@ fun ProviderEditScreen(
                         value = nameText,
                         onValueChange = { nameText = it },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text("名称（可选）") },
-                        placeholder = { Text("如：备用 Key 1") },
+                        label = { Text(localized("名称（可选）")) },
+                        placeholder = { Text(localized("如：备用 Key 1")) },
                         singleLine = true
                     )
 
@@ -696,10 +698,10 @@ fun ProviderEditScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Switch(checked = enabled, onCheckedChange = { enabled = it })
-                            Text("启用")
+                            Text(localized("启用"))
                         }
 
-                        Text("优先级: ${priority.toInt()}")
+                        Text(localized("优先级: ${priority.toInt()}"))
                     }
 
                     Slider(
@@ -750,12 +752,12 @@ fun ProviderEditScreen(
                         showAddKeyDialog = false
                     }
                 ) {
-                    Text("添加")
+                    Text(localized("添加"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { showAddKeyDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -771,7 +773,7 @@ fun ProviderEditScreen(
         AlertDialog(
             onDismissRequest = { editingKey = null },
             icon = { Icon(Icons.Outlined.Edit, contentDescription = null) },
-            title = { Text("编辑 API Key") },
+            title = { Text(localized("编辑 API Key")) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedTextField(
@@ -787,8 +789,8 @@ fun ProviderEditScreen(
                         value = nameText,
                         onValueChange = { nameText = it },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text("名称（可选）") },
-                        placeholder = { Text("如：主 Key") },
+                        label = { Text(localized("名称（可选）")) },
+                        placeholder = { Text(localized("如：主 Key")) },
                         singleLine = true
                     )
 
@@ -802,10 +804,10 @@ fun ProviderEditScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Switch(checked = enabled, onCheckedChange = { enabled = it })
-                            Text("启用")
+                            Text(localized("启用"))
                         }
 
-                        Text("优先级: ${priority.toInt()}")
+                        Text(localized("优先级: ${priority.toInt()}"))
                     }
 
                     Slider(
@@ -816,7 +818,7 @@ fun ProviderEditScreen(
                     )
 
                     Text(
-                        text = "状态: ${keyToEdit.status.displayLabel()}",
+                        text = localized("状态: ${keyToEdit.status.displayLabel()}"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -865,12 +867,12 @@ fun ProviderEditScreen(
                         editingKey = null
                     }
                 ) {
-                    Text("保存")
+                    Text(localized("保存"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { editingKey = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -886,8 +888,8 @@ fun ProviderEditScreen(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("删除 API Key") },
-            text = { Text("确定要删除 \"${keyToDelete.getDisplayName()}\" 吗？") },
+            title = { Text(localized("删除 API Key")) },
+            text = { Text(localized("确定要删除 \"${keyToDelete.getDisplayName()}\" 吗？")) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -896,12 +898,12 @@ fun ProviderEditScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { deletingKey = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -948,11 +950,11 @@ fun ProviderEditScreen(
         
         AlertDialog(
             onDismissRequest = { showModelPicker = false },
-            title = { Text("选择要添加的模型") },
+            title = { Text(localized("选择要添加的模型")) },
             text = {
                 Column(modifier = Modifier.heightIn(max = 400.dp)) {
                     Text(
-                        text = "共 ${fetchedModels.size} 个可用模型",
+                        text = localized("共 ${fetchedModels.size} 个可用模型"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 12.dp)
@@ -1034,12 +1036,12 @@ fun ProviderEditScreen(
                     },
                     enabled = selectedToAdd.isNotEmpty()
                 ) {
-                    Text("添加 ${selectedToAdd.size} 个")
+                    Text(localized("添加 ${selectedToAdd.size} 个"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { showModelPicker = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -1053,13 +1055,13 @@ fun ProviderEditScreen(
         actions = {
             if (!isNew) {
                 IconButton(onClick = { showQRDialog = true }) {
-                    Icon(Icons.Outlined.Share, contentDescription = "分享")
+                    Icon(Icons.Outlined.Share, contentDescription = localized("分享"))
                 }
                 if (onDelete != null) {
                     IconButton(onClick = { showDeleteDialog = true }) {
                         Icon(
                             Icons.Outlined.Delete,
-                            contentDescription = "删除",
+                            contentDescription = localized("删除"),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
@@ -1094,14 +1096,14 @@ fun ProviderEditScreen(
 
             // 基本信息卡片
             SettingsGroupCard(
-                title = "基本信息",
-                description = "先定义服务商类型、名称和默认端点。"
+                title = localized("基本信息"),
+                description = localized("先定义服务商类型、名称和默认端点。")
             ) {
                     OutlinedTextField(
                         value = name,
                         onValueChange = { name = it },
-                        label = { Text("名称") },
-                        placeholder = { Text("例如：我的 OpenAI") },
+                        label = { Text(localized("名称")) },
+                        placeholder = { Text(localized("例如：我的 OpenAI")) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
@@ -1114,7 +1116,7 @@ fun ProviderEditScreen(
                             value = providerType.displayName,
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text("服务商类型") },
+                            label = { Text(localized("服务商类型")) },
                             leadingIcon = {
                                 Icon(
                                     imageVector = providerType.icon(),
@@ -1208,8 +1210,8 @@ fun ProviderEditScreen(
             }
 
             SettingsGroupCard(
-                title = "服务模式",
-                description = "普通用户可使用官方服务，高级用户保留自定义与本地模型。"
+                title = localized("服务模式"),
+                description = localized("普通用户可使用官方服务，高级用户保留自定义与本地模型。")
             ) {
                 Text(
                     text = when (serviceMode) {
@@ -1285,8 +1287,8 @@ fun ProviderEditScreen(
 
             // API 配置卡片
             SettingsGroupCard(
-                title = "API 配置",
-                description = "单 Key 直连或作为多 Key 方案的备用入口。"
+                title = localized("API 配置"),
+                description = localized("单 Key 直连或作为多 Key 方案的备用入口。")
             ) {
                     OutlinedTextField(
                         value = apiKey,
@@ -1324,9 +1326,9 @@ fun ProviderEditScreen(
                                 naapiActivationMessage = null
                                 naapiActivationSuccess = null
                             },
-                            label = { Text("兑换码（激活时使用）") },
+                            label = { Text(localized("兑换码（激活时使用）")) },
                             placeholder = { Text("NAAPI-TCHAT-XXXX-XXXX-XXXX") },
-                                    supportingText = { Text("已有许可证或旧版兑换码时填写；许可证会绑定当前设备") },
+                                    supportingText = { Text(localized("已有许可证或旧版兑换码时填写；许可证会绑定当前设备")) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
@@ -1342,12 +1344,12 @@ fun ProviderEditScreen(
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Text(
-                                    text = "设备 ID：${NaapiTChatSupport.maskedDeviceId(context)}",
+                                    text = localized("设备 ID：${NaapiTChatSupport.maskedDeviceId(context)}"),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
                                 Text(
-                                    text = "官方服务使用 t.naapi.cc 套餐。开通后使用许可证访问官方 OpenAI 兼容网关。",
+                                    text = localized("官方服务使用 t.naapi.cc 套餐。开通后使用许可证访问官方 OpenAI 兼容网关。"),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
@@ -1435,14 +1437,14 @@ fun ProviderEditScreen(
                                             )
                                             Spacer(Modifier.width(8.dp))
                                         }
-                                        Text("激活当前设备")
+                                        Text(localized("激活当前设备"))
                                     }
                                 }
 
                                 naapiPendingOrder?.let { pendingOrder ->
                                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                         Text(
-                                            text = "未完成订单：${pendingOrder.orderNo}",
+                                            text = localized("未完成订单：${pendingOrder.orderNo}"),
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.onSecondaryContainer
                                         )
@@ -1456,7 +1458,7 @@ fun ProviderEditScreen(
                                                 enabled = !isNaapiLicenseBusy,
                                                 modifier = Modifier.fillMaxWidth()
                                             ) {
-                                                Text("继续查询订单")
+                                                Text(localized("继续查询订单"))
                                             }
                                             OutlinedButton(
                                                 onClick = {
@@ -1471,7 +1473,7 @@ fun ProviderEditScreen(
                                                 enabled = !isNaapiLicenseBusy,
                                                 modifier = Modifier.fillMaxWidth()
                                             ) {
-                                                Text("打开支付页")
+                                                Text(localized("打开支付页"))
                                             }
                                             TextButton(
                                                 onClick = {
@@ -1483,7 +1485,7 @@ fun ProviderEditScreen(
                                                 enabled = !isNaapiLicenseBusy,
                                                 modifier = Modifier.fillMaxWidth()
                                             ) {
-                                                Text("清除")
+                                                Text(localized("清除"))
                                             }
                                         }
                                     }
@@ -1523,15 +1525,15 @@ fun ProviderEditScreen(
                             naapiLicenseMessage = null
                             naapiLicenseSuccess = null
                         },
-                        label = { Text("API 端点") },
+                        label = { Text(localized("API 端点")) },
                         placeholder = { Text(providerType.defaultEndpoint) },
-                        supportingText = { Text("留空使用默认端点") },
+                        supportingText = { Text(localized("留空使用默认端点")) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
 
                     Text(
-                        text = "鉴权方式",
+                        text = localized("鉴权方式"),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -1577,7 +1579,7 @@ fun ProviderEditScreen(
                             OutlinedTextField(
                                 value = authHeaderName,
                                 onValueChange = { authHeaderName = it },
-                                label = { Text("鉴权 Header") },
+                                label = { Text(localized("鉴权 Header")) },
                                 placeholder = { Text("Authorization") },
                                 modifier = Modifier.weight(1f),
                                 singleLine = true
@@ -1585,7 +1587,7 @@ fun ProviderEditScreen(
                             OutlinedTextField(
                                 value = authHeaderPrefix,
                                 onValueChange = { authHeaderPrefix = it },
-                                label = { Text("前缀") },
+                                label = { Text(localized("前缀")) },
                                 placeholder = { Text("Bearer ") },
                                 modifier = Modifier.weight(1f),
                                 singleLine = true
@@ -1641,7 +1643,7 @@ fun ProviderEditScreen(
                                 )
                                 Spacer(Modifier.width(8.dp))
                             }
-                            Text("测试连通")
+                            Text(localized("测试连通"))
                         }
 
                         connectionTestMessage?.let { message ->
@@ -1660,13 +1662,13 @@ fun ProviderEditScreen(
             }
 
             SettingsGroupCard(
-                title = "路径与扩展端点",
-                description = "兼容 NewAPI、自建网关、Responses、图片与 Embedding 路由。"
+                title = localized("路径与扩展端点"),
+                description = localized("兼容 NewAPI、自建网关、Responses、图片与 Embedding 路由。")
             ) {
                 OutlinedTextField(
                     value = apiPath,
                     onValueChange = { apiPath = it },
-                    label = { Text("聊天路径") },
+                    label = { Text(localized("聊天路径")) },
                     placeholder = { Text(providerType.defaultApiPath) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -1674,7 +1676,7 @@ fun ProviderEditScreen(
                 OutlinedTextField(
                     value = modelsPath,
                     onValueChange = { modelsPath = it },
-                    label = { Text("模型列表路径") },
+                    label = { Text(localized("模型列表路径")) },
                     placeholder = { Text(providerType.defaultModelsPath) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -1682,15 +1684,15 @@ fun ProviderEditScreen(
                 OutlinedTextField(
                     value = imagesPath,
                     onValueChange = { imagesPath = it },
-                    label = { Text("图片生成路径") },
-                    placeholder = { Text(providerType.defaultImagesPath.ifBlank { "可留空" }) },
+                    label = { Text(localized("图片生成路径")) },
+                    placeholder = { Text(providerType.defaultImagesPath.ifBlank { localized("可留空") }) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = embeddingsPath,
                     onValueChange = { embeddingsPath = it },
-                    label = { Text("Embedding 路径") },
+                    label = { Text(localized("Embedding 路径")) },
                     placeholder = { Text("/embeddings") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -1698,9 +1700,9 @@ fun ProviderEditScreen(
                 OutlinedTextField(
                     value = modelCatalogPath,
                     onValueChange = { modelCatalogPath = it },
-                    label = { Text("友好模型目录路径") },
+                    label = { Text(localized("友好模型目录路径")) },
                     placeholder = { Text("/api/tchat/model-catalog") },
-                    supportingText = { Text("官方服务可返回模型展示名、推荐标记与能力标签") },
+                    supportingText = { Text(localized("官方服务可返回模型展示名、推荐标记与能力标签")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -1710,9 +1712,9 @@ fun ProviderEditScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("启用代理", style = MaterialTheme.typography.bodyMedium)
+                        Text(localized("启用代理"), style = MaterialTheme.typography.bodyMedium)
                         Text(
-                            text = "保留代理配置开关，后续可接入全局代理设置",
+                            text = localized("保留代理配置开关，后续可接入全局代理设置"),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -1722,8 +1724,8 @@ fun ProviderEditScreen(
             }
 
             SettingsGroupCard(
-                title = "自定义 Header",
-                description = "可添加任意网关需要的 Header，例如组织 ID、项目 ID 或路由标记。"
+                title = localized("自定义 Header"),
+                description = localized("可添加任意网关需要的 Header，例如组织 ID、项目 ID 或路由标记。")
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -1733,7 +1735,7 @@ fun ProviderEditScreen(
                     OutlinedTextField(
                         value = headerName,
                         onValueChange = { headerName = it },
-                        label = { Text("Header 名") },
+                        label = { Text(localized("Header 名")) },
                         placeholder = { Text("X-Custom-Header") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -1741,7 +1743,7 @@ fun ProviderEditScreen(
                     OutlinedTextField(
                         value = headerValue,
                         onValueChange = { headerValue = it },
-                        label = { Text("Header 值") },
+                        label = { Text(localized("Header 值")) },
                         placeholder = { Text("value") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -1758,13 +1760,13 @@ fun ProviderEditScreen(
                         },
                         enabled = headerName.isNotBlank() && headerValue.isNotBlank()
                     ) {
-                        Icon(Icons.Default.Add, contentDescription = "添加 Header")
+                        Icon(Icons.Default.Add, contentDescription = localized("添加 Header"))
                     }
                 }
 
                 if (customHeaders.isEmpty()) {
                     Text(
-                        text = "暂无自定义 Header",
+                        text = localized("暂无自定义 Header"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -1798,7 +1800,7 @@ fun ProviderEditScreen(
                                     IconButton(onClick = { customHeaders = customHeaders - key }) {
                                         Icon(
                                             Icons.Outlined.Delete,
-                                            contentDescription = "删除 Header",
+                                            contentDescription = localized("删除 Header"),
                                             tint = MaterialTheme.colorScheme.error
                                         )
                                     }
@@ -1811,8 +1813,8 @@ fun ProviderEditScreen(
 
             // 多 Key 管理卡片
             SettingsGroupCard(
-                title = "多 Key 管理",
-                description = "用于轮询、优先级和故障切换，降低单 Key 失效风险。"
+                title = localized("多 Key 管理"),
+                description = localized("用于轮询、优先级和故障切换，降低单 Key 失效风险。")
             ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -1821,12 +1823,12 @@ fun ProviderEditScreen(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "启用多 Key",
+                                text = localized("启用多 Key"),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = "同一服务商配置多个 Key，自动轮询与故障切换",
+                                text = localized("同一服务商配置多个 Key，自动轮询与故障切换"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -1855,7 +1857,7 @@ fun ProviderEditScreen(
                                 value = keySelectionStrategy.displayLabel(),
                                 onValueChange = {},
                                 readOnly = true,
-                                label = { Text("选择策略") },
+                                label = { Text(localized("选择策略")) },
                                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = strategyExpanded) },
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -1879,7 +1881,7 @@ fun ProviderEditScreen(
 
                         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             Text(
-                                text = "失败阈值: $maxFailuresBeforeDisable（达到后标记为错误）",
+                                text = localized("失败阈值: $maxFailuresBeforeDisable（达到后标记为错误）"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -1893,7 +1895,7 @@ fun ProviderEditScreen(
 
                         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             Text(
-                                text = "自动恢复: $autoRecoveryMinutes 分钟（错误 Key 冷却后重新启用）",
+                                text = localized("自动恢复: $autoRecoveryMinutes 分钟（错误 Key 冷却后重新启用）"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -1912,20 +1914,20 @@ fun ProviderEditScreen(
                         ) {
                             val availableCount = apiKeys.count { it.isEnabled && it.status == ApiKeyStatus.ACTIVE }
                             Text(
-                                text = "可用 Key：$availableCount / ${apiKeys.size}",
+                                text = localized("可用 Key：$availableCount / ${apiKeys.size}"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             OutlinedButton(onClick = { showAddKeyDialog = true }) {
                                 Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("添加 Key")
+                                Text(localized("添加 Key"))
                             }
                         }
 
                         if (apiKeys.isEmpty()) {
                             Text(
-                                text = "暂无 Key，请点击“添加 Key”",
+                                text = localized("暂无 Key，请点击“添加 Key”"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -1953,7 +1955,7 @@ fun ProviderEditScreen(
                                                     overflow = TextOverflow.Ellipsis
                                                 )
                                                 Text(
-                                                    text = "${key.getMaskedKey()} · 优先级 ${key.priority} · ${key.status.displayLabel()}",
+                                                    text = localized("${key.getMaskedKey()} · 优先级 ${key.priority} · ${key.status.displayLabel()}"),
                                                     style = MaterialTheme.typography.bodySmall,
                                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                                     maxLines = 1,
@@ -1974,12 +1976,12 @@ fun ProviderEditScreen(
                                                     }
                                                 )
                                                 IconButton(onClick = { editingKey = key }) {
-                                                    Icon(Icons.Outlined.Edit, contentDescription = "编辑")
+                                                    Icon(Icons.Outlined.Edit, contentDescription = localized("编辑"))
                                                 }
                                                 IconButton(onClick = { deletingKey = key }) {
                                                     Icon(
                                                         Icons.Outlined.Delete,
-                                                        contentDescription = "删除",
+                                                        contentDescription = localized("删除"),
                                                         tint = MaterialTheme.colorScheme.error
                                                     )
                                                 }
@@ -1994,8 +1996,8 @@ fun ProviderEditScreen(
 
             // 模型配置卡片
             SettingsGroupCard(
-                title = "模型配置",
-                description = "拉取、筛选并维护这个服务商可用的聊天模型。"
+                title = localized("模型配置"),
+                description = localized("拉取、筛选并维护这个服务商可用的聊天模型。")
             ) {
                     val modelFetchKey = remember(apiKey, multiKeyEnabled, apiKeys) {
                         if (multiKeyEnabled && apiKeys.isNotEmpty()) {
@@ -2011,7 +2013,7 @@ fun ProviderEditScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "模型配置",
+                            text = localized("模型配置"),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -2083,7 +2085,7 @@ fun ProviderEditScreen(
                     }
 
                     Text(
-                        text = "${savedModels.size} 个模型",
+                        text = localized("${savedModels.size} 个模型"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -2137,7 +2139,7 @@ fun ProviderEditScreen(
                                                     shape = MaterialTheme.shapes.extraSmall
                                                 ) {
                                                     Text(
-                                                        text = "已配置",
+                                                        text = localized("已配置"),
                                                         style = MaterialTheme.typography.labelSmall,
                                                         color = MaterialTheme.colorScheme.onTertiaryContainer,
                                                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
@@ -2166,7 +2168,7 @@ fun ProviderEditScreen(
                                         ) {
                                             Icon(
                                                 Icons.Outlined.Settings,
-                                                contentDescription = "配置参数",
+                                                contentDescription = localized("配置参数"),
                                                 modifier = Modifier.size(18.dp),
                                                 tint = if (modelCustomParams.containsKey(model))
                                                     MaterialTheme.colorScheme.primary
@@ -2180,7 +2182,7 @@ fun ProviderEditScreen(
                                         ) {
                                             Icon(
                                                 Icons.Default.Check,
-                                                contentDescription = "能力标签",
+                                                contentDescription = localized("能力标签"),
                                                 modifier = Modifier.size(18.dp),
                                                 tint = if (modelCapabilities.containsKey(model))
                                                     MaterialTheme.colorScheme.primary
@@ -2200,7 +2202,7 @@ fun ProviderEditScreen(
                                         ) {
                                             Icon(
                                                 Icons.Outlined.Delete,
-                                                contentDescription = "删除",
+                                                contentDescription = localized("删除"),
                                                 modifier = Modifier.size(18.dp),
                                                 tint = MaterialTheme.colorScheme.error
                                             )
@@ -2215,7 +2217,7 @@ fun ProviderEditScreen(
                             shape = MaterialTheme.shapes.small
                         ) {
                             Text(
-                                text = "暂无保存的模型，请拉取或手动添加",
+                                text = localized("暂无保存的模型，请拉取或手动添加"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.padding(12.dp)
@@ -2234,8 +2236,8 @@ fun ProviderEditScreen(
                         OutlinedTextField(
                             value = customModel,
                             onValueChange = { customModel = it },
-                            label = { Text("手动添加") },
-                            placeholder = { Text("模型名称") },
+                            label = { Text(localized("手动添加")) },
+                            placeholder = { Text(localized("模型名称")) },
                             modifier = Modifier.weight(1f),
                             singleLine = true
                         )
@@ -2251,7 +2253,7 @@ fun ProviderEditScreen(
                             },
                             enabled = customModel.isNotBlank()
                         ) {
-                            Icon(Icons.Default.Add, contentDescription = "添加")
+                            Icon(Icons.Default.Add, contentDescription = localized("添加"))
                         }
                     }
             }
@@ -2402,7 +2404,7 @@ private fun ModelCapabilityDialog(
         onDismissRequest = onDismiss,
         title = {
             Column {
-                Text("模型能力标签")
+                Text(localized("模型能力标签"))
                 Text(
                     text = modelName,
                     style = MaterialTheme.typography.bodySmall,
@@ -2420,8 +2422,8 @@ private fun ModelCapabilityDialog(
                 OutlinedTextField(
                     value = displayName,
                     onValueChange = { displayName = it },
-                    label = { Text("展示名称") },
-                    placeholder = { Text("日常推荐") },
+                    label = { Text(localized("展示名称")) },
+                    placeholder = { Text(localized("日常推荐")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -2429,7 +2431,7 @@ private fun ModelCapabilityDialog(
                     OutlinedTextField(
                         value = vendor,
                         onValueChange = { vendor = it },
-                        label = { Text("厂商") },
+                        label = { Text(localized("厂商")) },
                         placeholder = { Text("OpenAI") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -2437,7 +2439,7 @@ private fun ModelCapabilityDialog(
                     OutlinedTextField(
                         value = category,
                         onValueChange = { category = it },
-                        label = { Text("分类") },
+                        label = { Text(localized("分类")) },
                         placeholder = { Text("general") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -2455,7 +2457,7 @@ private fun ModelCapabilityDialog(
                     OutlinedTextField(
                         value = speed,
                         onValueChange = { speed = it },
-                        label = { Text("速度") },
+                        label = { Text(localized("速度")) },
                         placeholder = { Text("fast") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -2463,7 +2465,7 @@ private fun ModelCapabilityDialog(
                     OutlinedTextField(
                         value = quality,
                         onValueChange = { quality = it },
-                        label = { Text("质量") },
+                        label = { Text(localized("质量")) },
                         placeholder = { Text("balanced") },
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -2472,7 +2474,7 @@ private fun ModelCapabilityDialog(
                 OutlinedTextField(
                     value = costLevel,
                     onValueChange = { costLevel = it },
-                    label = { Text("成本等级") },
+                    label = { Text(localized("成本等级")) },
                     placeholder = { Text("low") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -2501,16 +2503,16 @@ private fun ModelCapabilityDialog(
                     )
                 }
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = onClear) {
-                    Text("清除")
+                    Text(localized("清除"))
                 }
                 OutlinedButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         }
@@ -2570,7 +2572,7 @@ private fun ModelParamsDialog(
         onDismissRequest = onDismiss,
         title = {
             Column {
-                Text("模型参数配置")
+                Text(localized("模型参数配置"))
                 Text(
                     text = modelName,
                     style = MaterialTheme.typography.bodySmall,
@@ -2665,7 +2667,7 @@ private fun ModelParamsDialog(
                 // Extra JSON Params
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
-                        text = "自定义 JSON 参数",
+                        text = localized("自定义 JSON 参数"),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -2674,7 +2676,7 @@ private fun ModelParamsDialog(
                         onValueChange = { extraParams = it },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("{\"stop\": [\"<|end|>\"]}") },
-                        supportingText = { Text("直接合并到请求体，覆盖同名参数") },
+                        supportingText = { Text(localized("直接合并到请求体，覆盖同名参数")) },
                         minLines = 2,
                         maxLines = 4
                     )
@@ -2698,12 +2700,12 @@ private fun ModelParamsDialog(
                     onSave(newParams)
                 }
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -2863,18 +2865,18 @@ private data class NaapiPaymentOption(
 private val NAAPI_PAYMENT_OPTIONS = listOf(
     NaapiPaymentOption(
         id = "alipay",
-        label = "支付宝",
-        description = "默认支付宝支付方案"
+        label = localized("支付宝"),
+        description = localized("默认支付宝支付方案")
     ),
     NaapiPaymentOption(
         id = "alipay2",
-        label = "支付宝2",
-        description = "备用支付宝支付方案"
+        label = localized("支付宝2"),
+        description = localized("备用支付宝支付方案")
     ),
     NaapiPaymentOption(
         id = "wxpay",
-        label = "微信支付",
-        description = "微信支付方案"
+        label = localized("微信支付"),
+        description = localized("微信支付方案")
     )
 )
 

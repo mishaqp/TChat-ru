@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.knowledge
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -164,12 +166,12 @@ fun KnowledgeDetailScreen(
     AppPageScaffold(
         title = base.name,
         eyebrow = "Knowledge Base",
-        subtitle = "${items.size} 个条目",
+        subtitle = localized("${items.size} 个条目"),
         showTopBar = showTopBar,
         onBack = onBack,
         actions = {
             IconButton(onClick = { showSearchSheet = true }) {
-                Icon(Icons.Default.Search, contentDescription = "搜索")
+                Icon(Icons.Default.Search, contentDescription = localized("搜索"))
             }
             if (pendingCount > 0) {
                 TextButton(
@@ -185,7 +187,7 @@ fun KnowledgeDetailScreen(
                         Icon(Icons.Default.PlayArrow, null, modifier = Modifier.size(16.dp))
                     }
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("处理 ($pendingCount)")
+                    Text(localized("处理 ($pendingCount)"))
                 }
             }
         },
@@ -196,14 +198,14 @@ fun KnowledgeDetailScreen(
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("添加条目")
+                    Text(localized("添加条目"))
                 }
                 DropdownMenu(
                     expanded = showAddMenu,
                     onDismissRequest = { showAddMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("添加文件") },
+                        text = { Text(localized("添加文件")) },
                         onClick = {
                             showAddMenu = false
                             filePicker.launch("*/*")
@@ -211,7 +213,7 @@ fun KnowledgeDetailScreen(
                         leadingIcon = { Icon(Lucide.File, null) }
                     )
                     DropdownMenuItem(
-                        text = { Text("添加笔记") },
+                        text = { Text(localized("添加笔记")) },
                         onClick = {
                             showAddMenu = false
                             showAddNoteSheet = true
@@ -219,7 +221,7 @@ fun KnowledgeDetailScreen(
                         leadingIcon = { Icon(Lucide.StickyNote, null) }
                     )
                     DropdownMenuItem(
-                        text = { Text("添加URL") },
+                        text = { Text(localized("添加URL")) },
                         onClick = {
                             showAddMenu = false
                             showAddUrlSheet = true
@@ -274,8 +276,8 @@ fun KnowledgeDetailScreen(
                 ) {
                     AppEmptyState(
                         icon = Lucide.FileText,
-                        title = "暂无条目",
-                        description = "从文件、笔记或 URL 开始，把这个知识库逐步搭成可检索内容层。"
+                        title = localized("暂无条目"),
+                        description = localized("从文件、笔记或 URL 开始，把这个知识库逐步搭成可检索内容层。")
                     )
                 }
             } else {
@@ -370,8 +372,8 @@ fun KnowledgeDetailScreen(
     itemToDelete?.let { item ->
         AlertDialog(
             onDismissRequest = { itemToDelete = null },
-            title = { Text("删除条目") },
-            text = { Text("确定要删除「${item.title}」吗？") },
+            title = { Text(localized("删除条目")) },
+            text = { Text(localized("确定要删除「${item.title}」吗？")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -380,12 +382,12 @@ fun KnowledgeDetailScreen(
                         Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show()
                     }
                 ) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(localized("删除"), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { itemToDelete = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -431,11 +433,11 @@ private fun ProcessingQueueCard(
                 }
                 if (queue.running) {
                     TextButton(onClick = onCancel) {
-                        Text("取消")
+                        Text(localized("取消"))
                     }
                 } else if (failedCount > 0) {
                     TextButton(onClick = onRetryFailed) {
-                        Text("重试失败")
+                        Text(localized("重试失败"))
                     }
                 }
             }
@@ -449,7 +451,7 @@ private fun ProcessingQueueCard(
 
             queue.currentTitle?.let { title ->
                 Text(
-                    text = "当前：$title",
+                    text = localized("当前：$title"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -527,13 +529,13 @@ private fun KnowledgeItemCard(
                     onClick = onProcess,
                     enabled = !isProcessing
                 ) {
-                    Icon(Icons.Default.PlayArrow, contentDescription = "处理")
+                    Icon(Icons.Default.PlayArrow, contentDescription = localized("处理"))
                 }
             }
 
             Box {
                 IconButton(onClick = { showMenu = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "更多")
+                    Icon(Icons.Default.MoreVert, contentDescription = localized("更多"))
                 }
                 DropdownMenu(
                     expanded = showMenu,
@@ -541,7 +543,7 @@ private fun KnowledgeItemCard(
                 ) {
                     if (itemType != KnowledgeItemType.FILE) {
                         DropdownMenuItem(
-                            text = { Text("编辑") },
+                            text = { Text(localized("编辑")) },
                             onClick = {
                                 showMenu = false
                                 onEdit()
@@ -550,7 +552,7 @@ private fun KnowledgeItemCard(
                         )
                     }
                     DropdownMenuItem(
-                        text = { Text("删除") },
+                        text = { Text(localized("删除")) },
                         onClick = {
                             showMenu = false
                             onDelete()
@@ -626,14 +628,14 @@ private fun AddNoteSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "添加笔记",
+                text = localized("添加笔记"),
                 style = MaterialTheme.typography.titleLarge
             )
 
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("标题") },
+                label = { Text(localized("标题")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -641,7 +643,7 @@ private fun AddNoteSheet(
             OutlinedTextField(
                 value = content,
                 onValueChange = { content = it },
-                label = { Text("内容") },
+                label = { Text(localized("内容")) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
@@ -653,13 +655,13 @@ private fun AddNoteSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
                 TextButton(
                     onClick = { onAdd(title, content) },
                     enabled = title.isNotBlank() && content.isNotBlank()
                 ) {
-                    Text("添加")
+                    Text(localized("添加"))
                 }
             }
         }
@@ -687,14 +689,14 @@ private fun EditNoteSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "编辑笔记",
+                text = localized("编辑笔记"),
                 style = MaterialTheme.typography.titleLarge
             )
 
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("标题") },
+                label = { Text(localized("标题")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -702,7 +704,7 @@ private fun EditNoteSheet(
             OutlinedTextField(
                 value = content,
                 onValueChange = { content = it },
-                label = { Text("内容") },
+                label = { Text(localized("内容")) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
@@ -714,13 +716,13 @@ private fun EditNoteSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
                 TextButton(
                     onClick = { onUpdate(title, content) },
                     enabled = title.isNotBlank() && content.isNotBlank()
                 ) {
-                    Text("保存")
+                    Text(localized("保存"))
                 }
             }
         }
@@ -747,7 +749,7 @@ private fun AddUrlSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "添加URL",
+                text = localized("添加URL"),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -763,7 +765,7 @@ private fun AddUrlSheet(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("标题（可选）") },
+                label = { Text(localized("标题（可选）")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -773,13 +775,13 @@ private fun AddUrlSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
                 TextButton(
                     onClick = { onAdd(url, title.ifBlank { null }) },
                     enabled = url.isNotBlank()
                 ) {
-                    Text("添加")
+                    Text(localized("添加"))
                 }
             }
         }
@@ -807,7 +809,7 @@ private fun EditUrlSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "编辑URL",
+                text = localized("编辑URL"),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -823,7 +825,7 @@ private fun EditUrlSheet(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("标题（可选）") },
+                label = { Text(localized("标题（可选）")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -833,13 +835,13 @@ private fun EditUrlSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
                 TextButton(
                     onClick = { onUpdate(url, title.ifBlank { null }) },
                     enabled = url.isNotBlank()
                 ) {
-                    Text("保存")
+                    Text(localized("保存"))
                 }
             }
         }
@@ -866,15 +868,15 @@ private fun SearchSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "搜索知识库",
+                text = localized("搜索知识库"),
                 style = MaterialTheme.typography.titleLarge
             )
 
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
-                label = { Text("搜索内容") },
-                placeholder = { Text("输入搜索关键词") },
+                label = { Text(localized("搜索内容")) },
+                placeholder = { Text(localized("输入搜索关键词")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -889,7 +891,7 @@ private fun SearchSheet(
 
             if (searchResults.isNotEmpty()) {
                 Text(
-                    text = "找到 ${searchResults.size} 个结果",
+                    text = localized("找到 ${searchResults.size} 个结果"),
                     style = MaterialTheme.typography.labelMedium
                 )
 
@@ -905,7 +907,7 @@ private fun SearchSheet(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = result.item?.title ?: "未知",
+                                        text = result.item?.title ?: localized("未知"),
                                         style = MaterialTheme.typography.labelMedium,
                                         color = MaterialTheme.colorScheme.primary
                                     )
@@ -933,7 +935,7 @@ private fun SearchSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("关闭")
+                    Text(localized("关闭"))
                 }
             }
         }

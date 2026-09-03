@@ -1,4 +1,6 @@
 package com.tchat.feature.chat
+
+import com.tchat.core.UiLocalizer
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -225,7 +227,7 @@ fun MessageItem(
                         StreamingIndicator()
                         Spacer(modifier = Modifier.size(2.dp))
                         Text(
-                            text = "生成中",
+                            text = UiLocalizer.text("生成中"),
                             style = MaterialTheme.typography.bodySmall,
                             color = colorScheme.onSurfaceVariant
                         )
@@ -238,7 +240,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onRegenerate(previousMessage.id, message.id) },
                             icon = Lucide.RefreshCw,
-                            contentDescription = "重新生成"
+                            contentDescription = UiLocalizer.text("重新生成")
                         )
                     }
                 }
@@ -283,7 +285,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onCopy(textContent) },
                             icon = Lucide.Copy,
-                            contentDescription = "复制"
+                            contentDescription = UiLocalizer.text("复制")
                         )
                     }
 
@@ -291,7 +293,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onSpeak(textContent) },
                             icon = Lucide.Volume2,
-                            contentDescription = "朗读"
+                            contentDescription = UiLocalizer.text("朗读")
                         )
                     }
 
@@ -299,7 +301,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onShare(textContent) },
                             icon = Lucide.Share2,
-                            contentDescription = "分享"
+                            contentDescription = UiLocalizer.text("分享")
                         )
                     }
 
@@ -307,7 +309,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onToggleBookmark(message) },
                             icon = if (message.isBookmarked) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                            contentDescription = if (message.isBookmarked) "取消收藏" else "收藏"
+                            contentDescription = if (message.isBookmarked) UiLocalizer.text("取消收藏") else UiLocalizer.text("收藏")
                         )
                     }
 
@@ -315,7 +317,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onReply(message) },
                             icon = Icons.Filled.FormatQuote,
-                            contentDescription = "引用回复"
+                            contentDescription = UiLocalizer.text("引用回复")
                         )
                     }
 
@@ -323,7 +325,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onCreateBranch(message) },
                             icon = Icons.Filled.CallSplit,
-                            contentDescription = "创建分支"
+                            contentDescription = UiLocalizer.text("创建分支")
                         )
                     }
 
@@ -334,7 +336,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onRegenerate(previousMessage.id, message.id) },
                             icon = Lucide.RefreshCw,
-                            contentDescription = "重新生成"
+                            contentDescription = UiLocalizer.text("重新生成")
                         )
                     }
 
@@ -342,7 +344,7 @@ fun MessageItem(
                         BubbleActionButton(
                             onClick = { onDelete(message.id) },
                             icon = Lucide.Trash2,
-                            contentDescription = "删除",
+                            contentDescription = UiLocalizer.text("删除"),
                             tint = colorScheme.error
                         )
                     }
@@ -392,7 +394,7 @@ private fun AssistantMessageHeader(
                 color = colorScheme.onSurfaceVariant.copy(alpha = 0.72f)
             )
             Text(
-                text = speakerName ?: if (modelName.isNotBlank()) modelName else "智能回复",
+                text = speakerName ?: if (modelName.isNotBlank()) modelName else UiLocalizer.text("智能回复"),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
                 color = colorScheme.onSurface,
                 maxLines = 1,
@@ -555,7 +557,7 @@ private fun MessageMediaSection(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "图片不可用：${img.fileName ?: img.filePath}",
+                        text = "${UiLocalizer.text("图片不可用：")}${img.fileName ?: img.filePath}",
                         style = MaterialTheme.typography.bodySmall,
                         color = fallbackTextColor,
                         modifier = Modifier.padding(12.dp)
@@ -594,7 +596,7 @@ private fun MessageMediaSection(
                         }
                     }
                     Text(
-                        text = vid.fileName ?: "视频",
+                        text = vid.fileName ?: UiLocalizer.text("视频"),
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (isUser) fallbackTextColor else colorScheme.onSurface
                     )
@@ -733,7 +735,7 @@ private fun ToolCallCard(result: MessagePart.ToolResult) {
 
                 Icon(
                     imageVector = if (expanded) Lucide.ChevronUp else Lucide.ChevronDown,
-                    contentDescription = if (expanded) "收起" else "查看详情",
+                    contentDescription = if (expanded) UiLocalizer.text("收起") else UiLocalizer.text("查看详情"),
                     modifier = Modifier.size(18.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -746,14 +748,14 @@ private fun ToolCallCard(result: MessagePart.ToolResult) {
                 ) {
                     if (result.arguments.isNotEmpty() && result.arguments != "{}") {
                         ToolDetailSection(
-                            title = "输入参数",
+                            title = UiLocalizer.text("输入参数"),
                             content = formatJson(result.arguments),
                             isInput = true
                         )
                     }
 
                     ToolDetailSection(
-                        title = if (result.isError) "错误信息" else "执行结果",
+                        title = if (result.isError) UiLocalizer.text("错误信息") else UiLocalizer.text("执行结果"),
                         content = formatJson(result.result),
                         isError = result.isError
                     )
@@ -815,7 +817,7 @@ private fun ToolDetailSection(
 private fun formatJson(jsonStr: String): String {
     val trimmed = jsonStr.trim()
     if (trimmed.isEmpty() || trimmed == "{}") {
-        return "(无参数)"
+        return UiLocalizer.text("(无参数)")
     }
     
     return try {
@@ -826,7 +828,7 @@ private fun formatJson(jsonStr: String): String {
         }
     } catch (e: Exception) {
         // 如果解析失败，返回原始字符串
-        jsonStr.ifEmpty { "(解析失败)" }
+        jsonStr.ifEmpty { UiLocalizer.text("(解析失败)") }
     }
 }
 
@@ -847,14 +849,14 @@ private fun VariantSelector(
         ) {
             Icon(
                 imageVector = Lucide.ChevronLeft,
-                contentDescription = "上一个",
+                contentDescription = UiLocalizer.text("上一个"),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(14.dp)
             )
         }
 
         Text(
-            text = "版本 ${currentIndex + 1}/$totalCount",
+            text = UiLocalizer.text("版本 ${currentIndex + 1}/$totalCount"),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -865,7 +867,7 @@ private fun VariantSelector(
         ) {
             Icon(
                 imageVector = Lucide.ChevronRight,
-                contentDescription = "下一个",
+                contentDescription = UiLocalizer.text("下一个"),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(14.dp)
             )

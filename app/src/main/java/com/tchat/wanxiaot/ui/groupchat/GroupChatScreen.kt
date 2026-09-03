@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.groupchat
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,12 +38,12 @@ fun GroupChatListScreen(
     modifier: Modifier = Modifier
 ) {
     AppPageScaffold(
-        title = "助手群聊",
+        title = localized("助手群聊"),
         onBack = onBackClick,
         modifier = modifier,
         actions = {
             IconButton(onClick = onCreateGroup) {
-                Icon(Lucide.Plus, contentDescription = "创建群聊")
+                Icon(Lucide.Plus, contentDescription = localized("创建群聊"))
             }
         }
     ) { paddingValues ->
@@ -55,14 +57,14 @@ fun GroupChatListScreen(
             if (groups.isEmpty()) {
                 item {
                     AppEmptyState(
-                        title = "还没有群聊",
-                        description = "创建群聊后，多个助手就可以在同一会话中协同工作。",
+                        title = localized("还没有群聊"),
+                        description = localized("创建群聊后，多个助手就可以在同一会话中协同工作。"),
                         icon = Lucide.Users,
                         action = {
                             Button(onClick = onCreateGroup) {
                                 Icon(Lucide.Plus, contentDescription = null)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("创建群聊")
+                                Text(localized("创建群聊"))
                             }
                         }
                     )
@@ -136,7 +138,7 @@ private fun GroupChatCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // 成员数量
-                    AppPill(text = "${group.memberIds.size} 个助手")
+                    AppPill(text = localized("${group.memberIds.size} 个助手"))
                     AppPill(
                         text = when (group.activationStrategy) {
                             GroupActivationStrategy.NATURAL -> "自然"
@@ -151,7 +153,7 @@ private fun GroupChatCard(
             // 更多操作按钮
             Box {
                 IconButton(onClick = { showMenu = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "更多操作")
+                    Icon(Icons.Default.MoreVert, contentDescription = localized("更多操作"))
                 }
 
                 DropdownMenu(
@@ -159,7 +161,7 @@ private fun GroupChatCard(
                     onDismissRequest = { showMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("编辑") },
+                        text = { Text(localized("编辑")) },
                         onClick = {
                             onEdit()
                             showMenu = false
@@ -168,7 +170,7 @@ private fun GroupChatCard(
                     )
                     HorizontalDivider()
                     DropdownMenuItem(
-                        text = { Text("删除") },
+                        text = { Text(localized("删除")) },
                         onClick = {
                             onDelete()
                             showMenu = false
@@ -208,7 +210,7 @@ fun CreateGroupChatScreen(
     AppPageScaffold(
         title = if (editingGroup == null) "创建群聊" else "编辑群聊",
         eyebrow = "Collaboration Setup",
-        subtitle = "配置成员、回复策略与自动模式",
+        subtitle = localized("配置成员、回复策略与自动模式"),
         onBack = onBackClick,
         modifier = modifier,
         actions = {
@@ -241,7 +243,7 @@ fun CreateGroupChatScreen(
                 },
                 enabled = groupName.isNotBlank() && selectedAssistants.size >= 2
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         }
     ) { paddingValues ->
@@ -255,13 +257,13 @@ fun CreateGroupChatScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "基本信息",
-                    description = "设置群聊名称和说明。"
+                    title = localized("基本信息"),
+                    description = localized("设置群聊名称和说明。")
                 ) {
                     OutlinedTextField(
                         value = groupName,
                         onValueChange = { groupName = it },
-                        label = { Text("群聊名称") },
+                        label = { Text(localized("群聊名称")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -269,7 +271,7 @@ fun CreateGroupChatScreen(
                     OutlinedTextField(
                         value = groupDescription,
                         onValueChange = { groupDescription = it },
-                        label = { Text("群聊描述（可选）") },
+                        label = { Text(localized("群聊描述（可选）")) },
                         maxLines = 3,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -278,8 +280,8 @@ fun CreateGroupChatScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "选择助手",
-                    description = "至少需要 2 个助手参与协作。"
+                    title = localized("选择助手"),
+                    description = localized("至少需要 2 个助手参与协作。")
                 ) {
                     availableAssistants.forEach { assistant ->
                         SettingsSurface {
@@ -312,8 +314,8 @@ fun CreateGroupChatScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "激活策略",
-                    description = "决定哪个助手响应用户消息。"
+                    title = localized("激活策略"),
+                    description = localized("决定哪个助手响应用户消息。")
                 ) {
                     listOf(
                         GroupActivationStrategy.MANUAL to Pair("手动选择", "每次由用户选择哪个助手回复"),
@@ -349,8 +351,8 @@ fun CreateGroupChatScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "高级设置",
-                    description = "控制自动连聊和节奏。"
+                    title = localized("高级设置"),
+                    description = localized("控制自动连聊和节奏。")
                 ) {
                     SettingsSurface {
                         Column(
@@ -363,9 +365,9 @@ fun CreateGroupChatScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text("自动模式")
+                                    Text(localized("自动模式"))
                                     Text(
-                                        text = "助手自动连续对话",
+                                        text = localized("助手自动连续对话"),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -380,7 +382,7 @@ fun CreateGroupChatScreen(
                                 OutlinedTextField(
                                     value = autoModeDelay,
                                     onValueChange = { autoModeDelay = it },
-                                    label = { Text("自动模式延迟（秒）") },
+                                    label = { Text(localized("自动模式延迟（秒）")) },
                                     singleLine = true,
                                     modifier = Modifier.fillMaxWidth()
                                 )

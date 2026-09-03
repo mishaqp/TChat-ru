@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.os.Bundle
 import android.util.Log
 import android.content.Context
@@ -81,6 +83,8 @@ import com.tchat.wanxiaot.i18n.strings
 import com.tchat.wanxiaot.i18n.StringsZhCN
 import com.tchat.wanxiaot.i18n.StringsZhTW
 import com.tchat.wanxiaot.i18n.StringsEn
+import com.tchat.wanxiaot.i18n.StringsRu
+import com.tchat.wanxiaot.i18n.localized
 import com.tchat.data.deepresearch.DeepResearchManager
 import com.tchat.data.deepresearch.ResearchState
 import com.tchat.data.deepresearch.model.DeepResearchConfig
@@ -206,6 +210,7 @@ class MainActivity : ComponentActivity() {
                 Language.ZH_CN -> StringsZhCN
                 Language.ZH_TW -> StringsZhTW
                 Language.EN -> StringsEn
+                Language.RU -> StringsRu
                 Language.SYSTEM -> StringsZhCN // 不会到达这里
             }
 
@@ -215,7 +220,7 @@ class MainActivity : ComponentActivity() {
                 id = DEFAULT_ASSISTANT_ID,
                 name = localStrings.assistantsDefault,
                 avatar = null,
-                systemPrompt = "你是一个有帮助的AI助手。",
+                systemPrompt = if (actualLanguage == Language.RU) "Ты полезный AI-ассистент." else "你是一个有帮助的AI助手。",
                 temperature = null,
                 topP = null,
                 maxTokens = null,
@@ -524,7 +529,7 @@ fun MainScreen(
                     // 服务商和模型选择
                     providers = settings.providers,
                     currentProviderId = settings.currentProviderId,
-                    currentProviderName = currentProvider?.name ?: "未配置",
+                    currentProviderName = currentProvider?.name ?: localized("未配置"),
                     availableModels = currentProvider?.availableModels ?: emptyList(),
                     currentModel = settings.getActiveModel(),
                     onProviderSelected = { providerId ->
@@ -540,7 +545,7 @@ fun MainScreen(
                                 KnowledgeItemEntity(
                                     id = UUID.randomUUID().toString(),
                                     knowledgeBaseId = base.id,
-                                    title = title.ifBlank { "深度研究报告" },
+                                    title = title.ifBlank { localized("深度研究报告") },
                                     content = content,
                                     sourceType = "text",
                                     status = ProcessingStatus.PENDING.name
@@ -587,7 +592,7 @@ fun MainScreen(
                     groupChats = groupChatList,
                     currentChatId = currentChatId,
                     currentGroupChatId = currentGroupChatId,
-                    currentProviderName = currentProvider?.name ?: "未配置",
+                    currentProviderName = currentProvider?.name ?: localized("未配置"),
                     currentProviderId = settings.currentProviderId,
                     providers = settings.providers,
                     onChatSelected = { chatId ->
@@ -672,23 +677,23 @@ fun MainScreen(
                         title = {
                             Column {
                                 Text(
-                                    text = "当前会话",
+                                    text = localized("当前会话"),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f)
                                 )
                                 Text(
                                     text = when {
                                         currentGroupChatId != null -> {
-                                            groupChatList.find { it.id == currentGroupChatId }?.name ?: "群聊"
+                                            groupChatList.find { it.id == currentGroupChatId }?.name ?: localized("群聊")
                                         }
-                                        else -> currentAssistant?.name ?: "AI 聊天"
+                                        else -> currentAssistant?.name ?: localized("AI 聊天")
                                     },
                                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = "${currentProvider?.name ?: "未配置"} > ${settings.getActiveModel()}",
+                                    text = "${currentProvider?.name ?: localized("未配置")} > ${settings.getActiveModel()}",
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     maxLines = 1,

@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -66,7 +68,7 @@ fun OcrSettingsScreen(
     AppPageScaffold(
         title = "OCR",
         eyebrow = "Recognition",
-        subtitle = "识别模型、AI Provider 与识别提示词",
+        subtitle = localized("识别模型、AI Provider 与识别提示词"),
         showTopBar = showTopBar,
         onBack = onBack
     ) { innerPadding ->
@@ -79,13 +81,13 @@ fun OcrSettingsScreen(
         ) {
 
             SettingsGroupCard(
-                title = "识别模型",
-                description = "用于打野助手框选屏幕内容进行 OCR（识别并提取 API Key / URL）。"
+                title = localized("识别模型"),
+                description = localized("用于打野助手框选屏幕内容进行 OCR（识别并提取 API Key / URL）。")
             ) {
                 OcrModelCard(
                     model = OcrModel.MLKIT_LATIN,
                     isSelected = selectedModel == OcrModel.MLKIT_LATIN,
-                    description = "适合英文/数字（API Key、URL 识别更稳）",
+                    description = localized("适合英文/数字（API Key、URL 识别更稳）"),
                     onClick = {
                         settingsManager.updateOcrSettings(ocrSettings.copy(model = OcrModel.MLKIT_LATIN.name))
                     }
@@ -94,7 +96,7 @@ fun OcrSettingsScreen(
                 OcrModelCard(
                     model = OcrModel.MLKIT_CHINESE,
                     isSelected = selectedModel == OcrModel.MLKIT_CHINESE,
-                    description = "适合包含中文界面的截图（会自动识别英文/数字）",
+                    description = localized("适合包含中文界面的截图（会自动识别英文/数字）"),
                     onClick = {
                         settingsManager.updateOcrSettings(ocrSettings.copy(model = OcrModel.MLKIT_CHINESE.name))
                     }
@@ -103,7 +105,7 @@ fun OcrSettingsScreen(
                 OcrModelCard(
                     model = OcrModel.AI_VISION,
                     isSelected = selectedModel == OcrModel.AI_VISION,
-                    description = "使用已配置的 AI 提供商进行 OCR 识别（需要网络）",
+                    description = localized("使用已配置的 AI 提供商进行 OCR 识别（需要网络）"),
                     onClick = {
                         settingsManager.updateOcrSettings(ocrSettings.copy(model = OcrModel.AI_VISION.name))
                     }
@@ -115,8 +117,8 @@ fun OcrSettingsScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 SettingsGroupCard(
-                    title = "AI 提供商配置",
-                    description = "当使用 AI Vision 时，需要额外指定服务商、模型和识别提示词。"
+                    title = localized("AI 提供商配置"),
+                    description = localized("当使用 AI Vision 时，需要额外指定服务商、模型和识别提示词。")
                 ) {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
@@ -128,7 +130,7 @@ fun OcrSettingsScreen(
                         ListItem(
                             modifier = Modifier.clickable { showProviderDialog = true },
                             headlineContent = {
-                                Text(selectedProvider?.name ?: "请选择提供商")
+                                Text(selectedProvider?.name ?: localized("请选择提供商"))
                             },
                             supportingContent = {
                                 if (selectedProvider == null && providers.isEmpty()) {
@@ -137,7 +139,7 @@ fun OcrSettingsScreen(
                                         color = MaterialTheme.colorScheme.error
                                     )
                                 } else if (selectedProvider == null) {
-                                    Text("点击选择一个提供商")
+                                    Text(localized("点击选择一个提供商"))
                                 } else {
                                     Text(selectedProvider.providerType.displayName)
                                 }
@@ -159,10 +161,10 @@ fun OcrSettingsScreen(
                             ListItem(
                                 modifier = Modifier.clickable { showModelDialog = true },
                                 headlineContent = {
-                                    Text(ocrSettings.aiModel.ifEmpty { "请选择模型" })
+                                    Text(ocrSettings.aiModel.ifEmpty { localized("请选择模型") })
                                 },
                                 supportingContent = {
-                                    Text("用于 OCR 识别的视觉模型")
+                                    Text(localized("用于 OCR 识别的视觉模型"))
                                 },
                                 trailingContent = {
                                     Icon(Lucide.ChevronRight, contentDescription = null)
@@ -180,7 +182,7 @@ fun OcrSettingsScreen(
                     ) {
                         ListItem(
                             modifier = Modifier.clickable { showPromptDialog = true },
-                            headlineContent = { Text("识别提示词") },
+                            headlineContent = { Text(localized("识别提示词")) },
                             supportingContent = {
                                 Text(
                                     ocrSettings.customPrompt.take(50) + if (ocrSettings.customPrompt.length > 50) "..." else "",
@@ -196,9 +198,9 @@ fun OcrSettingsScreen(
             }
 
             Spacer(modifier = Modifier.height(12.dp))
-            SettingsGroupCard(title = "提示") {
+            SettingsGroupCard(title = localized("提示")) {
                 Text(
-                    text = "首次使用 OCR 需要授权「录屏/屏幕捕获」权限。",
+                    text = localized("首次使用 OCR 需要授权「录屏/屏幕捕获」权限。"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -308,7 +310,7 @@ private fun ProviderSelectionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("选择 AI 提供商") },
+        title = { Text(localized("选择 AI 提供商")) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
@@ -361,7 +363,7 @@ private fun ProviderSelectionDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -376,7 +378,7 @@ private fun ModelSelectionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("选择视觉模型") },
+        title = { Text(localized("选择视觉模型")) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
@@ -422,7 +424,7 @@ private fun ModelSelectionDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -438,7 +440,7 @@ private fun PromptEditDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("编辑识别提示词") },
+        title = { Text(localized("编辑识别提示词")) },
         text = {
             Column {
                 Text(
@@ -459,18 +461,18 @@ private fun PromptEditDialog(
                 TextButton(
                     onClick = { editedPrompt = OcrSettings.DEFAULT_OCR_PROMPT }
                 ) {
-                    Text("恢复默认")
+                    Text(localized("恢复默认"))
                 }
             }
         },
         confirmButton = {
             TextButton(onClick = { onSave(editedPrompt) }) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )

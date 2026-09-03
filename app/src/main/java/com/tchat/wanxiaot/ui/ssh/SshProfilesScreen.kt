@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.ssh
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -75,7 +77,7 @@ fun SshProfilesScreen(
     }
 
     AppPageScaffold(
-        title = "SSH 配置",
+        title = localized("SSH 配置"),
         eyebrow = "Local SSH",
         subtitle = if (profiles.isEmpty()) {
             "本地保存用户 SSH profile"
@@ -91,7 +93,7 @@ fun SshProfilesScreen(
                     showDialog = true
                 },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("添加 SSH") }
+                text = { Text(localized("添加 SSH")) }
             )
         }
     ) { innerPadding ->
@@ -105,8 +107,8 @@ fun SshProfilesScreen(
             ) {
                 AppEmptyState(
                     icon = Icons.Default.Add,
-                    title = "暂无 SSH profile",
-                    description = "添加后，启用“SSH 只读”本地工具的助手可以按 alias 查看远程目录、文件和日志。"
+                    title = localized("暂无 SSH profile"),
+                    description = localized("添加后，启用“SSH 只读”本地工具的助手可以按 alias 查看远程目录、文件和日志。")
                 )
             }
         } else {
@@ -206,12 +208,12 @@ private fun SshProfileCard(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 AssistChip(
                     onClick = onEdit,
-                    label = { Text("编辑") },
+                    label = { Text(localized("编辑")) },
                     leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) }
                 )
                 AssistChip(
                     onClick = { showDeleteDialog = true },
-                    label = { Text("删除") },
+                    label = { Text(localized("删除")) },
                     leadingIcon = { Icon(Icons.Default.Delete, contentDescription = null) }
                 )
             }
@@ -221,19 +223,19 @@ private fun SshProfileCard(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("删除 SSH profile") },
-            text = { Text("确定要删除「${profile.alias}」吗？") },
+            title = { Text(localized("删除 SSH profile")) },
+            text = { Text(localized("确定要删除「${profile.alias}」吗？")) },
             confirmButton = {
                 TextButton(onClick = {
                     onDelete()
                     showDeleteDialog = false
                 }) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(localized("删除"), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -306,17 +308,17 @@ private fun SshProfileDialog(
                     )
                 }
 
-                SettingsGroupCard(title = "认证方式") {
+                SettingsGroupCard(title = localized("认证方式")) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(
                             selected = authType == SshAuthType.PASSWORD,
                             onClick = { authType = SshAuthType.PASSWORD },
-                            label = { Text("密码") }
+                            label = { Text(localized("密码")) }
                         )
                         FilterChip(
                             selected = authType == SshAuthType.PRIVATE_KEY,
                             onClick = { authType = SshAuthType.PRIVATE_KEY },
-                            label = { Text("私钥") }
+                            label = { Text(localized("私钥")) }
                         )
                     }
                 }
@@ -340,7 +342,7 @@ private fun SshProfileDialog(
                     OutlinedTextField(
                         value = passphrase,
                         onValueChange = { passphrase = it },
-                        label = { Text("Passphrase（可选）") },
+                        label = { Text(localized("Passphrase（可选）")) },
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -353,12 +355,12 @@ private fun SshProfileDialog(
                         onCheckedChange = { strictHostKeyChecking = it }
                     )
                     Text(
-                        text = "严格主机密钥校验",
+                        text = localized("严格主机密钥校验"),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 Text(
-                    text = "编辑时需要重新输入密码或私钥。敏感内容仅保存在本机，并通过 Android Keystore 加密。",
+                    text = localized("编辑时需要重新输入密码或私钥。敏感内容仅保存在本机，并通过 Android Keystore 加密。"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -385,12 +387,12 @@ private fun SshProfileDialog(
                 },
                 enabled = canSave
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )

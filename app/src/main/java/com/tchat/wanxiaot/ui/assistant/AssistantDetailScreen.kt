@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.assistant
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -135,8 +137,8 @@ fun AssistantDetailScreen(
             ) {
                 AppEmptyState(
                     icon = Lucide.Bot,
-                    title = "助手不存在",
-                    description = "这个助手可能已经被删除，返回列表重新选择即可。",
+                    title = localized("助手不存在"),
+                    description = localized("这个助手可能已经被删除，返回列表重新选择即可。"),
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -330,26 +332,26 @@ private fun BasicSettingsTab(
     AssistantTabColumn {
         SettingsGroupCard(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = "基础信息",
-            description = "明确这个助手的名称与输出边界，方便在列表中快速区分。"
+            title = localized("基础信息"),
+            description = localized("明确这个助手的名称与输出边界，方便在列表中快速区分。")
         ) {
             OutlinedTextField(
                 value = assistant.name,
                 onValueChange = { onUpdate(assistant.copy(name = it)) },
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("请输入助手名称") },
+                placeholder = { Text(localized("请输入助手名称")) },
                 singleLine = true
             )
         }
 
         SettingsGroupCard(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = "模型参数",
-            description = "这些设置只影响当前助手，不会覆盖全局服务商默认值。"
+            title = localized("模型参数"),
+            description = localized("这些设置只影响当前助手，不会覆盖全局服务商默认值。")
         ) {
             AssistantSettingRow(
-                title = "温度",
-                description = "控制回复的发散程度。"
+                title = localized("温度"),
+                description = localized("控制回复的发散程度。")
             ) {
                 Switch(
                     checked = assistant.temperature != null,
@@ -374,7 +376,7 @@ private fun BasicSettingsTab(
 
             AssistantSettingRow(
                 title = "Top-p",
-                description = "用于约束采样范围。"
+                description = localized("用于约束采样范围。")
             ) {
                 Switch(
                     checked = assistant.topP != null,
@@ -398,21 +400,21 @@ private fun BasicSettingsTab(
             HorizontalDivider()
 
             Text(
-                text = "上下文消息数量",
+                text = localized("上下文消息数量"),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
 
             AssistantSelectableRow(
-                title = "不限制",
-                description = "默认保留全部上下文。",
+                title = localized("不限制"),
+                description = localized("默认保留全部上下文。"),
                 selected = assistant.contextMessageSize <= 0,
                 onClick = { onUpdate(assistant.copy(contextMessageSize = 0)) }
             )
 
             AssistantSelectableRow(
-                title = "限制数量",
-                description = "只保留最近若干条消息，降低上下文长度。",
+                title = localized("限制数量"),
+                description = localized("只保留最近若干条消息，降低上下文长度。"),
                 selected = assistant.contextMessageSize > 0,
                 onClick = {
                     if (assistant.contextMessageSize <= 0) {
@@ -436,7 +438,7 @@ private fun BasicSettingsTab(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = "保留最近",
+                            text = localized("保留最近"),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         TextField(
@@ -458,7 +460,7 @@ private fun BasicSettingsTab(
                             )
                         )
                         Text(
-                            text = "条消息",
+                            text = localized("条消息"),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -468,8 +470,8 @@ private fun BasicSettingsTab(
             HorizontalDivider()
 
             AssistantSettingRow(
-                title = "流式输出",
-                description = "实时显示 AI 回复生成过程。"
+                title = localized("流式输出"),
+                description = localized("实时显示 AI 回复生成过程。")
             ) {
                 Switch(
                     checked = assistant.streamOutput,
@@ -486,8 +488,8 @@ private fun BasicSettingsTab(
                     onUpdate(assistant.copy(maxTokens = tokens))
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("最大输出 Token") },
-                placeholder = { Text("不限制") },
+                label = { Text(localized("最大输出 Token")) },
+                placeholder = { Text(localized("不限制")) },
                 singleLine = true
             )
         }
@@ -505,8 +507,8 @@ private fun PromptSettingsTab(
     AssistantTabColumn {
         SettingsGroupCard(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = "系统提示词",
-            description = "把角色、语气、边界和输出格式写清楚，能显著降低后续跑偏。"
+            title = localized("系统提示词"),
+            description = localized("把角色、语气、边界和输出格式写清楚，能显著降低后续跑偏。")
         ) {
             OutlinedTextField(
                 value = assistant.systemPrompt,
@@ -514,7 +516,7 @@ private fun PromptSettingsTab(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(240.dp),
-                placeholder = { Text("你是一个有帮助的 AI 助手...") }
+                placeholder = { Text(localized("你是一个有帮助的 AI 助手...")) }
             )
         }
     }
@@ -562,8 +564,8 @@ private fun LocalToolsTab(
     AssistantTabColumn {
         SettingsGroupCard(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = "本地工具",
-            description = "启用后，助手可以直接调用对应能力。涉及文件访问的工具需要额外授权。"
+            title = localized("本地工具"),
+            description = localized("启用后，助手可以直接调用对应能力。涉及文件访问的工具需要额外授权。")
         ) {
             allTools.forEachIndexed { index, tool ->
                 val isEnabled = assistant.localTools.contains(tool)
@@ -622,7 +624,7 @@ private fun LocalToolsTab(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "未授权时无法启用文件系统相关工具。",
+                                        text = localized("未授权时无法启用文件系统相关工具。"),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -645,7 +647,7 @@ private fun LocalToolsTab(
                                         }
                                     }
                                 ) {
-                                    Text("授权")
+                                    Text(localized("授权"))
                                 }
                             }
                         }
@@ -658,7 +660,7 @@ private fun LocalToolsTab(
             }
 
             if (assistant.localTools.isNotEmpty()) {
-                AppPill(text = "已启用 ${assistant.localTools.size} 个本地工具")
+                AppPill(text = localized("已启用 ${assistant.localTools.size} 个本地工具"))
             }
         }
     }
@@ -679,22 +681,22 @@ private fun McpToolsTab(
         if (mcpServers.isEmpty()) {
             AppEmptyState(
                 icon = Icons.Default.Warning,
-                title = "暂无 MCP 服务器",
-                description = "先在设置里添加 MCP 服务，再为当前助手选择需要开放的工具能力。",
+                title = localized("暂无 MCP 服务器"),
+                description = localized("先在设置里添加 MCP 服务，再为当前助手选择需要开放的工具能力。"),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         } else {
             SettingsGroupCard(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                title = "MCP 工具",
-                description = "只开启当前助手真正需要的 MCP 服务，避免工具噪声过高。"
+                title = localized("MCP 工具"),
+                description = localized("只开启当前助手真正需要的 MCP 服务，避免工具噪声过高。")
             ) {
                 mcpServers.forEachIndexed { index, server ->
                     val isEnabled = assistant.mcpServerIds.contains(server.id)
 
                     AssistantSettingRow(
                         title = server.name,
-                        description = server.description.ifBlank { "未填写服务描述" }
+                        description = server.description.ifBlank { localized("未填写服务描述") }
                     ) {
                         Switch(
                             checked = isEnabled,
@@ -721,7 +723,7 @@ private fun McpToolsTab(
                 }
 
                 if (assistant.mcpServerIds.isNotEmpty()) {
-                    AppPill(text = "已启用 ${assistant.mcpServerIds.size} 个 MCP 服务器")
+                    AppPill(text = localized("已启用 ${assistant.mcpServerIds.size} 个 MCP 服务器"))
                 }
             }
         }
@@ -797,19 +799,19 @@ private fun KnowledgeBaseTab(
     AssistantTabColumn {
         SettingsGroupCard(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = "知识库配置",
-            description = "绑定后，助手会基于当前知识库检索内容。Embedding 服务与对话模型完全独立。"
+            title = localized("知识库配置"),
+            description = localized("绑定后，助手会基于当前知识库检索内容。Embedding 服务与对话模型完全独立。")
         ) {
             if (knowledgeBases.isEmpty()) {
                 AppEmptyState(
                     icon = Lucide.BookOpen,
-                    title = "暂无知识库",
-                    description = "先在设置中创建知识库，再把它绑定到这个助手上。"
+                    title = localized("暂无知识库"),
+                    description = localized("先在设置中创建知识库，再把它绑定到这个助手上。")
                 )
             } else {
                 KnowledgeBaseOption(
-                    title = "不使用知识库",
-                    description = "仅使用模型自身能力回答",
+                    title = localized("不使用知识库"),
+                    description = localized("仅使用模型自身能力回答"),
                     isSelected = assistant.knowledgeBaseId == null,
                     onClick = {
                         onUpdate(assistant.copy(knowledgeBaseId = null))
@@ -820,7 +822,7 @@ private fun KnowledgeBaseTab(
                 knowledgeBases.forEach { base ->
                     KnowledgeBaseOption(
                         title = base.name,
-                        description = base.description ?: "使用 ${base.embeddingModelId} 模型",
+                        description = base.description ?: localized("使用 ${base.embeddingModelId} 模型"),
                         isSelected = assistant.knowledgeBaseId == base.id,
                         onClick = {
                             onUpdate(assistant.copy(knowledgeBaseId = base.id))
@@ -835,7 +837,7 @@ private fun KnowledgeBaseTab(
             val boundBase = knowledgeBases.find { it.id == assistant.knowledgeBaseId }
             SettingsGroupCard(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                title = "当前绑定状态"
+                title = localized("当前绑定状态")
             ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -848,7 +850,7 @@ private fun KnowledgeBaseTab(
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "已绑定知识库",
+                        text = localized("已绑定知识库"),
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -861,13 +863,13 @@ private fun KnowledgeBaseTab(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Embedding 模型: ${boundBase.embeddingModelId}",
+                        text = localized("Embedding 模型: ${boundBase.embeddingModelId}"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 } else {
                     Text(
-                        text = "知识库不存在（可能已被删除）",
+                        text = localized("知识库不存在（可能已被删除）"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error
                     )
@@ -910,21 +912,21 @@ private fun RegexRulesTab(
         if (regexRules.isEmpty()) {
             AppEmptyState(
                 icon = Icons.Default.Warning,
-                title = "暂无正则规则",
-                description = "先在设置中添加规则，再为当前助手选择需要启用的清洗策略。",
+                title = localized("暂无正则规则"),
+                description = localized("先在设置中添加规则，再为当前助手选择需要启用的清洗策略。"),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         } else {
             SettingsGroupCard(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                title = "正则规则",
-                description = "用于在流式输出时实时清理回复内容，只保留当前助手真正需要的规则。"
+                title = localized("正则规则"),
+                description = localized("用于在流式输出时实时清理回复内容，只保留当前助手真正需要的规则。")
             ) {
                 regexRules.forEachIndexed { index, rule ->
                     val isEnabled = assistant.enabledRegexRuleIds.contains(rule.id)
 
                     AssistantSettingRow(
-                        title = rule.name.ifEmpty { "未命名规则" },
+                        title = rule.name.ifEmpty { localized("未命名规则") },
                         description = buildString {
                             append("模式: ${rule.pattern}")
                             if (rule.description.isNotBlank()) {
@@ -956,7 +958,7 @@ private fun RegexRulesTab(
                 }
 
                 if (assistant.enabledRegexRuleIds.isNotEmpty()) {
-                    AppPill(text = "已启用 ${assistant.enabledRegexRuleIds.size} 个正则规则")
+                    AppPill(text = localized("已启用 ${assistant.enabledRegexRuleIds.size} 个正则规则"))
                 }
             }
         }

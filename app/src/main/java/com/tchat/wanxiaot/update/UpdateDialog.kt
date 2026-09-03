@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.update
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -68,18 +70,18 @@ fun UpdateDialog(
                 ) {
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(
-                            text = "发现新版本",
+                            text = localized("发现新版本"),
                             style = MaterialTheme.typography.headlineSmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )
-                        AppPill(text = "版本 ${updateInfo.versionName}")
+                        AppPill(text = localized("版本 ${updateInfo.versionName}"))
                     }
 
                     if (canDismiss) {
                         IconButton(onClick = onDismiss) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "关闭",
+                                contentDescription = localized("关闭"),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -90,7 +92,7 @@ fun UpdateDialog(
 
                 // 版本信息
                 Text(
-                    text = "大小: ${formatFileSize(updateInfo.fileSize)}",
+                    text = localized("大小: ${formatFileSize(updateInfo.fileSize)}"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -99,7 +101,7 @@ fun UpdateDialog(
 
                 // 更新说明
                 Text(
-                    text = "更新内容:",
+                    text = localized("更新内容:"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -135,7 +137,7 @@ fun UpdateDialog(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Fullscreen,
-                                contentDescription = "全屏查看",
+                                contentDescription = localized("全屏查看"),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(20.dp)
                             )
@@ -147,7 +149,7 @@ fun UpdateDialog(
 
                 // 下载源选择
                 Text(
-                    text = "选择下载源:",
+                    text = localized("选择下载源:"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -161,7 +163,7 @@ fun UpdateDialog(
                     FilterChip(
                         selected = downloadSource == DownloadSource.CHINA,
                         onClick = { if (!isDownloading) downloadSource = DownloadSource.CHINA },
-                        label = { Text("大陆优化（服务器）") },
+                        label = { Text(localized("大陆优化（服务器）")) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.CloudDownload,
@@ -176,7 +178,7 @@ fun UpdateDialog(
                     FilterChip(
                         selected = downloadSource == DownloadSource.GLOBAL,
                         onClick = { if (!isDownloading) downloadSource = DownloadSource.GLOBAL },
-                        label = { Text("全球连接（Github）") },
+                        label = { Text(localized("全球连接（Github）")) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Public,
@@ -193,7 +195,7 @@ fun UpdateDialog(
                 if (updateInfo.forceUpdate) {
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "⚠️ 此版本为强制更新,必须安装后才能继续使用",
+                        text = localized("⚠️ 此版本为强制更新,必须安装后才能继续使用"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier.fillMaxWidth(),
@@ -245,7 +247,7 @@ fun UpdateDialog(
                             onClick = onDismiss,
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("稍后更新")
+                            Text(localized("稍后更新"))
                         }
                     }
 
@@ -262,7 +264,7 @@ fun UpdateDialog(
                             },
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("取消下载")
+                            Text(localized("取消下载"))
                         }
                     }
 
@@ -346,7 +348,7 @@ fun UpdateDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "更新内容 - 版本 ${updateInfo.versionName}",
+                            text = localized("更新内容 - 版本 ${updateInfo.versionName}"),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -354,7 +356,7 @@ fun UpdateDialog(
                         IconButton(onClick = { isFullscreen = false }) {
                             Icon(
                                 imageVector = Icons.Default.FullscreenExit,
-                                contentDescription = "退出全屏",
+                                contentDescription = localized("退出全屏"),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }

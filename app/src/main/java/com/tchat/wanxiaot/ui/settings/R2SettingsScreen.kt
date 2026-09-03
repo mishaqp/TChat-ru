@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.*
@@ -107,14 +109,14 @@ fun R2SettingsScreen(
     }
 
     AppPageScaffold(
-        title = "云备份设置",
+        title = localized("云备份设置"),
         eyebrow = "Cloud Backup",
-        subtitle = "Cloudflare R2 连接与凭证管理",
+        subtitle = localized("Cloudflare R2 连接与凭证管理"),
         onBack = onBack,
         actions = {
             if (hasChanges) {
                 TextButton(onClick = { saveSettings() }) {
-                    Text("保存")
+                    Text(localized("保存"))
                 }
             }
         }
@@ -130,15 +132,15 @@ fun R2SettingsScreen(
         ) {
 
             SettingsGroupCard(
-                title = "R2 配置",
-                description = "填写账户、Key 和目标 Bucket。高级设置只在需要自定义端点时开启。"
+                title = localized("R2 配置"),
+                description = localized("填写账户、Key 和目标 Bucket。高级设置只在需要自定义端点时开启。")
             ) {
                     OutlinedTextField(
                         value = accountId,
                         onValueChange = { accountId = it },
                         label = { Text("Account ID") },
-                        placeholder = { Text("Cloudflare 账户 ID") },
-                        supportingText = { Text("在 Cloudflare Dashboard 右侧栏可以找到") },
+                        placeholder = { Text(localized("Cloudflare 账户 ID")) },
+                        supportingText = { Text(localized("在 Cloudflare Dashboard 右侧栏可以找到")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -147,7 +149,7 @@ fun R2SettingsScreen(
                         value = accessKeyId,
                         onValueChange = { accessKeyId = it },
                         label = { Text("Access Key ID") },
-                        placeholder = { Text("R2 API 令牌的 Access Key ID") },
+                        placeholder = { Text(localized("R2 API 令牌的 Access Key ID")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -156,7 +158,7 @@ fun R2SettingsScreen(
                         value = secretAccessKey,
                         onValueChange = { secretAccessKey = it },
                         label = { Text("Secret Access Key") },
-                        placeholder = { Text("R2 API 令牌的 Secret Access Key") },
+                        placeholder = { Text(localized("R2 API 令牌的 Secret Access Key")) },
                         singleLine = true,
                         visualTransformation = if (showSecretKey) VisualTransformation.None else PasswordVisualTransformation(),
                         trailingIcon = {
@@ -173,9 +175,9 @@ fun R2SettingsScreen(
                     OutlinedTextField(
                         value = bucketName,
                         onValueChange = { bucketName = it },
-                        label = { Text("Bucket 名称") },
-                        placeholder = { Text("例如: tchat-backup") },
-                        supportingText = { Text("需要先在 R2 控制台创建 Bucket") },
+                        label = { Text(localized("Bucket 名称")) },
+                        placeholder = { Text(localized("例如: tchat-backup")) },
+                        supportingText = { Text(localized("需要先在 R2 控制台创建 Bucket")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -186,7 +188,7 @@ fun R2SettingsScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "高级设置",
+                            text = localized("高级设置"),
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.weight(1f)
                         )
@@ -200,8 +202,8 @@ fun R2SettingsScreen(
                         OutlinedTextField(
                             value = customEndpoint,
                             onValueChange = { customEndpoint = it },
-                            label = { Text("自定义端点 (可选)") },
-                            placeholder = { Text("留空使用默认端点") },
+                            label = { Text(localized("自定义端点 (可选)")) },
+                            placeholder = { Text(localized("留空使用默认端点")) },
                             supportingText = {
                                 Text(
                                     if (customEndpoint.isEmpty() && accountId.isNotEmpty()) {
@@ -234,7 +236,7 @@ fun R2SettingsScreen(
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("测试中...")
+                    Text(localized("测试中..."))
                 } else {
                     Icon(
                         imageVector = Lucide.Wifi,
@@ -242,7 +244,7 @@ fun R2SettingsScreen(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("测试连接")
+                    Text(localized("测试连接"))
                 }
             }
 
@@ -276,7 +278,7 @@ fun R2SettingsScreen(
                 }
             }
 
-            SettingsGroupCard(title = "帮助") {
+            SettingsGroupCard(title = localized("帮助")) {
                 SettingsSurface {
                     Row(
                         modifier = Modifier
@@ -292,11 +294,11 @@ fun R2SettingsScreen(
                         )
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "如何获取 R2 凭证？",
+                                text = localized("如何获取 R2 凭证？"),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Text(
-                                text = "点击查看 Cloudflare R2 API 令牌创建指南",
+                                text = localized("点击查看 Cloudflare R2 API 令牌创建指南"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -317,7 +319,7 @@ fun R2SettingsScreen(
                 }
             }
 
-            SettingsGroupCard(title = "安全建议") {
+            SettingsGroupCard(title = localized("安全建议")) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -329,7 +331,7 @@ fun R2SettingsScreen(
                     )
                     Column {
                         Text(
-                            text = "建议创建仅具有单个 Bucket 读写权限的 API 令牌，以最小化安全风险。",
+                            text = localized("建议创建仅具有单个 Bucket 读写权限的 API 令牌，以最小化安全风险。"),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

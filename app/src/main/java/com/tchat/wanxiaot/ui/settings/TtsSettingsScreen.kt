@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.BorderStroke
@@ -60,9 +62,9 @@ fun TtsSettingsScreen(
     }
 
     AppPageScaffold(
-        title = "语音朗读 (TTS)",
+        title = localized("语音朗读 (TTS)"),
         eyebrow = "Text To Speech",
-        subtitle = "引擎、语速、音调与测试播放",
+        subtitle = localized("引擎、语速、音调与测试播放"),
         showTopBar = showTopBar,
         onBack = onBack
     ) { innerPadding ->
@@ -76,12 +78,12 @@ fun TtsSettingsScreen(
 
             SettingsGroupCard(
                 modifier = Modifier.padding(top = 14.dp),
-                title = "基础开关"
+                title = localized("基础开关")
             ) {
                 // 启用 TTS 开关
                 ListItem(
-                    headlineContent = { Text("启用语音朗读") },
-                    supportingContent = { Text("开启后可朗读 AI 回复内容") },
+                    headlineContent = { Text(localized("启用语音朗读")) },
+                    supportingContent = { Text(localized("开启后可朗读 AI 回复内容")) },
                     colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                     trailingContent = {
                         Switch(
@@ -97,8 +99,8 @@ fun TtsSettingsScreen(
 
                 // 自动朗读开关
                 ListItem(
-                    headlineContent = { Text("自动朗读") },
-                    supportingContent = { Text("AI 回复完成后自动开始朗读") },
+                    headlineContent = { Text(localized("自动朗读")) },
+                    supportingContent = { Text(localized("AI 回复完成后自动开始朗读")) },
                     colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                     trailingContent = {
                         Switch(
@@ -114,8 +116,8 @@ fun TtsSettingsScreen(
 
             SettingsGroupCard(
                 modifier = Modifier.padding(top = 14.dp),
-                title = "引擎与声音参数",
-                description = "选择系统引擎，并调整语速和音调。"
+                title = localized("引擎与声音参数"),
+                description = localized("选择系统引擎，并调整语速和音调。")
             ) {
             // TTS 引擎选择
             Column(
@@ -124,7 +126,7 @@ fun TtsSettingsScreen(
                     .padding(horizontal = 16.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = "TTS 引擎",
+                    text = localized("TTS 引擎"),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -196,7 +198,7 @@ fun TtsSettingsScreen(
                                         shape = MaterialTheme.shapes.small
                                     ) {
                                         Text(
-                                            text = "默认",
+                                            text = localized("默认"),
                                             style = MaterialTheme.typography.labelSmall,
                                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                             color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -228,7 +230,7 @@ fun TtsSettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "语速",
+                        text = localized("语速"),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
@@ -278,7 +280,7 @@ fun TtsSettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "音调",
+                        text = localized("音调"),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
@@ -302,12 +304,12 @@ fun TtsSettingsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "低",
+                        text = localized("低"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "高",
+                        text = localized("高"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -323,7 +325,7 @@ fun TtsSettingsScreen(
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "测试朗读",
+                    text = localized("测试朗读"),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -411,7 +413,7 @@ fun TtsSettingsScreen(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("打开系统 TTS 设置")
+                        Text(localized("打开系统 TTS 设置"))
                     }
                     }
                 }
@@ -419,10 +421,10 @@ fun TtsSettingsScreen(
 
             SettingsGroupCard(
                 modifier = Modifier.padding(top = 14.dp, bottom = 16.dp),
-                title = "关于 TTS 引擎"
+                title = localized("关于 TTS 引擎")
             ) {
                 Text(
-                    text = "本功能使用系统内置的 TTS 引擎。如需更好的语音效果，可在系统设置中安装第三方 TTS 引擎（如 Google TTS、讯飞语音等）。",
+                    text = localized("本功能使用系统内置的 TTS 引擎。如需更好的语音效果，可在系统设置中安装第三方 TTS 引擎（如 Google TTS、讯飞语音等）。"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.fillMaxWidth()

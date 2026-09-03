@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
@@ -81,7 +83,7 @@ fun OfficialServiceScreen(
             officialProvider.authType != ProviderAuthType.NONE && it.isNotBlank()
         }
         if (credential.isNullOrBlank()) {
-            message = "请先在“服务商”里购买或激活官方服务，保存许可证后再查看。"
+            message = localized("请先在“服务商”里购买或激活官方服务，保存许可证后再查看。")
             return
         }
         scope.launch {
@@ -107,7 +109,7 @@ fun OfficialServiceScreen(
                     message = detailErrors.joinToString("；")
                 }
             } catch (e: Exception) {
-                message = e.message ?: "官方服务信息读取失败"
+                message = e.message ?: localized("官方服务信息读取失败")
             } finally {
                 isLoading = false
             }
@@ -123,7 +125,7 @@ fun OfficialServiceScreen(
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }.onFailure {
-            message = "无法打开官方服务页面：${it.message ?: url}"
+            message = localized("无法打开官方服务页面：${it.message ?: url}")
         }
     }
 
@@ -134,9 +136,9 @@ fun OfficialServiceScreen(
     }
 
     AppPageScaffold(
-        title = "服务与套餐",
+        title = localized("服务与套餐"),
         eyebrow = "Official Service",
-        subtitle = "官方服务状态、余额、设备与用量",
+        subtitle = localized("官方服务状态、余额、设备与用量"),
         showTopBar = showTopBar,
         onBack = onBack
     ) { innerPadding ->
@@ -150,8 +152,8 @@ fun OfficialServiceScreen(
             ) {
                 AppEmptyState(
                     icon = Icons.Default.CreditCard,
-                    title = "尚未配置官方服务",
-                    description = "前往“服务商”添加 TChat 官方服务，可购买套餐或填入兑换码。"
+                    title = localized("尚未配置官方服务"),
+                    description = localized("前往“服务商”添加 TChat 官方服务，可购买套餐或填入兑换码。")
                 )
             }
             return@AppPageScaffold
@@ -168,7 +170,7 @@ fun OfficialServiceScreen(
 
             message?.let {
                 SettingsGroupCard(
-                    title = "提示",
+                    title = localized("提示"),
                     description = it
                 ) {}
             }
@@ -178,8 +180,8 @@ fun OfficialServiceScreen(
             UsageLogsCard(usageLogs, isLoading)
 
             SettingsGroupCard(
-                title = "设备管理",
-                description = "展示当前许可证关联的设备。服务端支持吊销、重置与限速时，这里会同步展示。"
+                title = localized("设备管理"),
+                description = localized("展示当前许可证关联的设备。服务端支持吊销、重置与限速时，这里会同步展示。")
             ) {
                 if (devices.isEmpty()) {
                     Text(
@@ -198,8 +200,8 @@ fun OfficialServiceScreen(
             OrdersCard(orders, isLoading)
 
             SettingsGroupCard(
-                title = "操作",
-                description = "余额刷新在本页完成，续费、套餐升级与发票页面由 t.naapi.cc 提供。"
+                title = localized("操作"),
+                description = localized("余额刷新在本页完成，续费、套餐升级与发票页面由 t.naapi.cc 提供。")
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     FilledTonalButton(
@@ -224,7 +226,7 @@ fun OfficialServiceScreen(
                     ) {
                         Icon(Icons.Default.CreditCard, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.size(8.dp))
-                        Text("续费或升级套餐")
+                        Text(localized("续费或升级套餐"))
                     }
                     FilledTonalButton(
                         onClick = { openOfficialPortal("orders") },
@@ -232,7 +234,7 @@ fun OfficialServiceScreen(
                     ) {
                         Icon(Icons.AutoMirrored.Filled.ReceiptLong, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.size(8.dp))
-                        Text("查看完整订单记录")
+                        Text(localized("查看完整订单记录"))
                     }
                 }
             }
@@ -246,8 +248,8 @@ private fun UsageLogsCard(
     isLoading: Boolean
 ) {
     SettingsGroupCard(
-        title = "最近请求",
-        description = "展示官方服务最近的模型调用、费用与 token 统计。"
+        title = localized("最近请求"),
+        description = localized("展示官方服务最近的模型调用、费用与 token 统计。")
     ) {
         if (logs.isEmpty()) {
             Text(
@@ -270,8 +272,8 @@ private fun OrdersCard(
     isLoading: Boolean
 ) {
     SettingsGroupCard(
-        title = "订单记录",
-        description = "显示最近的套餐购买与支付状态。"
+        title = localized("订单记录"),
+        description = localized("显示最近的套餐购买与支付状态。")
     ) {
         if (orders.isEmpty()) {
             Text(
@@ -303,7 +305,7 @@ private fun UsageLogRow(item: NaapiUsageLogItem) {
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = item.model.ifBlank { "模型请求" },
+                text = item.model.ifBlank { localized("模型请求") },
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -345,7 +347,7 @@ private fun OrderRecordRow(order: NaapiOrderRecord) {
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = order.planName.ifBlank { order.orderNo.ifBlank { "套餐订单" } },
+                text = order.planName.ifBlank { order.orderNo.ifBlank { localized("套餐订单") } },
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -373,12 +375,12 @@ private fun OrderRecordRow(order: NaapiOrderRecord) {
 @Composable
 private fun SummaryCard(summary: NaapiUsageSummary?) {
     SettingsGroupCard(
-        title = "用量透明",
-        description = "余额、今日、本月与请求数。"
+        title = localized("用量透明"),
+        description = localized("余额、今日、本月与请求数。")
     ) {
         if (summary == null) {
             Text(
-                            text = "暂无用量数据，请刷新或检查许可证。",
+                            text = localized("暂无用量数据，请刷新或检查许可证。"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -415,14 +417,14 @@ private fun DeviceRow(device: NaapiDeviceInfo) {
         Column(modifier = Modifier.weight(1f)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
-                    text = device.name.ifBlank { "设备" },
+                    text = device.name.ifBlank { localized("设备") },
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (device.current) AppPill(text = "当前设备")
-                if (device.revoked) AppPill(text = "已停用")
+                if (device.current) AppPill(text = localized("当前设备"))
+                if (device.revoked) AppPill(text = localized("已停用"))
             }
             Text(
                 text = listOf(

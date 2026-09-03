@@ -13,11 +13,14 @@ enum class Language(
     SYSTEM("system", "Follow System", ""),  // 跟随系统，nativeName 动态获取
     ZH_CN("zh-CN", "Simplified Chinese", "简体中文"),
     ZH_TW("zh-TW", "Traditional Chinese", "繁體中文"),
-    EN("en", "English", "English");
+    EN("en", "English", "English"),
+    RU("ru", "Russian", "Русский");
 
     companion object {
         fun fromCode(code: String): Language {
-            return entries.find { it.code == code } ?: SYSTEM
+            val normalized = code.trim()
+            return entries.find { it.code.equals(normalized, ignoreCase = true) }
+                ?: if (normalized.startsWith("ru-", ignoreCase = true)) RU else SYSTEM
         }
 
         /**
@@ -34,6 +37,7 @@ enum class Language(
                 systemLanguage == "zh" && (systemCountry == "TW" || systemCountry == "HK" || systemCountry == "MO") -> ZH_TW
                 systemLanguage == "zh" -> ZH_CN
                 systemLanguage == "en" -> EN
+                systemLanguage == "ru" -> RU
                 else -> ZH_CN  // 默认简体中文
             }
         }

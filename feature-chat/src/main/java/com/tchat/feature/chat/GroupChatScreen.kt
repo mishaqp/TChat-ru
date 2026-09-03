@@ -1,5 +1,7 @@
 package com.tchat.feature.chat
 
+import com.tchat.core.UiLocalizer
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -73,16 +75,16 @@ fun GroupChatScreen(
     // 聊天工具栏显示/顺序设置
     chatToolbarSettings: ChatToolbarSettings = ChatToolbarSettings(),
     // i18n strings
-    inputHint: String = "输入消息...",
-    sendContentDescription: String = "发送",
-    toolsText: String = "工具",
-    toolsWithCountFormat: String = "工具 (%d)",
-    deepResearchText: String = "深度研究",
-    deepResearchRunningText: String = "研究中",
-    deepResearchInProgressText: String = "深度研究进行中...",
-    speakingAssistantLabel: String = "发言助手:",
-    selectAssistantHint: String = "选择助手",
-    pleaseSelectAssistantFirst: String = "请先选择助手"
+    inputHint: String = UiLocalizer.text("输入消息..."),
+    sendContentDescription: String = UiLocalizer.text("发送"),
+    toolsText: String = UiLocalizer.text("工具"),
+    toolsWithCountFormat: String = UiLocalizer.text("工具 (%d)"),
+    deepResearchText: String = UiLocalizer.text("深度研究"),
+    deepResearchRunningText: String = UiLocalizer.text("研究中"),
+    deepResearchInProgressText: String = UiLocalizer.text("深度研究进行中..."),
+    speakingAssistantLabel: String = UiLocalizer.text("发言助手:"),
+    selectAssistantHint: String = UiLocalizer.text("选择助手"),
+    pleaseSelectAssistantFirst: String = UiLocalizer.text("请先选择助手")
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val actualChatId by viewModel.actualChatId.collectAsStateWithLifecycle()
@@ -115,7 +117,7 @@ fun GroupChatScreen(
         clipboard.setPrimaryClip(clip)
         scope.launch {
             snackbarHostState.showSnackbar(
-                message = "已复制到剪贴板",
+                message = UiLocalizer.text("已复制到剪贴板"),
                 duration = SnackbarDuration.Short
             )
         }
@@ -128,7 +130,7 @@ fun GroupChatScreen(
         } else {
             scope.launch {
                 snackbarHostState.showSnackbar(
-                    message = "语音引擎未就绪",
+                    message = UiLocalizer.text("语音引擎未就绪"),
                     duration = SnackbarDuration.Short
                 )
             }
@@ -183,7 +185,7 @@ fun GroupChatScreen(
                     added.add(part)
                 }.onFailure { e ->
                     snackbarHostState.showSnackbar(
-                        message = e.message ?: "导入文件失败",
+                        message = e.message ?: UiLocalizer.text("导入文件失败"),
                         duration = SnackbarDuration.Short
                     )
                 }
@@ -463,8 +465,8 @@ private fun AssistantSelector(
     assistants: List<Assistant>,
     currentSpeakerId: String?,
     onAssistantSelected: (String) -> Unit,
-    speakingAssistantLabel: String = "发言助手:",
-    selectAssistantHint: String = "选择助手"
+    speakingAssistantLabel: String = UiLocalizer.text("发言助手:"),
+    selectAssistantHint: String = UiLocalizer.text("选择助手")
 ) {
     var expanded by remember { mutableStateOf(false) }
     val currentAssistant = assistants.find { it.id == currentSpeakerId }
@@ -619,18 +621,18 @@ private fun AutoModeControl(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = if (running) "自动模式运行中" else "自动模式已暂停",
+                    text = if (running) UiLocalizer.text("自动模式运行中") else UiLocalizer.text("自动模式已暂停"),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
                 Text(
-                    text = "剩余自动轮次：$remainingRounds",
+                    text = "${UiLocalizer.text("剩余自动轮次：")}$remainingRounds",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.78f)
                 )
             }
             TextButton(onClick = if (running) onPause else onResume) {
-                Text(if (running) "暂停" else "继续")
+                Text(if (running) UiLocalizer.text("暂停") else UiLocalizer.text("继续"))
             }
         }
     }

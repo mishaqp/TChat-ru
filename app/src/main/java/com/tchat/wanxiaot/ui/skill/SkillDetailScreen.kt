@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.skill
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -49,8 +51,8 @@ fun SkillDetailScreen(
     if (showDeleteDialog && skill != null && onDelete != null) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("删除 Skill") },
-            text = { Text("确定要删除「${skill.displayName}」吗？此操作不可撤销。") },
+            title = { Text(localized("删除 Skill")) },
+            text = { Text(localized("确定要删除「${skill.displayName}」吗？此操作不可撤销。")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -62,12 +64,12 @@ fun SkillDetailScreen(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -80,7 +82,7 @@ fun SkillDetailScreen(
             else -> "新建 Skill"
         },
         eyebrow = "Skill Editor",
-        subtitle = "编辑技能描述、触发规则与注入内容",
+        subtitle = localized("编辑技能描述、触发规则与注入内容"),
         showTopBar = showTopBar,
         onBack = if (showTopBar) onBack else null,
         actions = {
@@ -88,7 +90,7 @@ fun SkillDetailScreen(
                 IconButton(onClick = { showDeleteDialog = true }) {
                     Icon(
                         Icons.Default.Delete,
-                        contentDescription = "删除",
+                        contentDescription = localized("删除"),
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -121,7 +123,7 @@ fun SkillDetailScreen(
                     },
                     enabled = isValid
                 ) {
-                    Text("保存")
+                    Text(localized("保存"))
                 }
             }
         }
@@ -135,14 +137,14 @@ fun SkillDetailScreen(
         ) {
 
             SettingsGroupCard(
-                title = "基本信息",
-                description = "定义技能身份、触发场景和关键词。"
+                title = localized("基本信息"),
+                description = localized("定义技能身份、触发场景和关键词。")
             ) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("技能标识符 *") },
-                    supportingText = { Text("唯一标识，建议使用英文和连字符") },
+                    label = { Text(localized("技能标识符 *")) },
+                    supportingText = { Text(localized("唯一标识，建议使用英文和连字符")) },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isBuiltIn,
                     singleLine = true
@@ -151,7 +153,7 @@ fun SkillDetailScreen(
                 OutlinedTextField(
                     value = displayName,
                     onValueChange = { displayName = it },
-                    label = { Text("显示名称 *") },
+                    label = { Text(localized("显示名称 *")) },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isBuiltIn,
                     singleLine = true
@@ -160,8 +162,8 @@ fun SkillDetailScreen(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("触发描述 *") },
-                    supportingText = { Text("描述何时触发此技能，包含触发关键词") },
+                    label = { Text(localized("触发描述 *")) },
+                    supportingText = { Text(localized("描述何时触发此技能，包含触发关键词")) },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isBuiltIn,
                     minLines = 2,
@@ -171,8 +173,8 @@ fun SkillDetailScreen(
                 OutlinedTextField(
                     value = triggerKeywords,
                     onValueChange = { triggerKeywords = it },
-                    label = { Text("触发关键词") },
-                    supportingText = { Text("用逗号分隔多个关键词，如：写代码, 编程, debug") },
+                    label = { Text(localized("触发关键词")) },
+                    supportingText = { Text(localized("用逗号分隔多个关键词，如：写代码, 编程, debug")) },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isBuiltIn,
                     singleLine = true
@@ -180,14 +182,14 @@ fun SkillDetailScreen(
             }
 
             SettingsGroupCard(
-                title = "技能内容",
-                description = "触发后注入系统提示的指令文本。"
+                title = localized("技能内容"),
+                description = localized("触发后注入系统提示的指令文本。")
             ) {
                 OutlinedTextField(
                     value = content,
                     onValueChange = { content = it },
-                    label = { Text("技能指令") },
-                    supportingText = { Text("触发时注入到系统提示的内容") },
+                    label = { Text(localized("技能指令")) },
+                    supportingText = { Text(localized("触发时注入到系统提示的内容")) },
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isBuiltIn,
                     minLines = 8,
@@ -196,8 +198,8 @@ fun SkillDetailScreen(
             }
 
             SettingsGroupCard(
-                title = "执行策略",
-                description = "控制优先级与启用状态。"
+                title = localized("执行策略"),
+                description = localized("控制优先级与启用状态。")
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -206,8 +208,8 @@ fun SkillDetailScreen(
                     OutlinedTextField(
                         value = priority,
                         onValueChange = { priority = it.filter { c -> c.isDigit() || c == '-' } },
-                        label = { Text("优先级") },
-                        supportingText = { Text("数字越大优先级越高") },
+                        label = { Text(localized("优先级")) },
+                        supportingText = { Text(localized("数字越大优先级越高")) },
                         modifier = Modifier.weight(1f),
                         enabled = !isBuiltIn,
                         singleLine = true
@@ -221,7 +223,7 @@ fun SkillDetailScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Text(
-                                text = "启用状态",
+                                text = localized("启用状态"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -242,7 +244,7 @@ fun SkillDetailScreen(
             if (isBuiltIn) {
                 SettingsSurface {
                     Text(
-                        text = "内置 Skill 不可编辑，但可以复制后修改。",
+                        text = localized("内置 Skill 不可编辑，但可以复制后修改。"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(12.dp)

@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.app.Activity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -70,9 +72,9 @@ fun AboutScreen(
     var checkUpdateError by remember { mutableStateOf<String?>(null) }
 
     AppPageScaffold(
-        title = "关于",
+        title = localized("关于"),
         eyebrow = "About TChat",
-        subtitle = "版本信息、更新检查与项目主页",
+        subtitle = localized("版本信息、更新检查与项目主页"),
         showTopBar = showTopBar,
         onBack = onBack
     ) { innerPadding ->
@@ -120,7 +122,7 @@ fun AboutScreen(
                     AppPill(text = "v${BuildConfig.VERSION_NAME}")
 
                     Text(
-                        text = "开源的安卓端 AI 聊天软件",
+                        text = localized("开源的安卓端 AI 聊天软件"),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -128,10 +130,10 @@ fun AboutScreen(
                 }
             }
 
-            SettingsGroupCard(title = "项目入口") {
+            SettingsGroupCard(title = localized("项目入口")) {
                 AboutActionRow(
-                    title = "检查更新",
-                    subtitle = checkUpdateError ?: "当前版本: ${BuildConfig.VERSION_NAME}",
+                    title = localized("检查更新"),
+                    subtitle = checkUpdateError ?: localized("当前版本: ${BuildConfig.VERSION_NAME}"),
                     onClick = {
                         if (!isCheckingUpdate) {
                             isCheckingUpdate = true
@@ -209,7 +211,7 @@ fun AboutScreen(
                 )
             }
 
-            SettingsGroupCard(title = "开发者") {
+            SettingsGroupCard(title = localized("开发者")) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,

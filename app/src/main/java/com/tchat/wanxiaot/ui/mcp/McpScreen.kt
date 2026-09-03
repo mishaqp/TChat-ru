@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.mcp
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -88,7 +90,7 @@ fun McpScreen(
     }
 
     AppPageScaffold(
-        title = "MCP 服务器",
+        title = localized("MCP 服务器"),
         eyebrow = "MCP Network",
         subtitle = if (servers.isEmpty()) "连接外部工具能力" else "已配置 ${servers.size} 个 MCP 服务",
         showTopBar = showTopBar,
@@ -97,7 +99,7 @@ fun McpScreen(
             ExtendedFloatingActionButton(
                 onClick = { showAddDialog = true },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("添加服务器") }
+                text = { Text(localized("添加服务器")) }
             )
         }
     ) { innerPadding ->
@@ -112,8 +114,8 @@ fun McpScreen(
                 Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
                     AppEmptyState(
                         icon = Icons.Default.Cloud,
-                        title = "暂无 MCP 服务器",
-                        description = "点击右下角添加一个 MCP 服务，然后再为助手按需开放对应能力。"
+                        title = localized("暂无 MCP 服务器"),
+                        description = localized("点击右下角添加一个 MCP 服务，然后再为助手按需开放对应能力。")
                     )
                 }
             }
@@ -267,12 +269,12 @@ private fun McpServerCard(
                 )
                 AssistChip(
                     onClick = onEdit,
-                    label = { Text("编辑") },
+                    label = { Text(localized("编辑")) },
                     leadingIcon = { Icon(Icons.Default.Edit, null, Modifier.size(16.dp)) }
                 )
                 AssistChip(
                     onClick = { showDeleteDialog = true },
-                    label = { Text("删除") },
+                    label = { Text(localized("删除")) },
                     leadingIcon = { Icon(Icons.Default.Delete, null, Modifier.size(16.dp)) }
                 )
             }
@@ -282,19 +284,19 @@ private fun McpServerCard(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("删除服务器") },
-            text = { Text("确定要删除「${server.name}」吗？") },
+            title = { Text(localized("删除服务器")) },
+            text = { Text(localized("确定要删除「${server.name}」吗？")) },
             confirmButton = {
                 TextButton(onClick = {
                     onDelete()
                     showDeleteDialog = false
                 }) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(localized("删除"), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -323,14 +325,14 @@ private fun McpServerDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("名称") },
+                    label = { Text(localized("名称")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = url,
                     onValueChange = { url = it },
-                    label = { Text("服务器 URL") },
+                    label = { Text(localized("服务器 URL")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     placeholder = { Text("http://localhost:3000/sse") }
@@ -338,12 +340,12 @@ private fun McpServerDialog(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("描述（可选）") },
+                    label = { Text(localized("描述（可选）")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
 
-                SettingsGroupCard(title = "传输类型") {
+                SettingsGroupCard(title = localized("传输类型")) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(
                             selected = type == McpServerType.SSE,
@@ -378,12 +380,12 @@ private fun McpServerDialog(
                 },
                 enabled = name.isNotBlank() && url.isNotBlank()
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )

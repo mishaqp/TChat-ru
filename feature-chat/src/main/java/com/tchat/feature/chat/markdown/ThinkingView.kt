@@ -1,5 +1,7 @@
 package com.tchat.feature.chat.markdown
 
+import com.tchat.core.UiLocalizer
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -65,7 +67,7 @@ fun ThinkingView(
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "💭 思考过程",
+                        text = UiLocalizer.text("💭 思考过程"),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

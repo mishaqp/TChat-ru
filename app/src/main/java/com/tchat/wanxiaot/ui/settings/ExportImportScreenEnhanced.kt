@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -199,9 +201,9 @@ fun ExportImportScreenEnhanced(
     }
 
     AppPageScaffold(
-        title = "导出/导入",
+        title = localized("导出/导入"),
         eyebrow = "Transfer Center",
-        subtitle = "配置、数据库与云端备份迁移",
+        subtitle = localized("配置、数据库与云端备份迁移"),
         showTopBar = showTopBar,
         onBack = if (showTopBar) onBackClick else null,
         modifier = modifier
@@ -277,8 +279,8 @@ fun ExportImportScreenEnhanced(
 
                 item {
                     ExportImportSectionConnected(
-                        title = "供应商配置",
-                        description = "导出或导入 AI 供应商配置，包括模型列表与自定义参数。",
+                        title = localized("供应商配置"),
+                        description = localized("导出或导入 AI 供应商配置，包括模型列表与自定义参数。"),
                         icon = Lucide.Server,
                         encryptionEnabled = useEncryption,
                         encryptionPassword = encryptionPassword,
@@ -327,8 +329,8 @@ fun ExportImportScreenEnhanced(
 
                 item {
                     ExportImportSectionConnected(
-                        title = "API 配置",
-                        description = "导出或导入包含密钥的 API 配置，建议始终加密保存。",
+                        title = localized("API 配置"),
+                        description = localized("导出或导入包含密钥的 API 配置，建议始终加密保存。"),
                         icon = Lucide.Key,
                         encryptionEnabled = useEncryption,
                         encryptionPassword = encryptionPassword,
@@ -374,8 +376,8 @@ fun ExportImportScreenEnhanced(
 
                 item {
                     ExportImportSectionConnected(
-                        title = "知识库",
-                        description = "导出或导入知识库，包含原始文件、向量数据与相关配置。",
+                        title = localized("知识库"),
+                        description = localized("导出或导入知识库，包含原始文件、向量数据与相关配置。"),
                         icon = Lucide.Database,
                         encryptionEnabled = false,
                         encryptionPassword = "",
@@ -396,7 +398,7 @@ fun ExportImportScreenEnhanced(
                 item {
                     ExportImportSectionConnected(
                         title = "Skills",
-                        description = "迁移自定义 Skills，不包含内置系统 Skills。",
+                        description = localized("迁移自定义 Skills，不包含内置系统 Skills。"),
                         icon = Lucide.Sparkles,
                         encryptionEnabled = false,
                         encryptionPassword = "",
@@ -473,7 +475,7 @@ fun ExportImportScreenEnhanced(
     if (showQRCodeDialog != null) {
         QRCodeDisplayDialog(
             qrCodeBitmap = showQRCodeDialog!!,
-            title = "导出二维码",
+            title = localized("导出二维码"),
             onDismiss = { showQRCodeDialog = null },
             onShare = {
                 val bitmap = showQRCodeDialog
@@ -610,24 +612,24 @@ fun ExportImportScreenEnhanced(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("确认从云端恢复") },
+            title = { Text(localized("确认从云端恢复")) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("将从云端下载并恢复备份：")
+                    Text(localized("将从云端下载并恢复备份："))
                     Text(
                         text = backup.key,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text("恢复数据库将会：")
-                    Text("• 覆盖当前所有聊天记录")
-                    Text("• 覆盖所有助手配置")
-                    Text("• 覆盖所有知识库数据")
-                    Text("• 覆盖所有其他数据")
+                    Text(localized("恢复数据库将会："))
+                    Text(localized("• 覆盖当前所有聊天记录"))
+                    Text(localized("• 覆盖所有助手配置"))
+                    Text(localized("• 覆盖所有知识库数据"))
+                    Text(localized("• 覆盖所有其他数据"))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "此操作不可撤销，请确保已备份当前数据！",
+                        text = localized("此操作不可撤销，请确保已备份当前数据！"),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -673,9 +675,9 @@ fun ExportImportScreenEnhanced(
                             color = MaterialTheme.colorScheme.onError
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("下载中...")
+                        Text(localized("下载中..."))
                     } else {
-                        Text("确认恢复")
+                        Text(localized("确认恢复"))
                     }
                 }
             },
@@ -684,7 +686,7 @@ fun ExportImportScreenEnhanced(
                     onClick = { showCloudRestoreConfirm = null },
                     enabled = !isDownloadingFromCloud
                 ) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -745,7 +747,7 @@ private fun ExportImportSectionConnected(
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        text = "包含敏感信息，建议加密导出",
+                        text = localized("包含敏感信息，建议加密导出"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onErrorContainer
                     )
@@ -763,7 +765,7 @@ private fun ExportImportSectionConnected(
             ) {
                 Icon(Lucide.Download, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("导出")
+                Text(localized("导出"))
             }
 
             Button(
@@ -772,7 +774,7 @@ private fun ExportImportSectionConnected(
             ) {
                 Icon(Lucide.Upload, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("导入")
+                Text(localized("导入"))
             }
         }
     }
@@ -780,7 +782,7 @@ private fun ExportImportSectionConnected(
     // 导出选项对话框
     if (showExportOptions) {
         ExportOptionsDialogConnected(
-            title = "导出$title",
+            title = localized("导出$title"),
             supportsQRCode = supportsQRCode,
             requiresEncryption = requiresEncryption,
             initialEncryptionEnabled = if (requiresEncryption) true else encryptionEnabled,
@@ -808,7 +810,7 @@ private fun ExportImportSectionConnected(
     // 导入选项对话框
     if (showImportOptions) {
         ImportOptionsDialogConnected(
-            title = "导入$title",
+            title = localized("导入$title"),
             supportsQRCode = supportsQRCode,
             initialPassword = encryptionPassword,
             onDismiss = { showImportOptions = false },
@@ -858,7 +860,7 @@ private fun ExportOptionsDialogConnected(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("加密导出")
+                    Text(localized("加密导出"))
                     Switch(
                         checked = effectiveEncryption,
                         onCheckedChange = { useEncryption = it },
@@ -870,7 +872,7 @@ private fun ExportOptionsDialogConnected(
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("密码") },
+                        label = { Text(localized("密码")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -878,7 +880,7 @@ private fun ExportOptionsDialogConnected(
 
                 if (requiresEncryption) {
                     Text(
-                        text = "此项导出包含敏感信息，必须加密。",
+                        text = localized("此项导出包含敏感信息，必须加密。"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -899,7 +901,7 @@ private fun ExportOptionsDialogConnected(
                 ) {
                     Icon(Lucide.FileText, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("导出为文件")
+                    Text(localized("导出为文件"))
                 }
 
                 if (supportsQRCode && onExportQRCode != null) {
@@ -910,14 +912,14 @@ private fun ExportOptionsDialogConnected(
                     ) {
                         Icon(Lucide.QrCode, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("生成二维码")
+                        Text(localized("生成二维码"))
                     }
                 }
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -943,12 +945,12 @@ private fun ImportOptionsDialogConnected(
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("解密密码（如果已加密）") },
+                    label = { Text(localized("解密密码（如果已加密）")) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = "选择导入方式：",
+                    text = localized("选择导入方式："),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -964,7 +966,7 @@ private fun ImportOptionsDialogConnected(
                 ) {
                     Icon(Lucide.FileText, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("从文件导入")
+                    Text(localized("从文件导入"))
                 }
 
                 if (supportsQRCode && onImportQRCode != null) {
@@ -974,14 +976,14 @@ private fun ImportOptionsDialogConnected(
                     ) {
                         Icon(Lucide.QrCode, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("扫描二维码")
+                        Text(localized("扫描二维码"))
                     }
                 }
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -1025,7 +1027,7 @@ private fun ProviderSingleSelectionDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Lucide.Server, contentDescription = null) },
-        title = { Text("选择供应商") },
+        title = { Text(localized("选择供应商")) },
         text = {
             LazyColumn {
                 items(providers, key = { it.id }) { provider ->
@@ -1047,7 +1049,7 @@ private fun ProviderSingleSelectionDialog(
                                 style = MaterialTheme.typography.bodyLarge
                             )
                             Text(
-                                text = "${provider.providerType.displayName} · ${provider.availableModels.size} 个模型",
+                                text = localized("${provider.providerType.displayName} · ${provider.availableModels.size} 个模型"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -1061,12 +1063,12 @@ private fun ProviderSingleSelectionDialog(
                 onClick = { selectedId?.let { onConfirm(it) } },
                 enabled = selectedId != null
             ) {
-                Text("确定")
+                Text(localized("确定"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -1086,11 +1088,11 @@ private fun KnowledgeBaseSelectionDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Lucide.Database, contentDescription = null) },
-        title = { Text("选择知识库") },
+        title = { Text(localized("选择知识库")) },
         text = {
             if (knowledgeBases.isEmpty()) {
                 Text(
-                    text = "暂无知识库",
+                    text = localized("暂无知识库"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -1132,12 +1134,12 @@ private fun KnowledgeBaseSelectionDialog(
                 onClick = { selectedId?.let { onConfirm(it) } },
                 enabled = selectedId != null
             ) {
-                Text("确定")
+                Text(localized("确定"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -1157,18 +1159,18 @@ private fun SkillSelectionDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Lucide.Sparkles, contentDescription = null) },
-        title = { Text("选择要导出的 Skills") },
+        title = { Text(localized("选择要导出的 Skills")) },
         text = {
             if (skills.isEmpty()) {
                 Text(
-                    text = "暂无自定义 Skills（内置 Skills 不支持导出）",
+                    text = localized("暂无自定义 Skills（内置 Skills 不支持导出）"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
                 Column {
                     Text(
-                        text = "留空则导出所有自定义 Skills",
+                        text = localized("留空则导出所有自定义 Skills"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 8.dp)
@@ -1214,7 +1216,7 @@ private fun SkillSelectionDialog(
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -1233,8 +1235,8 @@ private fun DatabaseBackupSection(
 
     SettingsGroupCard(
         modifier = modifier,
-        title = "数据库备份",
-        description = "备份或恢复完整数据库，包含聊天记录、助手与知识库等核心数据。"
+        title = localized("数据库备份"),
+        description = localized("备份或恢复完整数据库，包含聊天记录、助手与知识库等核心数据。")
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -1242,7 +1244,7 @@ private fun DatabaseBackupSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AppIconTile(icon = Lucide.HardDrive)
-            AppPill(text = "全量归档")
+            AppPill(text = localized("全量归档"))
         }
 
         Surface(
@@ -1261,7 +1263,7 @@ private fun DatabaseBackupSection(
                     modifier = Modifier.size(16.dp)
                 )
                 Text(
-                    text = "恢复数据库会覆盖当前全部数据，请先确认本地备份已经可用。",
+                    text = localized("恢复数据库会覆盖当前全部数据，请先确认本地备份已经可用。"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onTertiaryContainer
                 )
@@ -1278,7 +1280,7 @@ private fun DatabaseBackupSection(
             ) {
                 Icon(Lucide.Download, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("备份")
+                Text(localized("备份"))
             }
 
             Button(
@@ -1290,7 +1292,7 @@ private fun DatabaseBackupSection(
             ) {
                 Icon(Lucide.Upload, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("恢复")
+                Text(localized("恢复"))
             }
         }
     }
@@ -1306,17 +1308,17 @@ private fun DatabaseBackupSection(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("确认恢复数据库") },
+            title = { Text(localized("确认恢复数据库")) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("恢复数据库将会：")
-                    Text("• 覆盖当前所有聊天记录")
-                    Text("• 覆盖所有助手配置")
-                    Text("• 覆盖所有知识库数据")
-                    Text("• 覆盖所有其他数据")
+                    Text(localized("恢复数据库将会："))
+                    Text(localized("• 覆盖当前所有聊天记录"))
+                    Text(localized("• 覆盖所有助手配置"))
+                    Text(localized("• 覆盖所有知识库数据"))
+                    Text(localized("• 覆盖所有其他数据"))
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "此操作不可撤销，请确保已备份当前数据！",
+                        text = localized("此操作不可撤销，请确保已备份当前数据！"),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -1332,12 +1334,12 @@ private fun DatabaseBackupSection(
                         containerColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("确认恢复")
+                    Text(localized("确认恢复"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showRestoreConfirmDialog = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -1359,8 +1361,8 @@ private fun CloudBackupSection(
 ) {
     SettingsGroupCard(
         modifier = modifier,
-        title = "云备份",
-        description = "将本地备份同步到 Cloudflare R2，并查看云端历史归档。"
+        title = localized("云备份"),
+        description = localized("将本地备份同步到 Cloudflare R2，并查看云端历史归档。")
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -1478,12 +1480,12 @@ fun CloudBackupListDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Lucide.Cloud, contentDescription = null) },
-        title = { Text("云端备份列表") },
+        title = { Text(localized("云端备份列表")) },
         text = {
             if (backups.isEmpty()) {
                 AppEmptyState(
-                    title = "暂无云端备份",
-                    description = "上传首个数据库备份后，这里会显示云端归档列表。",
+                    title = localized("暂无云端备份"),
+                    description = localized("上传首个数据库备份后，这里会显示云端归档列表。"),
                     icon = Lucide.CloudOff
                 )
             } else {
@@ -1503,7 +1505,7 @@ fun CloudBackupListDialog(
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("关闭")
+                Text(localized("关闭"))
             }
         }
     )
@@ -1555,7 +1557,7 @@ private fun CloudBackupItem(
                 ) {
                     Icon(Lucide.Download, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("恢复", style = MaterialTheme.typography.bodySmall)
+                    Text(localized("恢复"), style = MaterialTheme.typography.bodySmall)
                 }
 
                 OutlinedButton(
@@ -1567,7 +1569,7 @@ private fun CloudBackupItem(
                 ) {
                     Icon(Lucide.Trash2, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("删除", style = MaterialTheme.typography.bodySmall)
+                    Text(localized("删除"), style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -1584,8 +1586,8 @@ private fun CloudBackupItem(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("确认删除") },
-            text = { Text("确定要删除云端备份 \"${backup.key}\" 吗？此操作不可撤销。") },
+            title = { Text(localized("确认删除")) },
+            text = { Text(localized("确定要删除云端备份 \"${backup.key}\" 吗？此操作不可撤销。")) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -1596,12 +1598,12 @@ private fun CloudBackupItem(
                         containerColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteConfirm = false }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )

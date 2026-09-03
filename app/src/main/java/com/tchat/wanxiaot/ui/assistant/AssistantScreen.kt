@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.assistant
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -68,7 +70,7 @@ fun AssistantScreen(
     var assistantToDelete by remember { mutableStateOf<Assistant?>(null) }
 
     AppPageScaffold(
-        title = "助手",
+        title = localized("助手"),
         eyebrow = "Assistant Library",
         subtitle = if (assistants.isEmpty()) "定义不同角色、工具和知识库组合" else "已配置 ${assistants.size} 位助手",
         showTopBar = showTopBar,
@@ -77,7 +79,7 @@ fun AssistantScreen(
             ExtendedFloatingActionButton(
                 onClick = { showCreateSheet = true },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("新建助手") }
+                text = { Text(localized("新建助手")) }
             )
         }
     ) { innerPadding ->
@@ -103,8 +105,8 @@ fun AssistantScreen(
                     item {
                         AppEmptyState(
                             icon = Icons.Default.Person,
-                            title = "还没有助手",
-                            description = "点击右下角创建第一个助手，给不同任务建立更明确的工作边界。"
+                            title = localized("还没有助手"),
+                            description = localized("点击右下角创建第一个助手，给不同任务建立更明确的工作边界。")
                         )
                     }
                 } else {
@@ -143,7 +145,7 @@ fun AssistantScreen(
     assistantToDelete?.let { assistant ->
         AlertDialog(
             onDismissRequest = { assistantToDelete = null },
-            title = { Text("删除助手") },
+            title = { Text(localized("删除助手")) },
             text = { Text("确定要删除「${assistant.name.ifEmpty { "未命名助手" }}」吗？") },
             confirmButton = {
                 TextButton(
@@ -153,12 +155,12 @@ fun AssistantScreen(
                         Toast.makeText(context, "已删除", Toast.LENGTH_SHORT).show()
                     }
                 ) {
-                    Text("删除", color = MaterialTheme.colorScheme.error)
+                    Text(localized("删除"), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { assistantToDelete = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -197,14 +199,14 @@ private fun AssistantItem(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Text(
-                            text = assistant.name.ifEmpty { "未命名助手" },
+                            text = assistant.name.ifEmpty { localized("未命名助手") },
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = assistant.systemPrompt.ifBlank { "未设置系统提示词，适合继续补充角色边界与输出风格。" },
+                            text = assistant.systemPrompt.ifBlank { localized("未设置系统提示词，适合继续补充角色边界与输出风格。") },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 2,
@@ -225,13 +227,13 @@ private fun AssistantItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (assistant.localTools.isNotEmpty()) {
-                        AppPill(text = "本地工具 ${assistant.localTools.size}")
+                        AppPill(text = localized("本地工具 ${assistant.localTools.size}"))
                     }
                     if (assistant.mcpServerIds.isNotEmpty()) {
                         AppPill(text = "MCP ${assistant.mcpServerIds.size}")
                     }
                     if (assistant.knowledgeBaseId != null) {
-                        AppPill(text = "已绑定知识库")
+                        AppPill(text = localized("已绑定知识库"))
                     }
                 }
 
@@ -243,14 +245,14 @@ private fun AssistantItem(
                     IconButton(onClick = onCopy) {
                         Icon(
                             imageVector = Icons.Default.ContentCopy,
-                            contentDescription = "复制",
+                            contentDescription = localized("复制"),
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }
                     IconButton(onClick = onDelete) {
                         Icon(
                             imageVector = Icons.Default.Delete,
-                            contentDescription = "删除",
+                            contentDescription = localized("删除"),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
@@ -276,12 +278,12 @@ private fun CreateAssistantSheet(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Text(
-                text = "创建新助手",
+                text = localized("创建新助手"),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "先给它一个清晰名称，后续再补提示词、工具和知识库。",
+                text = localized("先给它一个清晰名称，后续再补提示词、工具和知识库。"),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -289,8 +291,8 @@ private fun CreateAssistantSheet(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("助手名称") },
-                placeholder = { Text("例如：产品分析助手") },
+                label = { Text(localized("助手名称")) },
+                placeholder = { Text(localized("例如：产品分析助手")) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -300,13 +302,13 @@ private fun CreateAssistantSheet(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
                 TextButton(
                     onClick = { onCreate(name) },
                     enabled = name.isNotBlank()
                 ) {
-                    Text("创建")
+                    Text(localized("创建"))
                 }
             }
         }

@@ -26,9 +26,12 @@ fun ProvideStrings(
             Language.ZH_CN -> StringsZhCN
             Language.ZH_TW -> StringsZhTW
             Language.EN -> StringsEn
+            Language.RU -> StringsRu
             Language.SYSTEM -> StringsZhCN // 不会到达这里，但需要处理
         }
     }
+    setActiveStrings(strings)
+    com.tchat.core.UiLocalizer.setLanguage(actualLanguage.code)
     CompositionLocalProvider(LocalStrings provides strings) {
         content()
     }

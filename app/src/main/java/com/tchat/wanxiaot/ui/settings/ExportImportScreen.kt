@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -33,9 +35,9 @@ fun ExportImportScreen(
     modifier: Modifier = Modifier
 ) {
     AppPageScaffold(
-        title = "导出/导入",
+        title = localized("导出/导入"),
         eyebrow = "Legacy Transfer",
-        subtitle = "旧版迁移入口也保持统一质感",
+        subtitle = localized("旧版迁移入口也保持统一质感"),
         onBack = onBackClick,
         modifier = modifier
     ) { paddingValues ->
@@ -50,8 +52,8 @@ fun ExportImportScreen(
             // 供应商配置
             item {
                 ExportImportSection(
-                    title = "供应商配置",
-                    description = "导出或导入AI供应商配置（包括模型列表和自定义参数）",
+                    title = localized("供应商配置"),
+                    description = localized("导出或导入AI供应商配置（包括模型列表和自定义参数）"),
                     icon = Lucide.Server,
                     onExportFile = { /* TODO */ },
                     onExportQRCode = { /* TODO */ },
@@ -63,8 +65,8 @@ fun ExportImportScreen(
             // API配置（含密钥）
             item {
                 ExportImportSection(
-                    title = "API配置",
-                    description = "导出或导入API配置（包含API密钥，强烈建议加密）",
+                    title = localized("API配置"),
+                    description = localized("导出或导入API配置（包含API密钥，强烈建议加密）"),
                     icon = Lucide.Key,
                     onExportFile = { /* TODO */ },
                     onExportQRCode = { /* TODO */ },
@@ -77,8 +79,8 @@ fun ExportImportScreen(
             // 知识库
             item {
                 ExportImportSection(
-                    title = "知识库",
-                    description = "导出或导入知识库（包含原始文件、向量数据和配置）",
+                    title = localized("知识库"),
+                    description = localized("导出或导入知识库（包含原始文件、向量数据和配置）"),
                     icon = Lucide.Database,
                     onExportFile = { /* TODO */ },
                     onImportFile = { /* TODO */ },
@@ -135,7 +137,7 @@ private fun ExportImportSection(
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        text = "包含敏感信息，建议加密导出",
+                        text = localized("包含敏感信息，建议加密导出"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -157,7 +159,7 @@ private fun ExportImportSection(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("导出")
+                Text(localized("导出"))
             }
 
             Button(
@@ -170,7 +172,7 @@ private fun ExportImportSection(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("导入")
+                Text(localized("导入"))
             }
         }
     }
@@ -178,7 +180,7 @@ private fun ExportImportSection(
     // 导出选项对话框
     if (showExportOptions) {
         ExportOptionsDialog(
-            title = "导出$title",
+            title = localized("导出$title"),
             supportsQRCode = supportsQRCode,
             requiresEncryption = requiresEncryption,
             onDismiss = { showExportOptions = false },
@@ -198,7 +200,7 @@ private fun ExportImportSection(
     // 导入选项对话框
     if (showImportOptions) {
         ImportOptionsDialog(
-            title = "导入$title",
+            title = localized("导入$title"),
             supportsQRCode = supportsQRCode,
             onDismiss = { showImportOptions = false },
             onImportFile = {
@@ -240,7 +242,7 @@ private fun ExportOptionsDialog(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("加密导出")
+                    Text(localized("加密导出"))
                     Switch(
                         checked = useEncryption,
                         onCheckedChange = {
@@ -255,14 +257,14 @@ private fun ExportOptionsDialog(
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("加密密码") },
+                        label = { Text(localized("加密密码")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
 
                 Text(
-                    text = "选择导出方式：",
+                    text = localized("选择导出方式："),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -279,7 +281,7 @@ private fun ExportOptionsDialog(
                 ) {
                     Icon(Lucide.FileText, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("导出为文件")
+                    Text(localized("导出为文件"))
                 }
 
                 // 导出为二维码
@@ -290,14 +292,14 @@ private fun ExportOptionsDialog(
                     ) {
                         Icon(Lucide.QrCode, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("生成二维码")
+                        Text(localized("生成二维码"))
                     }
                 }
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -324,14 +326,14 @@ private fun ImportOptionsDialog(
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("解密密码（如果文件已加密）") },
+                        label = { Text(localized("解密密码（如果文件已加密）")) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
 
                 Text(
-                    text = "选择导入方式：",
+                    text = localized("选择导入方式："),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -348,7 +350,7 @@ private fun ImportOptionsDialog(
                 ) {
                     Icon(Lucide.FileText, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("从文件导入")
+                    Text(localized("从文件导入"))
                 }
 
                 // 从二维码导入
@@ -359,14 +361,14 @@ private fun ImportOptionsDialog(
                     ) {
                         Icon(Lucide.QrCode, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("扫描二维码")
+                        Text(localized("扫描二维码"))
                     }
                 }
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -397,12 +399,12 @@ fun QRCodeDisplayDialog(
                 // 二维码图片
                 Image(
                     bitmap = qrCodeBitmap.asImageBitmap(),
-                    contentDescription = "二维码",
+                    contentDescription = localized("二维码"),
                     modifier = Modifier.size(300.dp)
                 )
 
                 Text(
-                    text = "使用其他设备扫描此二维码",
+                    text = localized("使用其他设备扫描此二维码"),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -416,7 +418,7 @@ fun QRCodeDisplayDialog(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("关闭")
+                        Text(localized("关闭"))
                     }
                     Button(
                         onClick = onShare,
@@ -424,7 +426,7 @@ fun QRCodeDisplayDialog(
                     ) {
                         Icon(Lucide.Share2, contentDescription = null)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("分享")
+                        Text(localized("分享"))
                     }
                 }
             }
@@ -446,7 +448,7 @@ fun ProviderSelectionDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(Lucide.ListChecks, contentDescription = null) },
-        title = { Text("选择要导出的供应商") },
+        title = { Text(localized("选择要导出的供应商")) },
         text = {
             LazyColumn {
                 items(providers) { provider ->
@@ -467,7 +469,7 @@ fun ProviderSelectionDialog(
                                 style = MaterialTheme.typography.bodyLarge
                             )
                             Text(
-                                text = "${provider.providerType.displayName} · ${provider.availableModels.size} 个模型",
+                                text = localized("${provider.providerType.displayName} · ${provider.availableModels.size} 个模型"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -481,12 +483,12 @@ fun ProviderSelectionDialog(
                 onClick = onConfirm,
                 enabled = selectedProviders.isNotEmpty()
             ) {
-                Text("确定（已选 ${selectedProviders.size}）")
+                Text(localized("确定（已选 ${selectedProviders.size}）"))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )

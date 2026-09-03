@@ -1,5 +1,7 @@
 package com.tchat.feature.chat
 
+import com.tchat.core.UiLocalizer
+
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -74,9 +76,9 @@ fun ToolSelectorSheet(
         val allGranted = permissions.values.all { it }
         hasStoragePermission = allGranted
         if (allGranted) {
-            Toast.makeText(context, "存储权限已授权", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, UiLocalizer.text("存储权限已授权"), Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "需要存储权限才能使用文件系统工具", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, UiLocalizer.text("需要存储权限才能使用文件系统工具"), Toast.LENGTH_SHORT).show()
         }
     }
     
@@ -87,7 +89,7 @@ fun ToolSelectorSheet(
         // 从设置页面返回后重新检查权限
         hasStoragePermission = checkStoragePermission(context)
         if (hasStoragePermission) {
-            Toast.makeText(context, "存储权限已授权", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, UiLocalizer.text("存储权限已授权"), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -103,7 +105,7 @@ fun ToolSelectorSheet(
         ) {
             // 标题
             Text(
-                text = "本地工具",
+                text = UiLocalizer.text("本地工具"),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -111,7 +113,7 @@ fun ToolSelectorSheet(
             Spacer(modifier = Modifier.height(Spacing.sm))
             
             Text(
-                text = "启用工具后，AI可以在对话中调用这些功能",
+                text = UiLocalizer.text("启用工具后，AI可以在对话中调用这些功能"),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -152,7 +154,7 @@ fun ToolSelectorSheet(
             // 已启用数量提示
             if (enabledTools.isNotEmpty()) {
                 Text(
-                    text = "已启用 ${enabledTools.size} 个工具",
+                    text = UiLocalizer.text("已启用 ${enabledTools.size} 个工具"),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(horizontal = 4.dp)
@@ -257,7 +259,7 @@ private fun ToolCard(
                             tint = MaterialTheme.colorScheme.error
                         )
                         Text(
-                            text = "需要文件访问权限",
+                            text = UiLocalizer.text("需要文件访问权限"),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.error
                         )
@@ -272,7 +274,7 @@ private fun ToolCard(
                         modifier = Modifier.height(32.dp)
                     ) {
                         Text(
-                            text = "授权",
+                            text = UiLocalizer.text("授权"),
                             style = MaterialTheme.typography.labelMedium
                         )
                     }

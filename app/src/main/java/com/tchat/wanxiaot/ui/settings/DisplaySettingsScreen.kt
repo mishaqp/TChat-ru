@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -71,8 +73,8 @@ fun DisplaySettingsScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "聊天工具栏",
-                    description = "打开或关闭具体入口，并通过上下箭头调整顺序。",
+                    title = localized("聊天工具栏"),
+                    description = localized("打开或关闭具体入口，并通过上下箭头调整顺序。"),
                     contentPadding = PaddingValues(horizontal = 14.dp, vertical = 12.dp)
                 ) {
                     toolbarSettings.items.forEachIndexed { index, config ->

@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.components
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Log
@@ -88,12 +90,12 @@ fun QRCodeScannerScreen(
                 contentAlignment = Alignment.Center
             ) {
                 AppEmptyState(
-                    title = "需要相机权限",
-                    description = "允许相机访问后，才能扫描供应商配置二维码。",
+                    title = localized("需要相机权限"),
+                    description = localized("允许相机访问后，才能扫描供应商配置二维码。"),
                     icon = Icons.Default.Lock,
                     action = {
                         Button(onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) }) {
-                            Text("授予权限")
+                            Text(localized("授予权限"))
                         }
                     }
                 )
@@ -121,8 +123,8 @@ fun QRCodeScannerScreen(
                     .padding(horizontal = 16.dp, vertical = 18.dp)
             ) {
                 ScannerTopBar(
-                    title = "扫码导入",
-                    subtitle = "识别供应商配置二维码",
+                    title = localized("扫码导入"),
+                    subtitle = localized("识别供应商配置二维码"),
                     onBack = onBack,
                     modifier = Modifier
                         .align(Alignment.TopCenter)
@@ -135,7 +137,7 @@ fun QRCodeScannerScreen(
 
                 ScannerHintCard(
                     title = if (isScanning) "对准二维码" else "正在解析",
-                    description = "保持画面稳定，将二维码放入框内即可自动识别。",
+                    description = localized("保持画面稳定，将二维码放入框内即可自动识别。"),
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 12.dp)

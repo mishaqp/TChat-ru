@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -162,8 +164,8 @@ private fun getAllSettingsItems(): List<SettingsItemData> = listOf(
     SettingsItemData(
         id = "official_service",
         group = strings.settingsGeneral,
-        title = "服务与套餐",
-        subtitle = "官方服务、余额、用量与设备",
+        title = localized("服务与套餐"),
+        subtitle = localized("官方服务、余额、用量与设备"),
         icon = SettingsIcon.Lucide(Lucide.KeyRound),
         targetPage = SettingsSubPage.OFFICIAL_SERVICE
     ),
@@ -186,8 +188,8 @@ private fun getAllSettingsItems(): List<SettingsItemData> = listOf(
     SettingsItemData(
         id = "ssh_profiles",
         group = strings.settingsGeneral,
-        title = "SSH 配置",
-        subtitle = "本地保存 SSH profile，供 SSH 只读工具使用",
+        title = localized("SSH 配置"),
+        subtitle = localized("本地保存 SSH profile，供 SSH 只读工具使用"),
         icon = SettingsIcon.Lucide(Lucide.KeyRound),
         targetPage = SettingsSubPage.SSH_PROFILES
     ),
@@ -614,7 +616,7 @@ private fun TabletSettingsLayout(
                                 }
                                 Spacer(modifier = Modifier.height(14.dp))
                                 Text(
-                                    text = "设置中心",
+                                    text = localized("设置中心"),
                                     style = MaterialTheme.typography.headlineSmall,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )

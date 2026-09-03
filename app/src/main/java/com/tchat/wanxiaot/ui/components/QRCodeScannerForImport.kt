@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.components
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -133,12 +135,12 @@ fun QRCodeScannerForImport(
                 contentAlignment = Alignment.Center
             ) {
                 AppEmptyState(
-                    title = "需要相机权限",
-                    description = "允许相机访问后，才能扫描导入二维码。",
+                    title = localized("需要相机权限"),
+                    description = localized("允许相机访问后，才能扫描导入二维码。"),
                     icon = Icons.Default.Lock,
                     action = {
                         Button(onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) }) {
-                            Text("授予权限")
+                            Text(localized("授予权限"))
                         }
                     }
                 )
@@ -176,8 +178,8 @@ fun QRCodeScannerForImport(
                     .padding(horizontal = 16.dp, vertical = 18.dp)
             ) {
                 ScannerTopBar(
-                    title = "扫描二维码",
-                    subtitle = "支持相机和相册导入",
+                    title = localized("扫描二维码"),
+                    subtitle = localized("支持相机和相册导入"),
                     onBack = onBack,
                     modifier = Modifier
                         .align(Alignment.TopCenter)
@@ -186,7 +188,7 @@ fun QRCodeScannerForImport(
                     IconButton(onClick = { imagePickerLauncher.launch("image/*") }) {
                         Icon(
                             Icons.Default.Photo,
-                            contentDescription = "从相册选择"
+                            contentDescription = localized("从相册选择")
                         )
                     }
                 }
@@ -197,7 +199,7 @@ fun QRCodeScannerForImport(
 
                 ScannerHintCard(
                     title = if (isScanning) "对准二维码" else "正在解析",
-                    description = "也可以直接从相册选择带有二维码的图片进行导入。",
+                    description = localized("也可以直接从相册选择带有二维码的图片进行导入。"),
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 12.dp)
@@ -216,12 +218,12 @@ fun QRCodeScannerForImport(
                 isScanning = true
                 scannedEncryptedData = null
             },
-            title = { Text("输入解密密码") },
+            title = { Text(localized("输入解密密码")) },
             text = {
                 OutlinedTextField(
                     value = inputPassword,
                     onValueChange = { inputPassword = it },
-                    label = { Text("密码") },
+                    label = { Text(localized("密码")) },
                     singleLine = true
                 )
             },
@@ -240,7 +242,7 @@ fun QRCodeScannerForImport(
                         }
                     }
                 ) {
-                    Text("确定")
+                    Text(localized("确定"))
                 }
             },
             dismissButton = {
@@ -251,7 +253,7 @@ fun QRCodeScannerForImport(
                         scannedEncryptedData = null
                     }
                 ) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )

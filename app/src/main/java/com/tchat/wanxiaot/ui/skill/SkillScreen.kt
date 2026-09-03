@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.skill
 
+import com.tchat.wanxiaot.i18n.localized
+
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -71,11 +73,11 @@ fun SkillScreen(
     if (importResult != null) {
         AlertDialog(
             onDismissRequest = { viewModel.clearImportResult() },
-            title = { Text("导入结果") },
+            title = { Text(localized("导入结果")) },
             text = { Text(importResult ?: "") },
             confirmButton = {
                 TextButton(onClick = { viewModel.clearImportResult() }) {
-                    Text("确定")
+                    Text(localized("确定"))
                 }
             }
         )
@@ -84,15 +86,15 @@ fun SkillScreen(
     AppPageScaffold(
         title = "Skills",
         eyebrow = "Automation",
-        subtitle = "管理内置与自定义技能",
+        subtitle = localized("管理内置与自定义技能"),
         showTopBar = showTopBar,
         onBack = if (showTopBar) onBack else null,
         actions = {
             IconButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
-                Icon(Icons.Default.FileOpen, contentDescription = "导入 Skill")
+                Icon(Icons.Default.FileOpen, contentDescription = localized("导入 Skill"))
             }
             IconButton(onClick = onCreateSkill) {
-                Icon(Icons.Default.Add, contentDescription = "添加 Skill")
+                Icon(Icons.Default.Add, contentDescription = localized("添加 Skill"))
             }
         }
     ) { padding ->
@@ -107,16 +109,16 @@ fun SkillScreen(
             if (skills.isEmpty()) {
                 item {
                     AppEmptyState(
-                        title = "暂无 Skills",
-                        description = "可以创建一个新技能，或者从文件中导入已有 Skill。",
+                        title = localized("暂无 Skills"),
+                        description = localized("可以创建一个新技能，或者从文件中导入已有 Skill。"),
                         icon = Icons.Default.Add,
                         action = {
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 TextButton(onClick = onCreateSkill) {
-                                    Text("创建 Skill")
+                                    Text(localized("创建 Skill"))
                                 }
                                 TextButton(onClick = { filePickerLauncher.launch(arrayOf("*/*")) }) {
-                                    Text("导入 Skill")
+                                    Text(localized("导入 Skill"))
                                 }
                             }
                         }
@@ -164,7 +166,7 @@ private fun SkillCard(
                     )
                     if (skill.isBuiltIn) {
                         Spacer(Modifier.width(8.dp))
-                        AppPill(text = "内置")
+                        AppPill(text = localized("内置"))
                     }
                 }
                 Spacer(Modifier.height(4.dp))
@@ -185,7 +187,7 @@ private fun SkillCard(
                 }
                 if (skill.tools.isNotEmpty()) {
                     Spacer(Modifier.height(2.dp))
-                    AppPill(text = "${skill.tools.size} 个工具")
+                    AppPill(text = localized("${skill.tools.size} 个工具"))
                 }
             }
 
@@ -196,14 +198,14 @@ private fun SkillCard(
 
             Box {
                 IconButton(onClick = { showMenu = true }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "更多")
+                    Icon(Icons.Default.MoreVert, contentDescription = localized("更多"))
                 }
                 DropdownMenu(
                     expanded = showMenu,
                     onDismissRequest = { showMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("复制") },
+                        text = { Text(localized("复制")) },
                         onClick = {
                             onCopy()
                             showMenu = false
@@ -214,7 +216,7 @@ private fun SkillCard(
                     )
                     if (!skill.isBuiltIn) {
                         DropdownMenuItem(
-                            text = { Text("删除") },
+                            text = { Text(localized("删除")) },
                             onClick = {
                                 onDelete()
                                 showMenu = false

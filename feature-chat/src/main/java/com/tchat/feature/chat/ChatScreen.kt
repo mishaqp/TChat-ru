@@ -1,5 +1,7 @@
 package com.tchat.feature.chat
 
+import com.tchat.core.UiLocalizer
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -83,13 +85,13 @@ fun ChatScreen(
     // 聊天工具栏显示/顺序设置
     chatToolbarSettings: ChatToolbarSettings = ChatToolbarSettings(),
     // i18n strings
-    inputHint: String = "输入消息...",
-    sendContentDescription: String = "发送",
-    toolsText: String = "工具",
-    toolsWithCountFormat: String = "工具 (%d)",
-    deepResearchText: String = "深度研究",
-    deepResearchRunningText: String = "研究中",
-    deepResearchInProgressText: String = "深度研究进行中..."
+    inputHint: String = UiLocalizer.text("输入消息..."),
+    sendContentDescription: String = UiLocalizer.text("发送"),
+    toolsText: String = UiLocalizer.text("工具"),
+    toolsWithCountFormat: String = UiLocalizer.text("工具 (%d)"),
+    deepResearchText: String = UiLocalizer.text("深度研究"),
+    deepResearchRunningText: String = UiLocalizer.text("研究中"),
+    deepResearchInProgressText: String = UiLocalizer.text("深度研究进行中...")
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val actualChatId by viewModel.actualChatId.collectAsStateWithLifecycle()
@@ -99,10 +101,10 @@ fun ChatScreen(
     var replyTarget by remember { mutableStateOf<Message?>(null) }
     val quickMessages = remember {
         listOf(
-            QuickMessage("总结", "请总结上面的内容，并列出关键结论。"),
-            QuickMessage("翻译", "请将以下内容翻译成中文，并保留原有格式："),
-            QuickMessage("行动项", "请提取行动项，按负责人、截止时间、下一步整理。"),
-            QuickMessage("表格", "请用 Markdown 表格整理以上信息。")
+            QuickMessage(UiLocalizer.text("总结"), UiLocalizer.text("请总结上面的内容，并列出关键结论。")),
+            QuickMessage(UiLocalizer.text("翻译"), UiLocalizer.text("请将以下内容翻译成中文，并保留原有格式：")),
+            QuickMessage(UiLocalizer.text("行动项"), UiLocalizer.text("请提取行动项，按负责人、截止时间、下一步整理。")),
+            QuickMessage(UiLocalizer.text("表格"), UiLocalizer.text("请用 Markdown 表格整理以上信息。"))
         )
     }
 
@@ -125,7 +127,7 @@ fun ChatScreen(
         clipboard.setPrimaryClip(clip)
         scope.launch {
             snackbarHostState.showSnackbar(
-                message = "已复制到剪贴板",
+                message = UiLocalizer.text("已复制到剪贴板"),
                 duration = SnackbarDuration.Short
             )
         }
@@ -138,7 +140,7 @@ fun ChatScreen(
         } else {
             scope.launch {
                 snackbarHostState.showSnackbar(
-                    message = "语音引擎未就绪",
+                    message = UiLocalizer.text("语音引擎未就绪"),
                     duration = SnackbarDuration.Short
                 )
             }
@@ -193,7 +195,7 @@ fun ChatScreen(
                     added.add(part)
                 }.onFailure { e ->
                     snackbarHostState.showSnackbar(
-                        message = e.message ?: "导入文件失败",
+                        message = e.message ?: UiLocalizer.text("导入文件失败"),
                         duration = SnackbarDuration.Short
                     )
                 }
@@ -536,10 +538,10 @@ internal fun InputToolbar(
     isDeepResearching: Boolean = false,
     toolbarSettings: ChatToolbarSettings = ChatToolbarSettings(),
     // i18n strings
-    toolsText: String = "工具",
-    toolsWithCountFormat: String = "工具 (%d)",
-    deepResearchText: String = "深度研究",
-    deepResearchRunningText: String = "研究中"
+    toolsText: String = UiLocalizer.text("工具"),
+    toolsWithCountFormat: String = UiLocalizer.text("工具 (%d)"),
+    deepResearchText: String = UiLocalizer.text("深度研究"),
+    deepResearchRunningText: String = UiLocalizer.text("研究中")
 ) {
     var modelMenuExpanded by remember { mutableStateOf(false) }
     val normalizedToolbarSettings = remember(toolbarSettings) { toolbarSettings.normalized() }
@@ -561,7 +563,7 @@ internal fun InputToolbar(
                         Box {
                             ToolbarChip(
                                 onClick = { modelMenuExpanded = true },
-                                label = getModelDisplayName(currentModel.ifBlank { "选择模型" }),
+                                label = getModelDisplayName(currentModel.ifBlank { UiLocalizer.text("选择模型") }),
                                 accentColor = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.widthIn(max = 172.dp)
                             ) {
@@ -677,12 +679,12 @@ internal fun InputToolbar(
                     if (onJungleHelperClick != null) {
                         ToolbarChip(
                             onClick = onJungleHelperClick,
-                            label = "打野助手",
+                            label = UiLocalizer.text("打野助手"),
                             accentColor = MaterialTheme.colorScheme.secondary
                         ) {
                             Icon(
                                 imageVector = Lucide.Swords,
-                                contentDescription = "打野助手",
+                                contentDescription = UiLocalizer.text("打野助手"),
                                 modifier = Modifier.size(16.dp),
                                 tint = MaterialTheme.colorScheme.secondary
                             )

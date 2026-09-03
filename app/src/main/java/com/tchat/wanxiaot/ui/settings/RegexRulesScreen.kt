@@ -1,5 +1,7 @@
 package com.tchat.wanxiaot.ui.settings
 
+import com.tchat.wanxiaot.i18n.localized
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -74,8 +76,8 @@ fun RegexRulesScreen(
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("删除规则") },
-            text = { Text("确定要删除 \"${rule.name}\" 吗？此操作不可撤销。") },
+            title = { Text(localized("删除规则")) },
+            text = { Text(localized("确定要删除 \"${rule.name}\" 吗？此操作不可撤销。")) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -86,12 +88,12 @@ fun RegexRulesScreen(
                         containerColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             },
             dismissButton = {
                 OutlinedButton(onClick = { showDeleteDialog = null }) {
-                    Text("取消")
+                    Text(localized("取消"))
                 }
             }
         )
@@ -112,21 +114,21 @@ fun RegexRulesScreen(
     }
 
     AppPageScaffold(
-        title = "正则表达式规则",
+        title = localized("正则表达式规则"),
         eyebrow = "Regex Rules",
-        subtitle = "清理流式输出内容的规则集",
+        subtitle = localized("清理流式输出内容的规则集"),
         showTopBar = showTopBar,
         onBack = onBack,
         actions = {
             IconButton(onClick = { showAddPresetDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "添加预设")
+                Icon(Icons.Default.Add, contentDescription = localized("添加预设"))
             }
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { showEditDialog = RegexRule(id = "") },
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("新建规则") }
+                text = { Text(localized("新建规则")) }
             )
         }
     ) { innerPadding ->
@@ -141,14 +143,14 @@ fun RegexRulesScreen(
 
             item {
                 SettingsGroupCard(
-                    title = "我的规则",
-                    description = "规则越精确，清理过程越可控。建议按单一职责拆分而不是写成巨型表达式。"
+                    title = localized("我的规则"),
+                    description = localized("规则越精确，清理过程越可控。建议按单一职责拆分而不是写成巨型表达式。")
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End
                     ) {
-                        AppPill(text = "${userRules.size} 个")
+                        AppPill(text = localized("${userRules.size} 个"))
                     }
                 }
             }
@@ -157,8 +159,8 @@ fun RegexRulesScreen(
                 item {
                     AppEmptyState(
                         icon = Icons.Default.Check,
-                        title = "暂无规则",
-                        description = "先添加预设规则，或直接新建自定义规则，为后续助手选择做准备。"
+                        title = localized("暂无规则"),
+                        description = localized("先添加预设规则，或直接新建自定义规则，为后续助手选择做准备。")
                     )
                 }
             } else {
@@ -204,7 +206,7 @@ private fun RegexRuleCard(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = rule.name.ifEmpty { "未命名规则" },
+                        text = rule.name.ifEmpty { localized("未命名规则") },
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 1,
@@ -240,7 +242,7 @@ private fun RegexRuleCard(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = "模式:",
+                            text = localized("模式:"),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -256,12 +258,12 @@ private fun RegexRuleCard(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = "替换:",
+                            text = localized("替换:"),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = rule.replacement.ifEmpty { "(空)" },
+                            text = rule.replacement.ifEmpty { localized("(空)") },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 1,
@@ -283,7 +285,7 @@ private fun RegexRuleCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(4.dp))
-                    Text("编辑")
+                    Text(localized("编辑"))
                 }
                 TextButton(
                     onClick = onDelete,
@@ -297,7 +299,7 @@ private fun RegexRuleCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(4.dp))
-                    Text("删除")
+                    Text(localized("删除"))
                 }
             }
         }
@@ -347,8 +349,8 @@ private fun RegexRuleEditDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("规则名称") },
-                    placeholder = { Text("例如：清除行首空格") },
+                    label = { Text(localized("规则名称")) },
+                    placeholder = { Text(localized("例如：清除行首空格")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -356,8 +358,8 @@ private fun RegexRuleEditDialog(
                 OutlinedTextField(
                     value = pattern,
                     onValueChange = { pattern = it },
-                    label = { Text("正则表达式") },
-                    placeholder = { Text("例如：^ +") },
+                    label = { Text(localized("正则表达式")) },
+                    placeholder = { Text(localized("例如：^ +")) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = patternError != null,
                     supportingText = patternError?.let { { Text(it, color = MaterialTheme.colorScheme.error) } },
@@ -367,8 +369,8 @@ private fun RegexRuleEditDialog(
                 OutlinedTextField(
                     value = replacement,
                     onValueChange = { replacement = it },
-                    label = { Text("替换为") },
-                    placeholder = { Text("留空表示删除匹配内容") },
+                    label = { Text(localized("替换为")) },
+                    placeholder = { Text(localized("留空表示删除匹配内容")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -376,8 +378,8 @@ private fun RegexRuleEditDialog(
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("描述（可选）") },
-                    placeholder = { Text("规则的用途说明") },
+                    label = { Text(localized("描述（可选）")) },
+                    placeholder = { Text(localized("规则的用途说明")) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -386,7 +388,7 @@ private fun RegexRuleEditDialog(
 
                 // 测试区域
                 Text(
-                    text = "测试规则",
+                    text = localized("测试规则"),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -394,7 +396,7 @@ private fun RegexRuleEditDialog(
                 OutlinedTextField(
                     value = testInput,
                     onValueChange = { testInput = it },
-                    label = { Text("测试输入") },
+                    label = { Text(localized("测试输入")) },
                     modifier = Modifier.fillMaxWidth(),
                     minLines = 2,
                     maxLines = 4
@@ -416,7 +418,7 @@ private fun RegexRuleEditDialog(
                     enabled = pattern.isNotBlank() && testInput.isNotBlank(),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("测试")
+                    Text(localized("测试"))
                 }
 
                 testResult?.let { result ->
@@ -431,12 +433,12 @@ private fun RegexRuleEditDialog(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
-                                text = "测试结果:",
+                                text = localized("测试结果:"),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Text(
-                                text = result.ifEmpty { "(空)" },
+                                text = result.ifEmpty { localized("(空)") },
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -459,12 +461,12 @@ private fun RegexRuleEditDialog(
                 },
                 enabled = pattern.isNotBlank() && patternError == null
             ) {
-                Text("保存")
+                Text(localized("保存"))
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
@@ -484,14 +486,14 @@ private fun AddPresetRulesDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("添加预设规则") },
+        title = { Text(localized("添加预设规则")) },
         text = {
             Column(
                 modifier = Modifier.heightIn(max = 400.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "选择要添加的预设规则",
+                    text = localized("选择要添加的预设规则"),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -552,7 +554,7 @@ private fun AddPresetRulesDialog(
                                         shape = MaterialTheme.shapes.extraSmall
                                     ) {
                                         Text(
-                                            text = "已添加",
+                                            text = localized("已添加"),
                                             style = MaterialTheme.typography.labelSmall,
                                             color = MaterialTheme.colorScheme.onPrimary,
                                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
@@ -580,12 +582,12 @@ private fun AddPresetRulesDialog(
                 },
                 enabled = selectedRules.isNotEmpty()
             ) {
-                Text("添加 ${selectedRules.size} 个")
+                Text(localized("添加 ${selectedRules.size} 个"))
             }
         },
         dismissButton = {
             OutlinedButton(onClick = onDismiss) {
-                Text("取消")
+                Text(localized("取消"))
             }
         }
     )
