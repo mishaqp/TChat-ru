@@ -41,7 +41,7 @@ jobs:
       - name: Build debug APK
         run: |
           chmod +x ./gradlew
-          ./gradlew :app:assembleDebug --stacktrace --no-daemon
+          ./gradlew -Dorg.gradle.java.home="$JAVA_HOME" :app:assembleDebug --stacktrace --no-daemon
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
